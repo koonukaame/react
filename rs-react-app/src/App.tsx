@@ -1,6 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { searchConflict } from './services/startrack';
 import type { Conflict } from './entities';
+import { SearchForm } from './components';
 
 type Props = object;
 
@@ -19,15 +20,7 @@ export class App extends Component<Props, State> {
   render(): ReactNode {
     return (
       <section>
-        <form
-          action={(data) => {
-            localStorage.setItem('search', data.get('title')?.toString() ?? '');
-            this._handleSearch(data);
-          }}
-        >
-          <input name="name" type="search" />
-          <button type="submit">Поиск</button>
-        </form>
+        <SearchForm onSearch={this._handleSearch} />
 
         <ul>
           {this.state.conflicts.map((conflict) => (
