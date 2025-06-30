@@ -1,43 +1,50 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { Component, type ReactNode } from 'react';
+import { searchConflict } from './services/startrack';
+import type { Conflict } from './entities';
 
-function App() {
-  const [count, setCount] = useState(0);
+type Props = object;
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img
-            src={viteLogo}
-            className="h-24 p-6 will-change-filter transition-filter duration-300 hover:drop-shadow-[0_0_2em_#646cffaa]"
-            alt="Vite logo"
-          />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img
-            src={reactLogo}
-            className="h-24 p-6 will-change-filter transition-filter duration-300 react:hover:drop-shadow-[0_0_2em_#61dafbaa]"
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="p-8">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="text-[#888]">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+type State = { conflicts: Conflict[] };
+
+export class App extends Component<Props, State> {
+  state: State = {
+    conflicts: [],
+  };
+
+  constructor(props: Props) {
+    super(props);
+    this._handleSearch = this._handleSearch.bind(this);
+  }
+
+  render(): ReactNode {
+    return (
+      <section>
+        <form
+          action={(data) => {
+            localStorage.setItem('search', data.get('title')?.toString() ?? '');
+            this._handleSearch(data);
+          }}
+        >
+          <input name="name" type="search" />
+          <button type="submit">Поиск</button>
+        </form>
+
+        <ul>
+          {this.state.conflicts.map((conflict) => (
+            <li key={conflict.uid}>
+              {conflict.uid} {conflict.name}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
+
+  private async _handleSearch(formData: FormData) {
+    const { conflicts } = await searchConflict(formData);
+
+    this.setState({
+      conflicts,
+    });
+  }
 }
-
-export default App;
