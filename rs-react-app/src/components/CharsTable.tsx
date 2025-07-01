@@ -16,13 +16,15 @@ export class CharsTable extends Component<Props> {
   render() {
     return (
       <table>
-        <thead>
-          <tr>
-            {charMap.map((chat) => (
-              <th key={chat.key}>{chat.title}</th>
-            ))}
-          </tr>
-        </thead>
+        {this.props.items.length > 0 && (
+          <thead>
+            <tr>
+              {charMap.map((chat) => (
+                <th key={chat.key}>{chat.title}</th>
+              ))}
+            </tr>
+          </thead>
+        )}
         <tbody>
           {this.props.items.map((character) => (
             <tr key={character.uid}>
