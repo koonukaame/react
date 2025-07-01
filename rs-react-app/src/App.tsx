@@ -2,6 +2,7 @@ import { Component, type ReactNode } from 'react';
 import { searchConflict } from './services/startrack';
 import type { Conflict } from './entities';
 import { SearchForm } from './components';
+import { List } from './components';
 
 type Props = object;
 
@@ -21,20 +22,14 @@ export class App extends Component<Props, State> {
     return (
       <section>
         <SearchForm onSearch={this._handleSearch} />
-
-        <ul>
-          {this.state.conflicts.map((conflict) => (
-            <li key={conflict.uid}>
-              {conflict.uid} {conflict.name}
-            </li>
-          ))}
-        </ul>
+        <List items={this.state.conflicts} />
       </section>
     );
   }
 
   private async _handleSearch(formData: FormData) {
     const { conflicts } = await searchConflict(formData);
+    console.log('Received conflicts:', conflicts);
 
     this.setState({
       conflicts,

@@ -1,1 +1,1 @@
-export { searchConflict as search } from './startrack';
+export { searchConflict } from './startrack';
