@@ -1,1 +1,1 @@
-export { type Conflict } from './conflict';
+export type { Character } from './character';

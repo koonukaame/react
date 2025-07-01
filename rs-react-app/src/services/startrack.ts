@@ -1,21 +1,24 @@
-import type { Conflict } from '../entities';
+import type { Character } from '../entities';
 
 export const searchConflict = async (
   body: FormData
-): Promise<{ conflicts: Conflict[] }> => {
+): Promise<{ characters: Character[] }> => {
   const formData = new URLSearchParams();
 
   for (const [key, value] of body) {
     formData.append(key, value.toString());
   }
 
-  const response = await fetch(`https://stapi.co/api/v1/rest/conflict/search`, {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  });
+  const response = await fetch(
+    `https://stapi.co/api/v1/rest/character/search`,
+    {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    }
+  );
 
   if (response.ok) {
     return await response.json();
