@@ -1,6 +1,6 @@
 import type { Character } from '../entities';
 
-export const searchConflict = async (
+export const searchCharacter = async (
   body: FormData
 ): Promise<{ characters: Character[] }> => {
   const formData = new URLSearchParams();
