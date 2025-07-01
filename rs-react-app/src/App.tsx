@@ -1,16 +1,16 @@
 import { Component, type ReactNode } from 'react';
 import { searchConflict } from './services/startrack';
-import type { Conflict } from './entities';
+import type { Character } from './entities';
 import { SearchForm } from './components';
-import { List } from './components';
+import { CharsTable } from './components';
 
 type Props = object;
 
-type State = { conflicts: Conflict[] };
+type State = { characters: Character[] };
 
 export class App extends Component<Props, State> {
   state: State = {
-    conflicts: [],
+    characters: [],
   };
 
   constructor(props: Props) {
@@ -22,17 +22,17 @@ export class App extends Component<Props, State> {
     return (
       <section>
         <SearchForm onSearch={this._handleSearch} />
-        <List items={this.state.conflicts} />
+        <CharsTable items={this.state.characters} />
       </section>
     );
   }
 
   private async _handleSearch(formData: FormData) {
-    const { conflicts } = await searchConflict(formData);
-    console.log('Received conflicts:', conflicts);
+    const { characters } = await searchConflict(formData);
+    console.log('Received chars:', characters);
 
     this.setState({
-      conflicts,
+      characters,
     });
   }
 }
