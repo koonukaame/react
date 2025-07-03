@@ -1,16 +1,21 @@
 import { Component, type ReactNode } from 'react';
-import { searchConflict } from './services/startrack';
+import { searchCharacter } from './services/startrack';
 import type { Character } from './entities';
 import { SearchForm } from './components';
 import { CharsTable } from './components';
+import { Spinner } from './components/Spinner';
 
 type Props = object;
 
-type State = { characters: Character[] };
+type State = {
+  characters: Character[];
+  isLoading: boolean;
+};
 
 export class App extends Component<Props, State> {
   state: State = {
     characters: [],
+    isLoading: false,
   };
 
   constructor(props: Props) {
@@ -21,18 +26,33 @@ export class App extends Component<Props, State> {
   render(): ReactNode {
     return (
       <section>
+        <Spinner />
         <SearchForm onSearch={this._handleSearch} />
-        <CharsTable items={this.state.characters} />
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <CharsTable items={this.state.characters} />
+        )}
       </section>
     );
   }
 
   private async _handleSearch(formData: FormData) {
-    const { characters } = await searchConflict(formData);
-    console.log('Received chars:', characters);
-
     this.setState({
-      characters,
+      isLoading: true,
+      characters: [],
     });
+
+    try {
+      const { characters } = await searchCharacter(formData);
+
+      this.setState({
+        characters,
+      });
+    } finally {
+      this.setState({
+        isLoading: false,
+      });
+    }
   }
 }
