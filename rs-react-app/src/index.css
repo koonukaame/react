@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+:root {
+  scrollbar-gutter: stable;
+}
