@@ -1,13 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services/startrack';
 import type { Character } from './entities';
-import {
-  ErrorBoundary,
-  SearchForm,
-  CharsTable,
-  Spinner,
-  ErrorBtn,
-} from './components';
+import { SearchForm, CharsTable, Spinner, ErrorBtn } from './components';
 
 type Props = object;
 
@@ -30,15 +24,13 @@ export class App extends Component<Props, State> {
   render(): ReactNode {
     return (
       <section>
-        <ErrorBoundary>
-          <SearchForm onSearch={this._handleSearch} />
-          {this.state.isLoading ? (
-            <Spinner />
-          ) : (
-            <CharsTable items={this.state.characters} />
-          )}
-          <ErrorBtn />
-        </ErrorBoundary>
+        <SearchForm onSearch={this._handleSearch} />
+        {this.state.isLoading ? (
+          <Spinner />
+        ) : (
+          <CharsTable items={this.state.characters} />
+        )}
+        <ErrorBtn />
       </section>
     );
   }
