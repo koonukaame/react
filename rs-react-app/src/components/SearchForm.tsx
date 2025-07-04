@@ -29,6 +29,13 @@ export class SearchForm extends Component<Props, State> {
     };
   }
 
+  componentDidMount(): void {
+    const formData = new FormData();
+    formData.set('name', this.state.input);
+
+    this._onSearch(formData);
+  }
+
   render(): ReactNode {
     return (
       <form
