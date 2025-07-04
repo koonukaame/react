@@ -2,10 +2,16 @@ import { Component } from 'react';
 import type { Character } from '../entities';
 
 type Props = {
-  items: Character[];
+  characters: Character[];
 };
 
-const charMap = [
+type CharMapType = {
+  key: string;
+  title: string;
+  dataToRender: keyof Character;
+}[];
+
+const charMap: CharMapType = [
   { key: 'name', title: 'Name', dataToRender: 'name' },
   { key: 'gender', title: 'Gender', dataToRender: 'gender' },
   { key: 'birth', title: 'Birth', dataToRender: 'yearOfBirth' },
@@ -16,7 +22,7 @@ export class CharsTable extends Component<Props> {
   render() {
     return (
       <table className="w-full text-center rounded-xl shadow my-4">
-        {this.props.items.length > 0 && (
+        {this.props.characters.length > 0 && (
           <thead>
             <tr className="bg-rose-200 text-rose-800">
               {charMap.map((chat) => (
@@ -28,11 +34,11 @@ export class CharsTable extends Component<Props> {
           </thead>
         )}
         <tbody className="divide-y divide-rose-100">
-          {this.props.items.map((character) => (
+          {this.props.characters.map((character) => (
             <tr key={character.uid}>
               {charMap.map((char) => (
                 <td className="py-2 px-4" key={char.key}>
-                  {character[char.dataToRender as keyof Character] ?? 'Unknown'}
+                  {character[char.dataToRender] ?? 'Unknown'}
                 </td>
               ))}
             </tr>

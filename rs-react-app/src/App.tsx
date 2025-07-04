@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services/startrack';
 import type { Character } from './entities';
-import { SearchForm, CharsTable, Spinner, ErrorBtn } from './components';
+import { SearchForm, CharsResult, Spinner, ErrorBtn } from './components';
 
 type Props = object;
 
@@ -28,7 +28,7 @@ export class App extends Component<Props, State> {
         {this.state.isLoading ? (
           <Spinner />
         ) : (
-          <CharsTable items={this.state.characters} />
+          <CharsResult characters={this.state.characters} />
         )}
         <ErrorBtn />
       </section>
