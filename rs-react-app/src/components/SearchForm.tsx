@@ -31,14 +31,24 @@ export class SearchForm extends Component<Props, State> {
 
   render(): ReactNode {
     return (
-      <form onSubmit={this._onSubmit}>
+      <form
+        onSubmit={this._onSubmit}
+        className="flex items-center justify-center gap-3"
+      >
         <input
           value={this.state.input}
           onChange={this._onChange}
           name="name"
           type="search"
+          placeholder="Who are you looking for?"
+          className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
         />
-        <button type="submit">Поиск</button>
+        <button
+          type="submit"
+          className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 rounded-full shadow transition"
+        >
+          Search
+        </button>
       </form>
     );
   }

@@ -21,7 +21,14 @@ export class ErrorBtn extends Component<Props, State> {
       throw new Error('test');
     }
 
-    return <button onClick={this._setError}>Showw error</button>;
+    return (
+      <button
+        className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 rounded-full shadow transition"
+        onClick={this._setError}
+      >
+        Show error
+      </button>
+    );
   }
 
   private _setError() {

@@ -15,21 +15,23 @@ const charMap = [
 export class CharsTable extends Component<Props> {
   render() {
     return (
-      <table>
+      <table className="w-full text-center rounded-xl shadow my-4">
         {this.props.items.length > 0 && (
           <thead>
-            <tr>
+            <tr className="bg-rose-200 text-rose-800">
               {charMap.map((chat) => (
-                <th key={chat.key}>{chat.title}</th>
+                <th className="py-2 px-4" key={chat.key}>
+                  {chat.title}
+                </th>
               ))}
             </tr>
           </thead>
         )}
-        <tbody>
+        <tbody className="divide-y divide-rose-100">
           {this.props.items.map((character) => (
             <tr key={character.uid}>
               {charMap.map((char) => (
-                <td key={char.key}>
+                <td className="py-2 px-4" key={char.key}>
                   {character[char.dataToRender as keyof Character] ?? 'Unknown'}
                 </td>
               ))}

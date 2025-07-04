@@ -23,7 +23,7 @@ export class App extends Component<Props, State> {
 
   render(): ReactNode {
     return (
-      <section>
+      <section className="max-w-3xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto m-10">
         <SearchForm onSearch={this._handleSearch} />
         {this.state.isLoading ? (
           <Spinner />
