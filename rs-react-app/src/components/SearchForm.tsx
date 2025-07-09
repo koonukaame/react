@@ -18,6 +18,7 @@ const searchKey = 'search';
 export class SearchForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const self = this;
     this._onSearch = props.onSearch;
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
@@ -63,7 +64,11 @@ export class SearchForm extends Component<Props, State> {
   private _onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    this.setState({ input: this.state.input.trim() });
+
     const formData = new FormData(event.currentTarget);
+    formData.set('name', this.state.input);
+
     this._onSearch(formData);
   }
 
