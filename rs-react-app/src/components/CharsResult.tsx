@@ -1,15 +1,14 @@
 import { Component } from 'react';
-import type { Character } from '../entities';
 import { MsgBlock } from './MsgBlock';
 import { CharsTable } from './CharsTable';
+import { CharactersContext } from '../features';
 
-type Props = {
-  characters: Character[];
-};
+export class CharsResult extends Component {
+  static contextType = CharactersContext;
+  declare context: React.ContextType<typeof CharactersContext>;
 
-export class CharsResult extends Component<Props> {
   render() {
-    if (this.props.characters.length === 0) {
+    if (this.context.characters.length === 0) {
       return (
         <MsgBlock
           title="No characters found 🕵️‍♀️"
@@ -18,6 +17,6 @@ export class CharsResult extends Component<Props> {
       );
     }
 
-    return <CharsTable characters={this.props.characters} />;
+    return <CharsTable />;
   }
 }

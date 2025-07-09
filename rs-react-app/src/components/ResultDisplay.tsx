@@ -1,14 +1,16 @@
 import { Component, type ReactNode } from 'react';
-import { type Character } from '../entities';
 import { MsgBlock } from './MsgBlock';
 import { CharsResult } from './CharsResult';
+import { CharactersContext } from '../features';
 
 type Props = {
   isError: boolean;
-  characters: Character[];
 };
 
 export class ResultDisplay extends Component<Props> {
+  static contextType = CharactersContext;
+  declare context: React.ContextType<typeof CharactersContext>;
+
   render(): ReactNode {
     return this.props.isError ? (
       <MsgBlock
@@ -16,7 +18,7 @@ export class ResultDisplay extends Component<Props> {
         msg="Try again in a bit!"
       />
     ) : (
-      <CharsResult characters={this.props.characters} />
+      <CharsResult />
     );
   }
 }

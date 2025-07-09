@@ -1,9 +1,6 @@
 import { Component } from 'react';
 import type { Character } from '../entities';
-
-type Props = {
-  characters: Character[];
-};
+import { CharactersContext } from '../features';
 
 type CharMapType = {
   key: string;
@@ -18,11 +15,14 @@ const charMap: CharMapType = [
   { key: 'death', title: 'Death', dataToRender: 'yearOfDeath' },
 ];
 
-export class CharsTable extends Component<Props> {
+export class CharsTable extends Component {
+  static contextType = CharactersContext;
+  declare context: React.ContextType<typeof CharactersContext>;
+
   render() {
     return (
       <table className="w-full text-center rounded-xl shadow my-4">
-        {this.props.characters.length > 0 && (
+        {this.context.characters.length > 0 && (
           <thead>
             <tr className="bg-rose-200 text-rose-800">
               {charMap.map((chat) => (
@@ -34,7 +34,7 @@ export class CharsTable extends Component<Props> {
           </thead>
         )}
         <tbody className="divide-y divide-rose-100">
-          {this.props.characters.map((character) => (
+          {this.context.characters.map((character) => (
             <tr key={character.uid}>
               {charMap.map((char) => (
                 <td className="py-2 px-4" key={char.key}>

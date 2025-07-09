@@ -2,6 +2,7 @@ import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
 import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
+import { CharactersContext } from './features';
 
 type Props = object;
 
@@ -25,18 +26,21 @@ export class App extends Component<Props, State> {
 
   render(): ReactNode {
     return (
-      <section className="max-w-3xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto m-10">
-        <SearchForm onSearch={this._handleSearch} />
-        {this.state.isLoading ? (
-          <Spinner />
-        ) : (
-          <ResultDisplay
-            isError={this.state.isError}
-            characters={this.state.characters}
-          />
-        )}
-        <ErrorBtn />
-      </section>
+      <CharactersContext.Provider
+        value={{
+          characters: this.state.characters,
+        }}
+      >
+        <section className="max-w-3xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto m-10">
+          <SearchForm onSearch={this._handleSearch} />
+          {this.state.isLoading ? (
+            <Spinner />
+          ) : (
+            <ResultDisplay isError={this.state.isError} />
+          )}
+          <ErrorBtn />
+        </section>
+      </CharactersContext.Provider>
     );
   }
 
