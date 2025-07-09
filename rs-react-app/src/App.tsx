@@ -31,15 +31,17 @@ export class App extends Component<Props, State> {
           characters: this.state.characters,
         }}
       >
-        <section className="max-w-3xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto m-10">
+        <header className="max-w-5xl p-6 mx-auto">
           <SearchForm onSearch={this._handleSearch} />
+        </header>
+        <main className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10">
           {this.state.isLoading ? (
             <Spinner />
           ) : (
             <ResultDisplay isError={this.state.isError} />
           )}
           <ErrorBtn />
-        </section>
+        </main>
       </CharactersContext.Provider>
     );
   }
