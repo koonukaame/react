@@ -4,8 +4,13 @@ import { App } from './App.tsx';
 import './index.css';
 import { ErrorBoundary } from './components';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root');
+
+if (!root) {
+  throw new Error('root not found');
+}
+
+createRoot(root).render(
   <StrictMode>
     <ErrorBoundary>
       <App />
