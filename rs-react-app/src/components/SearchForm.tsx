@@ -18,7 +18,6 @@ const searchKey = 'search';
 export class SearchForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const self = this;
     this._onSearch = props.onSearch;
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
