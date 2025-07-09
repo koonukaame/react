@@ -1,1 +1,1 @@
-export { searchConflict } from './startrack';
+export { searchCharacter } from './startrack';
