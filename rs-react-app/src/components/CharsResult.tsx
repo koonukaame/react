@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import type { Character } from '../entities';
-import { CharsTable, MsgBlock } from './index';
+import { MsgBlock } from './MsgBlock';
+import { CharsTable } from './CharsTable';
 
 type Props = {
   characters: Character[];
