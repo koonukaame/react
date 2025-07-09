@@ -1,13 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
-import {
-  SearchForm,
-  CharsResult,
-  Spinner,
-  ErrorBtn,
-  MsgBlock,
-} from './components';
+import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
 
 type Props = object;
 
@@ -35,15 +29,12 @@ export class App extends Component<Props, State> {
         <SearchForm onSearch={this._handleSearch} />
         {this.state.isLoading ? (
           <Spinner />
-        ) : this.state.isError ? (
-          <MsgBlock
-            title="An unexpected error has occured"
-            msg="Please try again"
-          />
         ) : (
-          <CharsResult characters={this.state.characters} />
+          <ResultDisplay
+            isError={this.state.isError}
+            characters={this.state.characters}
+          />
         )}
-
         <ErrorBtn />
       </section>
     );
