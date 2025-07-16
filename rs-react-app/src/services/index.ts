@@ -1,0 +1,1 @@
+export { searchCharacter } from './startrack';
