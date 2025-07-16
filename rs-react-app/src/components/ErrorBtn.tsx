@@ -3,12 +3,12 @@ import { Component } from 'react';
 type Props = object;
 
 type State = {
-  isError: boolean;
+  hasError: boolean;
 };
 
 export class ErrorBtn extends Component<Props, State> {
   state: State = {
-    isError: false,
+    hasError: false,
   };
 
   constructor(props: Props) {
@@ -17,7 +17,7 @@ export class ErrorBtn extends Component<Props, State> {
   }
 
   render() {
-    if (this.state.isError) {
+    if (this.state.hasError) {
       throw new Error('test');
     }
 
@@ -32,6 +32,6 @@ export class ErrorBtn extends Component<Props, State> {
   }
 
   private _setError() {
-    this.setState({ isError: true });
+    this.setState({ hasError: true });
   }
 }

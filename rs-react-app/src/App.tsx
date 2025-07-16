@@ -9,14 +9,14 @@ type Props = object;
 type State = {
   characters: Character[];
   isLoading: boolean;
-  isError: boolean;
+  hasError: boolean;
 };
 
 export class App extends Component<Props, State> {
   state: State = {
     characters: [],
     isLoading: false,
-    isError: false,
+    hasError: false,
   };
 
   constructor(props: Props) {
@@ -38,7 +38,7 @@ export class App extends Component<Props, State> {
           {this.state.isLoading ? (
             <Spinner />
           ) : (
-            <ResultDisplay isError={this.state.isError} />
+            <ResultDisplay hasError={this.state.hasError} />
           )}
           <ErrorBtn />
         </main>
@@ -57,11 +57,11 @@ export class App extends Component<Props, State> {
 
       this.setState({
         characters,
-        isError: false,
+        hasError: false,
       });
     } catch (err) {
       this.setState({
-        isError: true,
+        hasError: true,
       });
       console.error(`${err}`);
     } finally {

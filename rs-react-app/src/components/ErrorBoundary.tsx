@@ -5,20 +5,20 @@ type Props = {
 };
 
 type State = {
-  isError: boolean;
+  hasError: boolean;
 };
 
 export class ErrorBoundary extends Component<Props, State> {
   state: State = {
-    isError: false,
+    hasError: false,
   };
 
   static getDerivedStateFromError(): State {
-    return { isError: true };
+    return { hasError: true };
   }
 
   render(): ReactNode {
-    if (this.state.isError) {
+    if (this.state.hasError) {
       return (
         <div className="flex flex-col gap-4 items-center justify-center h-[60vh] text-center p-6">
           <span className="text-2xl font-bold text-rose-700">
@@ -38,6 +38,6 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   private _resetError = () => {
-    this.setState({ isError: false });
+    this.setState({ hasError: false });
   };
 }

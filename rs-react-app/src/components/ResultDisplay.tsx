@@ -4,7 +4,7 @@ import { CharsResult } from './CharsResult';
 import { CharactersContext } from '../features';
 
 type Props = {
-  isError: boolean;
+  hasError: boolean;
 };
 
 export class ResultDisplay extends Component<Props> {
@@ -12,7 +12,7 @@ export class ResultDisplay extends Component<Props> {
   declare context: React.ContextType<typeof CharactersContext>;
 
   render(): ReactNode {
-    return this.props.isError ? (
+    return this.props.hasError ? (
       <MsgBlock
         title="An unexpected error has occured"
         msg="Try again in a bit!"
