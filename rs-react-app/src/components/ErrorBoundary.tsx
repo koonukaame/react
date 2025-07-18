@@ -22,7 +22,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="flex flex-col gap-4 items-center justify-center h-[60vh] text-center p-6">
           <span className="text-2xl font-bold text-rose-700">
-            Click the button bellow to return back✨
+            Click the button below to return back✨
           </span>
           <button
             className="bg-rose-100 text-rose-700 hover:bg-rose-200 font-medium px-6 py-2 rounded-full shadow transition"

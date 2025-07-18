@@ -25,9 +25,9 @@ export class CharsTable extends Component {
         {this.context.characters.length > 0 && (
           <thead>
             <tr className="bg-rose-200 text-rose-800">
-              {charMap.map((chat) => (
-                <th className="py-2 px-4" key={chat.key}>
-                  {chat.title}
+              {charMap.map((char) => (
+                <th className="py-2 px-4" key={char.key}>
+                  {char.title}
                 </th>
               ))}
             </tr>
