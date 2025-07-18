@@ -21,7 +21,10 @@ export class CharsTable extends Component {
 
   render() {
     return (
-      <table className="w-full text-center rounded-xl shadow my-4">
+      <table
+        className="w-full text-center rounded-xl shadow my-4"
+        data-testid="chars-table"
+      >
         {this.context.characters.length > 0 && (
           <thead>
             <tr className="bg-rose-200 text-rose-800">
