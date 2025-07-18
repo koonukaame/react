@@ -1,7 +1,7 @@
 export type Character = {
   uid: string;
   name: string;
-  gender: string;
-  yearOfBirth: number;
-  yearOfDeath: number;
+  gender: string | null;
+  yearOfBirth: number | null;
+  yearOfDeath: number | null;
 };

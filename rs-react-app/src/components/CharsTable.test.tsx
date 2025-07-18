@@ -37,4 +37,24 @@ describe('CharsTable component', () => {
     const charsTable = screen.getByTestId('chars-table');
     expect(charsTable).toBeInTheDocument();
   });
+
+  it('correctly renders empty data', () => {
+    const mockEmptyChar: Character[] = [
+      {
+        uid: '3',
+        name: 'Cc',
+        gender: null,
+        yearOfBirth: null,
+        yearOfDeath: null,
+      },
+    ];
+
+    render(
+      <CharactersContext.Provider value={{ characters: mockEmptyChar }}>
+        <CharsTable />
+      </CharactersContext.Provider>
+    );
+
+    expect(screen.getAllByText('Unknown')).toHaveLength(3);
+  });
 });
