@@ -10,6 +10,7 @@ An [RSSchool](https://rs.school/) React project to learn core concepts.
 * Deployment: [Netlify](https://www.netlify.com/)
 * Code Quality: [Eslint](https://eslint.org/), [Prettier](https://prettier.io/)
 * Git Hooks: [Husky](https://typicode.github.io/husky/)
+* Testing: [Vitest](https://vitest.dev/), [testing-library](https://testing-library.com/)
 
 ## Setup Guide
 

@@ -49,8 +49,12 @@ describe('CharsTable component', () => {
       },
     ];
 
+    const mockContext = {
+      characters: mockEmptyChar,
+    };
+
     render(
-      <CharactersContext.Provider value={{ characters: mockEmptyChar }}>
+      <CharactersContext.Provider value={mockContext}>
         <CharsTable />
       </CharactersContext.Provider>
     );
