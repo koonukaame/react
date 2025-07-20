@@ -1,24 +1,21 @@
-import { Component, type ReactNode } from 'react';
 import { MsgBlock } from '../MsgBlock/MsgBlock';
 import { CharsResult } from '../CharsResult';
 import { CharactersContext } from '../../features';
+import { useContext } from 'react';
 
 type Props = {
   hasError: boolean;
 };
 
-export class ResultDisplay extends Component<Props> {
-  static contextType = CharactersContext;
-  declare context: React.ContextType<typeof CharactersContext>;
+export function ResultDisplay({ hasError }: Props) {
+  useContext(CharactersContext);
 
-  render(): ReactNode {
-    return this.props.hasError ? (
-      <MsgBlock
-        title="An unexpected error has occured"
-        msg="Try again in a bit!"
-      />
-    ) : (
-      <CharsResult />
-    );
-  }
+  return hasError ? (
+    <MsgBlock
+      title="An unexpected error has occured"
+      msg="Try again in a bit!"
+    />
+  ) : (
+    <CharsResult />
+  );
 }
