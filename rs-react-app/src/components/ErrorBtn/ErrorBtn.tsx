@@ -1,38 +1,23 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
-type Props = object;
+export function ErrorBtn() {
+  const [hasError, setError] = useState<boolean>(false);
 
-type State = {
-  hasError: boolean;
-};
-
-export class ErrorBtn extends Component<Props, State> {
-  state: State = {
-    hasError: false,
-  };
-
-  constructor(props: Props) {
-    super(props);
-    this._setError = this._setError.bind(this);
+  function handleClick() {
+    setError(true);
   }
 
-  render() {
-    if (this.state.hasError) {
-      throw new Error('test');
-    }
-
-    return (
-      <button
-        className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 mt-2 rounded-full shadow transition"
-        onClick={this._setError}
-        data-testid="error-button"
-      >
-        Show error
-      </button>
-    );
+  if (hasError) {
+    throw new Error('test');
   }
 
-  private _setError() {
-    this.setState({ hasError: true });
-  }
+  return (
+    <button
+      className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 mt-2 rounded-full shadow transition"
+      onClick={handleClick}
+      data-testid="error-button"
+    >
+      Show error
+    </button>
+  );
 }
