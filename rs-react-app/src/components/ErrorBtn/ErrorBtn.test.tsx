@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import { ErrorBtn } from './ErrorBtn';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
@@ -23,6 +23,8 @@ describe('ErrorBtn component', () => {
   });
 
   it('triggers error boundary fallback UI', () => {
+    const errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+
     render(
       <ErrorBoundary>
         <ErrorBtn />
@@ -38,5 +40,7 @@ describe('ErrorBtn component', () => {
 
     expect(errorText).toBeInTheDocument();
     expect(resetErrorBtn).toBeInTheDocument();
+
+    errorMock.mockRestore();
   });
 });

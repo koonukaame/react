@@ -1,9 +1,27 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, it, expect } from 'vitest';
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  beforeEach,
+  type MockInstance,
+  afterEach,
+} from 'vitest';
 import { ErrorBoundary } from './ErrorBoundary';
 
 describe('CharsResults component', () => {
+  let errorMock: MockInstance;
+
+  beforeEach(() => {
+    errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    errorMock.mockRestore();
+  });
+
   it('displays fallback UI on error', () => {
     const ErrorComponent = () => {
       throw new Error('error');

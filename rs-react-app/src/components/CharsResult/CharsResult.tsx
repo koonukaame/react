@@ -8,7 +8,7 @@ export class CharsResult extends Component {
   declare context: React.ContextType<typeof CharactersContext>;
 
   render() {
-    if (this.context.characters.length === 0) {
+    if (!this.context?.characters?.length) {
       return (
         <MsgBlock
           title="No characters found 🕵️‍♀️"

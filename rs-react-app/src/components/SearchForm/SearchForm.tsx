@@ -41,6 +41,7 @@ export class SearchForm extends Component<Props, State> {
       <form
         onSubmit={this._onSubmit}
         className="flex items-center justify-center gap-3"
+        data-testid="search-form"
       >
         <input
           value={this.state.input}

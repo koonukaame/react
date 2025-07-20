@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SearchForm } from './SearchForm';
+import { SearchForm } from '../SearchForm';
 
 describe('SearchForm component', () => {
   const mockSearch = vi.fn();
@@ -9,7 +9,6 @@ describe('SearchForm component', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    // render(<SearchForm onSearch={mockSearch} />);
   });
 
   it('renders search input and search button', () => {
