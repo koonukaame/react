@@ -48,10 +48,12 @@ export class SearchForm extends Component<Props, State> {
           name="name"
           type="search"
           placeholder="Who are you looking for?"
+          data-testid="search-input"
           className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
         />
         <button
           type="submit"
+          data-testid="search-button"
           className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 rounded-full shadow transition"
         >
           Search
