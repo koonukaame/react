@@ -31,10 +31,13 @@ export class App extends Component<Props, State> {
           characters: this.state.characters,
         }}
       >
-        <header className="max-w-5xl p-6 mx-auto">
+        <header className="max-w-5xl p-6 mx-auto" data-testid="header">
           <SearchForm onSearch={this._handleSearch} />
         </header>
-        <main className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10">
+        <main
+          className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
+          data-testid="main"
+        >
           {this.state.isLoading ? (
             <Spinner />
           ) : (
