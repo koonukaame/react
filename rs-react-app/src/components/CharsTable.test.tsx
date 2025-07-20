@@ -4,26 +4,10 @@ import { describe, it, expect } from 'vitest';
 import { CharsTable } from './CharsTable';
 import { CharactersContext } from '../features';
 import type { Character } from '../entities';
+import { mockChars } from '../test-utils';
 
 describe('CharsTable component', () => {
   it('renders without errors', () => {
-    const mockChars: Character[] = [
-      {
-        uid: '1',
-        name: 'Aa',
-        gender: 'F',
-        yearOfBirth: 1,
-        yearOfDeath: 10,
-      },
-      {
-        uid: '2',
-        name: 'Bb',
-        gender: 'M',
-        yearOfBirth: 2,
-        yearOfDeath: 11,
-      },
-    ];
-
     const mockContext = {
       characters: mockChars,
     };
