@@ -1,22 +1,18 @@
-import { Component } from 'react';
+import { useContext } from 'react';
 import { MsgBlock } from '../MsgBlock';
 import { CharsTable } from '../CharsTable';
 import { CharactersContext } from '../../features';
 
-export class CharsResult extends Component {
-  static contextType = CharactersContext;
-  declare context: React.ContextType<typeof CharactersContext>;
+export function CharsResult() {
+  const context = useContext(CharactersContext);
+  const characters = context.characters;
 
-  render() {
-    if (!this.context?.characters?.length) {
-      return (
-        <MsgBlock
-          title="No characters found 🕵️‍♀️"
-          msg="Try adjusting your search, maybe a typo snuck in?"
-        />
-      );
-    }
-
-    return <CharsTable />;
-  }
+  return !characters?.length ? (
+    <MsgBlock
+      title="No characters found 🕵️‍♀️"
+      msg="Try adjusting your search, maybe a typo snuck in?"
+    />
+  ) : (
+    <CharsTable />
+  );
 }
