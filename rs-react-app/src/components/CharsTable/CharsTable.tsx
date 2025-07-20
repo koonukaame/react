@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useContext } from 'react';
 import type { Character } from '../../entities';
 import { CharactersContext } from '../../features';
 
@@ -15,39 +15,37 @@ const charMap: CharMapType = [
   { key: 'death', title: 'Death', dataToRender: 'yearOfDeath' },
 ];
 
-export class CharsTable extends Component {
-  static contextType = CharactersContext;
-  declare context: React.ContextType<typeof CharactersContext>;
+export function CharsTable() {
+  const context = useContext(CharactersContext);
+  const characters = context.characters;
 
-  render() {
-    return (
-      <table
-        className="w-full text-center rounded-xl shadow my-4"
-        data-testid="chars-table"
-      >
-        {this.context.characters.length > 0 && (
-          <thead>
-            <tr className="bg-rose-200 text-rose-800">
-              {charMap.map((char) => (
-                <th className="py-2 px-4" key={char.key}>
-                  {char.title}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        )}
-        <tbody className="divide-y divide-rose-100">
-          {this.context.characters.map((character) => (
-            <tr key={character.uid}>
-              {charMap.map((char) => (
-                <td className="py-2 px-4" key={char.key}>
-                  {character[char.dataToRender] ?? 'Unknown'}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
+  return (
+    <table
+      className="w-full text-center rounded-xl shadow my-4"
+      data-testid="chars-table"
+    >
+      {characters.length > 0 && (
+        <thead>
+          <tr className="bg-rose-200 text-rose-800">
+            {charMap.map((char) => (
+              <th className="py-2 px-4" key={char.key}>
+                {char.title}
+              </th>
+            ))}
+          </tr>
+        </thead>
+      )}
+      <tbody className="divide-y divide-rose-100">
+        {characters.map((character) => (
+          <tr key={character.uid}>
+            {charMap.map((char) => (
+              <td className="py-2 px-4" key={char.key}>
+                {character[char.dataToRender] ?? 'Unknown'}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
