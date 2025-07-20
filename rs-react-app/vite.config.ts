@@ -16,6 +16,7 @@ export default defineConfig({
         'src/index.{js,jsx,ts,tsx}',
         'src/**/*.d.ts',
         'src/**/*index.{js,jsx,ts,tsx}',
+        'src/main.tsx',
       ],
       thresholds: {
         global: {
