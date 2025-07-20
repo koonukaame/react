@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import { CharsResult } from './CharsResult';
-import { CharactersContext } from '../features';
+import { CharactersContext } from '../../features';
 import { render, screen } from '@testing-library/react';
-import { mockChars } from '../test-utils';
+import { mockChars } from '../../test-utils';
 
 describe('CharsTable component', () => {
   it('renders MsgBlock when characters array is empty', () => {

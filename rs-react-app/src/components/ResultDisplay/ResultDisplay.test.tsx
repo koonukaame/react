@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { mockChars } from '../test-utils';
-import { CharactersContext } from '../features';
+import { mockChars } from '../../test-utils';
+import { CharactersContext } from '../../features';
 import { ResultDisplay } from './ResultDisplay';
 import '@testing-library/jest-dom';
 
