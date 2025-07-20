@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import { ErrorBtn } from './ErrorBtn';
-import { ErrorBoundary } from './ErrorBoundary';
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 
 describe('ErrorBtn component', () => {
   it('renders without errors', () => {

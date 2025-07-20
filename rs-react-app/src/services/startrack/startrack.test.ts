@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
 import { searchCharacter } from './startrack';
-import { mockChars } from '../test-utils';
+import { mockChars } from '../../test-utils';
 
 describe('searchCharacter function', () => {
   const mockFetch = vi.fn();

@@ -1,0 +1,1 @@
+export { CharsResult } from './CharsResult';

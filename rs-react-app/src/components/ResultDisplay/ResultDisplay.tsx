@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react';
-import { MsgBlock } from './MsgBlock';
-import { CharsResult } from './CharsResult';
-import { CharactersContext } from '../features';
+import { MsgBlock } from '../MsgBlock/MsgBlock';
+import { CharsResult } from '../CharsResult';
+import { CharactersContext } from '../../features';
 
 type Props = {
   hasError: boolean;

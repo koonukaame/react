@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import type { Character } from '../entities';
-import { CharactersContext } from '../features';
+import type { Character } from '../../entities';
+import { CharactersContext } from '../../features';
 
 type CharMapType = {
   key: string;

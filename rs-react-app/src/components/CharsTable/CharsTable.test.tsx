@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
-import { CharsTable } from './CharsTable';
-import { CharactersContext } from '../features';
-import type { Character } from '../entities';
-import { mockChars } from '../test-utils';
+import { CharsTable } from '../CharsTable';
+import { CharactersContext } from '../../features';
+import type { Character } from '../../entities';
+import { mockChars } from '../../test-utils';
 
 describe('CharsTable component', () => {
   it('renders without errors', () => {

@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import { MsgBlock } from './MsgBlock';
-import { CharsTable } from './CharsTable';
-import { CharactersContext } from '../features';
+import { MsgBlock } from '../MsgBlock';
+import { CharsTable } from '../CharsTable';
+import { CharactersContext } from '../../features';
 
 export class CharsResult extends Component {
   static contextType = CharactersContext;
