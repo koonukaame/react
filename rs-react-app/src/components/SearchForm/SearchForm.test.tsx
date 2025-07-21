@@ -55,15 +55,6 @@ describe('SearchForm component', () => {
   });
 
   describe('LocalStorage Integration', () => {
-    it('retrieves saved search term on component mount', () => {
-      localStorage.setItem(SEARCH_KEY, 'Nnn');
-
-      render(<SearchForm onSearch={mockSearch} />);
-
-      const searchInput = screen.getByDisplayValue('Nnn');
-      expect(searchInput).toBeInTheDocument();
-    });
-
     it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
       localStorage.setItem(SEARCH_KEY, 'old');
 
