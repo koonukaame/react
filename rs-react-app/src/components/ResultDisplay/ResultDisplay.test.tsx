@@ -10,29 +10,66 @@ describe('ResultDisplay component', () => {
     characters: mockChars,
   };
 
-  it('renders CharsResult when component does not throw an error', () => {
-    const hasError = false;
+  describe('Rendering', () => {
+    it('renders Spinner when loading is true', () => {
+      const hasError = false;
+      const isLoading = true;
 
-    render(
-      <CharactersContext.Provider value={mockContext}>
-        <ResultDisplay hasError={hasError} />
-      </CharactersContext.Provider>
-    );
+      render(
+        <CharactersContext.Provider value={mockContext}>
+          <ResultDisplay hasError={hasError} isLoading={isLoading} />
+        </CharactersContext.Provider>
+      );
 
-    expect(screen.getByTestId('chars-table')).toBeInTheDocument();
-    expect(screen.queryByTestId('msg-block')).not.toBeInTheDocument();
-  });
+      const spinner = screen.getByTestId('spinner');
+      const charsTable = screen.queryByTestId('chars-table');
+      const msgBlock = screen.queryByTestId('msg-block');
 
-  it('renders MsgBlock when component throws an error', () => {
-    const hasError = true;
+      expect(spinner).toBeInTheDocument();
+      expect(charsTable).not.toBeInTheDocument();
+      expect(msgBlock).not.toBeInTheDocument();
+    });
 
-    render(
-      <CharactersContext.Provider value={mockContext}>
-        <ResultDisplay hasError={hasError} />
-      </CharactersContext.Provider>
-    );
+    it('renders CharsResult when component does not throw an error', () => {
+      const hasError = false;
+      const isLoading = false;
 
-    expect(screen.queryByTestId('chars-table')).not.toBeInTheDocument();
-    expect(screen.getByTestId('msg-block')).toBeInTheDocument();
+      render(
+        <CharactersContext.Provider value={mockContext}>
+          <ResultDisplay hasError={hasError} isLoading={isLoading} />
+        </CharactersContext.Provider>
+      );
+
+      const spinner = screen.queryByTestId('spinner');
+      const charsTable = screen.getByTestId('chars-table');
+      const msgBlock = screen.queryByTestId('msg-block');
+
+      expect(charsTable).toBeInTheDocument();
+      expect(msgBlock).not.toBeInTheDocument();
+      expect(spinner).not.toBeInTheDocument();
+    });
+
+    it('renders MsgBlock when component throws an error', () => {
+      const hasError = true;
+      const isLoading = false;
+
+      render(
+        <CharactersContext.Provider value={mockContext}>
+          <ResultDisplay hasError={hasError} isLoading={isLoading} />
+        </CharactersContext.Provider>
+      );
+
+      const spinner = screen.queryByTestId('spinner');
+      const charsTable = screen.queryByTestId('chars-table');
+      const msgBlock = screen.getByTestId('msg-block');
+      const errorTitle = screen.getByText('An unexpected error has occured');
+      const errorDescription = screen.getByText('Try again in a bit!');
+
+      expect(charsTable).not.toBeInTheDocument();
+      expect(spinner).not.toBeInTheDocument();
+      expect(msgBlock).toBeInTheDocument();
+      expect(errorTitle).toBeInTheDocument();
+      expect(errorDescription).toBeInTheDocument();
+    });
   });
 });

@@ -22,56 +22,60 @@ describe('CharsResults component', () => {
     errorMock.mockRestore();
   });
 
-  it('displays fallback UI on error', () => {
-    const ErrorComponent = () => {
-      throw new Error('error');
-    };
+  describe('Error Catching', () => {
+    it('displays fallback UI on error', () => {
+      const ErrorComponent = () => {
+        throw new Error('error');
+      };
 
-    render(
-      <ErrorBoundary>
-        <ErrorComponent />
-      </ErrorBoundary>
-    );
+      render(
+        <ErrorBoundary>
+          <ErrorComponent />
+        </ErrorBoundary>
+      );
 
-    const errorText = screen.getByTestId('render-error-text');
-    const resetErrorBtn = screen.getByTestId('reset-error-btn');
+      const errorText = screen.getByTestId('render-error-text');
+      const resetErrorBtn = screen.getByTestId('reset-error-btn');
 
-    expect(errorText).toBeInTheDocument();
-    expect(resetErrorBtn).toBeInTheDocument();
-  });
+      expect(errorText).toBeInTheDocument();
+      expect(resetErrorBtn).toBeInTheDocument();
+    });
 
-  it('displays correct UI', () => {
-    const AppComponent = () => {
-      return <h1 data-testid="test-component">App component</h1>;
-    };
+    it('displays correct UI', () => {
+      const AppComponent = () => {
+        return <h1 data-testid="test-component">App component</h1>;
+      };
 
-    render(
-      <ErrorBoundary>
-        <AppComponent />
-      </ErrorBoundary>
-    );
+      render(
+        <ErrorBoundary>
+          <AppComponent />
+        </ErrorBoundary>
+      );
 
-    const app = screen.getByTestId('test-component');
-    expect(app).toBeInTheDocument();
-  });
+      const app = screen.getByTestId('test-component');
+      expect(app).toBeInTheDocument();
+    });
 
-  it('removes fallback UI on reset button click', () => {
-    const ErrorComponent = () => {
-      throw new Error('error');
-    };
+    describe('Reset Error', () => {
+      it('removes fallback UI on reset button click', () => {
+        const ErrorComponent = () => {
+          throw new Error('error');
+        };
 
-    render(
-      <ErrorBoundary>
-        <ErrorComponent />
-      </ErrorBoundary>
-    );
+        render(
+          <ErrorBoundary>
+            <ErrorComponent />
+          </ErrorBoundary>
+        );
 
-    const resetErrorBtn = screen.getByTestId('reset-error-btn');
-    const errorText = screen.getByTestId('render-error-text');
+        const resetErrorBtn = screen.getByTestId('reset-error-btn');
+        const errorText = screen.getByTestId('render-error-text');
 
-    fireEvent.click(resetErrorBtn);
+        fireEvent.click(resetErrorBtn);
 
-    expect(errorText).not.toBeInTheDocument();
-    expect(resetErrorBtn).not.toBeInTheDocument();
+        expect(errorText).not.toBeInTheDocument();
+        expect(resetErrorBtn).not.toBeInTheDocument();
+      });
+    });
   });
 });

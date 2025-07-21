@@ -7,34 +7,36 @@ describe('searchCharacter function', () => {
   const mockFetch = vi.fn();
   globalThis.fetch = mockFetch;
 
-  it('returns characters on successful scenario', async () => {
-    const mockResponse = {
-      ok: true,
-      json: vi.fn().mockResolvedValue({ characters: mockChars }),
-    };
-    mockFetch.mockResolvedValue(mockResponse);
+  describe('Mocked API Calls', () => {
+    it('returns characters on successful scenario', async () => {
+      const mockResponse = {
+        ok: true,
+        json: vi.fn().mockResolvedValue({ characters: mockChars }),
+      };
+      mockFetch.mockResolvedValue(mockResponse);
 
-    const formData = new FormData();
-    formData.append('name', 'Ggg');
+      const formData = new FormData();
+      formData.append('name', 'Ggg');
 
-    const result = await searchCharacter(formData);
+      const result = await searchCharacter(formData);
 
-    expect(result).toEqual({ characters: mockChars });
-  });
+      expect(result).toEqual({ characters: mockChars });
+    });
 
-  it('throws an error on error scenario', async () => {
-    const mockResponse = {
-      ok: false,
-      status: 404,
-      statusText: 'Not Found',
-    };
-    mockFetch.mockResolvedValue(mockResponse);
+    it('throws an error on error scenario', async () => {
+      const mockResponse = {
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+      };
+      mockFetch.mockResolvedValue(mockResponse);
 
-    const formData = new FormData();
-    formData.append('name', 'Fff');
+      const formData = new FormData();
+      formData.append('name', 'Fff');
 
-    await expect(searchCharacter(formData)).rejects.toThrow(
-      'Api error response 404 Not Found'
-    );
+      await expect(searchCharacter(formData)).rejects.toThrow(
+        'Api error response 404 Not Found'
+      );
+    });
   });
 });

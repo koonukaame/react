@@ -9,79 +9,78 @@ describe('SearchForm component', () => {
 
   beforeEach(() => {
     localStorage.clear();
+    mockSearch.mockClear();
   });
 
-  it('renders search input and search button', () => {
-    render(<SearchForm onSearch={mockSearch} />);
+  describe('Rendering Tests', () => {
+    it('renders search input and search button', () => {
+      render(<SearchForm onSearch={mockSearch} />);
 
-    const searchInput = screen.getByTestId('search-input');
-    const searchBtn = screen.getByTestId('search-button');
-    expect(searchInput).toBeInTheDocument();
-    expect(searchBtn).toBeInTheDocument();
+      const searchInput = screen.getByTestId('search-input');
+      const searchBtn = screen.getByTestId('search-button');
+      expect(searchInput).toBeInTheDocument();
+      expect(searchBtn).toBeInTheDocument();
+    });
+
+    it('shows empty input when no saved term exists', () => {
+      render(<SearchForm onSearch={mockSearch} />);
+
+      const searchInput = screen.getByTestId('search-input');
+      expect(searchInput).toHaveValue('');
+    });
   });
 
-  it('displays previously saved search term from localStorage on mount', () => {
-    localStorage.setItem(SEARCH_KEY, 'Zzz');
+  describe('User Interaction Tests', () => {
+    it('updates input value when user types', () => {
+      render(<SearchForm onSearch={mockSearch} />);
 
-    render(<SearchForm onSearch={mockSearch} />);
+      const searchInput = screen.getByTestId('search-input');
 
-    expect(screen.getByDisplayValue('Zzz')).toBeInTheDocument();
+      fireEvent.change(searchInput, { target: { value: 'Xyz' } });
+
+      expect(searchInput).toHaveValue('Xyz');
+    });
+
+    it('saves search term to localStorage when search button is clicked', () => {
+      render(<SearchForm onSearch={mockSearch} />);
+
+      const searchInput = screen.getByTestId('search-input');
+      const searchBtn = screen.getByTestId('search-button');
+
+      fireEvent.change(searchInput, { target: { value: 'Zyx' } });
+      fireEvent.click(searchBtn);
+
+      expect(localStorage.getItem(SEARCH_KEY)).toBe('Zyx');
+    });
   });
 
-  it('shows empty input when no saved term exists', () => {
-    render(<SearchForm onSearch={mockSearch} />);
+  describe('LocalStorage Integration', () => {
+    it('retrieves saved search term on component mount', () => {
+      localStorage.setItem(SEARCH_KEY, 'Nnn');
 
-    const searchInput = screen.getByTestId('search-input');
-    expect(searchInput).toHaveValue('');
-  });
+      render(<SearchForm onSearch={mockSearch} />);
 
-  it('updates input value when user types', () => {
-    render(<SearchForm onSearch={mockSearch} />);
+      const searchInput = screen.getByDisplayValue('Nnn');
+      expect(searchInput).toBeInTheDocument();
+    });
 
-    const searchInput = screen.getByTestId('search-input');
+    it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
+      localStorage.setItem(SEARCH_KEY, 'old');
 
-    fireEvent.change(searchInput, { target: { value: 'Xyz' } });
+      render(<SearchForm onSearch={mockSearch} />);
 
-    expect(searchInput).toHaveValue('Xyz');
-  });
+      const searchInput = screen.getByTestId('search-input');
+      const searchBtn = screen.getByTestId('search-button');
 
-  it('saves search term to localStorage when search button is clicked', () => {
-    render(<SearchForm onSearch={mockSearch} />);
+      fireEvent.change(searchInput, { target: { value: '  new  ' } });
+      fireEvent.click(searchBtn);
 
-    const searchInput = screen.getByTestId('search-input');
-    const searchBtn = screen.getByTestId('search-button');
+      const formData = new FormData();
+      formData.set('name', 'new');
+      expect(mockSearch).toHaveBeenCalledWith(formData);
+      expect(mockSearch).toHaveBeenCalledTimes(1);
 
-    fireEvent.change(searchInput, { target: { value: 'Zyx' } });
-    fireEvent.click(searchBtn);
-
-    expect(localStorage.getItem(SEARCH_KEY)).toBe('Zyx');
-  });
-
-  it('retrieves saved search term on component mount', () => {
-    localStorage.setItem(SEARCH_KEY, 'Nnn');
-
-    render(<SearchForm onSearch={mockSearch} />);
-
-    const searchInput = screen.getByDisplayValue('Nnn');
-    expect(searchInput).toBeInTheDocument();
-  });
-
-  it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
-    localStorage.setItem(SEARCH_KEY, 'old');
-
-    render(<SearchForm onSearch={mockSearch} />);
-
-    const searchInput = screen.getByTestId('search-input');
-    const searchBtn = screen.getByTestId('search-button');
-
-    fireEvent.change(searchInput, { target: { value: '  new  ' } });
-    fireEvent.click(searchBtn);
-
-    const formData = new FormData();
-    formData.set('name', 'new');
-    expect(mockSearch).toHaveBeenCalledWith(formData);
-    expect(mockSearch).toHaveBeenCalledTimes(1);
-
-    expect(localStorage.getItem(SEARCH_KEY)).toBe('new');
+      expect(localStorage.getItem(SEARCH_KEY)).toBe('new');
+    });
   });
 });
