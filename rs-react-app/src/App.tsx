@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
-import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
+import { SearchForm, ErrorBtn, ResultDisplay } from './components';
 import { CharactersContext } from './features';
 import { SEARCH_KEY } from './shared';
 
@@ -47,11 +47,10 @@ export class App extends Component<Props, State> {
           className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
           data-testid="main"
         >
-          {this.state.isLoading ? (
-            <Spinner />
-          ) : (
-            <ResultDisplay hasError={this.state.hasError} />
-          )}
+          <ResultDisplay
+            hasError={this.state.hasError}
+            isLoading={this.state.isLoading}
+          />
           <ErrorBtn />
         </main>
       </CharactersContext.Provider>
