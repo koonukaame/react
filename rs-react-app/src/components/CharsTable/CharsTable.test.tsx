@@ -7,42 +7,46 @@ import type { Character } from '../../entities';
 import { mockChars } from '../../test-utils';
 
 describe('CharsTable component', () => {
-  it('renders without errors', () => {
-    const mockContext = {
-      characters: mockChars,
-    };
+  describe('Rendering', () => {
+    it('renders without errors', () => {
+      const mockContext = {
+        characters: mockChars,
+      };
 
-    render(
-      <CharactersContext.Provider value={mockContext}>
-        <CharsTable />
-      </CharactersContext.Provider>
-    );
+      render(
+        <CharactersContext.Provider value={mockContext}>
+          <CharsTable />
+        </CharactersContext.Provider>
+      );
 
-    const charsTable = screen.getByTestId('chars-table');
-    expect(charsTable).toBeInTheDocument();
+      const charsTable = screen.getByTestId('chars-table');
+      expect(charsTable).toBeInTheDocument();
+    });
   });
 
-  it('correctly renders empty data', () => {
-    const mockEmptyChar: Character[] = [
-      {
-        uid: '3',
-        name: 'Cc',
-        gender: null,
-        yearOfBirth: null,
-        yearOfDeath: null,
-      },
-    ];
+  describe('Data Display', () => {
+    it('correctly renders empty data', () => {
+      const mockEmptyChar: Character[] = [
+        {
+          uid: '3',
+          name: 'Cc',
+          gender: null,
+          yearOfBirth: null,
+          yearOfDeath: null,
+        },
+      ];
 
-    const mockContext = {
-      characters: mockEmptyChar,
-    };
+      const mockContext = {
+        characters: mockEmptyChar,
+      };
 
-    render(
-      <CharactersContext.Provider value={mockContext}>
-        <CharsTable />
-      </CharactersContext.Provider>
-    );
+      render(
+        <CharactersContext.Provider value={mockContext}>
+          <CharsTable />
+        </CharactersContext.Provider>
+      );
 
-    expect(screen.getAllByText('Unknown')).toHaveLength(3);
+      expect(screen.getAllByText('Unknown')).toHaveLength(3);
+    });
   });
 });

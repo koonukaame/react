@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
-import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
+import { SearchForm, ErrorBtn, ResultDisplay } from './components';
 import { CharactersContext } from './features';
+import { SEARCH_KEY } from './shared';
 
 export function App() {
   const [chars, setChars] = useState<Character[]>([]);
@@ -26,7 +27,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const searchTerm = localStorage.getItem('search') ?? '';
+    const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
     const formData = new FormData();
     formData.set('name', searchTerm);
     _handleSearch(formData);
@@ -45,7 +46,7 @@ export function App() {
         className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
         data-testid="main"
       >
-        {isLoading ? <Spinner /> : <ResultDisplay hasError={hasError} />}
+        <ResultDisplay hasError={hasError} isLoading={isLoading} />
         <ErrorBtn />
       </main>
     </CharactersContext.Provider>

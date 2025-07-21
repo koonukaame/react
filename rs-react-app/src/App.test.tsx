@@ -1,71 +1,105 @@
-import { describe, expect, it, vi } from 'vitest';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from 'vitest';
 import { App } from './App';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { mockChars } from './test-utils';
 import { searchCharacter } from './services';
+import { SEARCH_KEY } from './shared';
+import { mockChars } from './test-utils';
 
 vi.mock('./services', () => ({
   searchCharacter: vi.fn(),
 }));
 
 describe('App component', () => {
-  it('renders header and main', async () => {
-    const mockedSearchCharacter = vi.mocked(searchCharacter);
-    mockedSearchCharacter.mockResolvedValue({ characters: [] });
+  describe('Rendering', () => {
+    it('renders header and main', async () => {
+      const mockedSearchCharacter = vi.mocked(searchCharacter);
+      mockedSearchCharacter.mockResolvedValue({ characters: [] });
 
-    await waitFor(() => {
+      await waitFor(() => {
+        render(<App />);
+      });
+
+      const header = screen.getByTestId('header');
+      const main = screen.getByTestId('main');
+
+      expect(header).toBeInTheDocument();
+      expect(main).toBeInTheDocument();
+    });
+  });
+
+  describe('LocalStorage Integration', () => {
+    it('retrieves saved search term on component mount', async () => {
+      localStorage.setItem(SEARCH_KEY, 'Nnn');
+
+      const mockedSearchCharacter = vi.mocked(searchCharacter);
+      mockedSearchCharacter.mockResolvedValue({ characters: [] });
+
+      await waitFor(() => {
+        render(<App />);
+      });
+
+      const searchInput = screen.getByDisplayValue('Nnn');
+      expect(searchInput).toBeInTheDocument();
+    });
+  });
+
+  describe('API Integration', () => {
+    let errorMock: MockInstance;
+
+    beforeEach(() => {
+      errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      errorMock.mockRestore();
+    });
+
+    it('success handle', async () => {
+      const mockedSearchCharacter = vi.mocked(searchCharacter);
+      mockedSearchCharacter.mockResolvedValue({ characters: mockChars });
+
       render(<App />);
+
+      const button = screen.getByTestId('search-button');
+      fireEvent.click(button);
+
+      await waitFor(() => {
+        mockChars.map((chat) => {
+          const charName = screen.getByText(chat.name);
+          expect(charName).toBeInTheDocument();
+        });
+      });
     });
 
-    const header = screen.getByTestId('header');
-    const main = screen.getByTestId('main');
+    it('error handle', async () => {
+      const mockedSearchCharacter = vi.mocked(searchCharacter);
+      mockedSearchCharacter.mockRejectedValue({ characters: mockChars });
 
-    expect(header).toBeInTheDocument();
-    expect(main).toBeInTheDocument();
-  });
+      render(<App />);
 
-  it('renders spinner', async () => {
-    const mockedSearchCharacter = vi.mocked(searchCharacter);
+      const button = screen.getByTestId('search-button');
+      fireEvent.click(button);
 
-    mockedSearchCharacter.mockResolvedValue({
-      characters: mockChars,
+      await waitFor(() => {
+        mockChars.map((chat) => {
+          const charName = screen.queryByText(chat.name);
+          expect(charName).not.toBeInTheDocument();
+        });
+
+        const errorTitle = screen.getByText('An unexpected error has occured');
+        const errorDescription = screen.getByText('Try again in a bit!');
+        expect(errorTitle).toBeInTheDocument();
+        expect(errorDescription).toBeInTheDocument();
+      });
     });
-
-    render(<App />);
-
-    const input = screen.getByTestId('search-input');
-    const button = screen.getByTestId('search-button');
-
-    fireEvent.change(input, { target: { value: 'Aa' } });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      expect(screen.getByTestId('spinner')).toBeInTheDocument();
-    });
-
-    expect(screen.queryByTestId('Aa')).not.toBeInTheDocument();
-  });
-
-  it('renders result after loading', async () => {
-    const mockedSearchCharacter = vi.mocked(searchCharacter);
-
-    mockedSearchCharacter.mockResolvedValue({
-      characters: mockChars,
-    });
-
-    render(<App />);
-
-    const input = screen.getByTestId('search-input');
-    const button = screen.getByTestId('search-button');
-
-    fireEvent.change(input, { target: { value: 'Aa' } });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      expect(screen.getByText('Aa')).toBeInTheDocument();
-    });
-
-    expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
   });
 });

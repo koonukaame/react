@@ -13,11 +13,12 @@ export function SearchForm({ onSearch }: Props) {
 
   function _onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const trimmedInput = input.trim();
 
-    setInput(input.trim());
+    setInput(trimmedInput);
 
     const formData = new FormData(event.currentTarget);
-    formData.set('name', input);
+    formData.set('name', trimmedInput);
 
     onSearch(formData);
   }

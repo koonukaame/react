@@ -5,42 +5,46 @@ import { ErrorBtn } from './ErrorBtn';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 
 describe('ErrorBtn component', () => {
-  it('renders without errors', () => {
-    render(<ErrorBtn />);
-
-    const errorButton = screen.getByTestId('error-button');
-    expect(errorButton).toBeInTheDocument();
-  });
-
-  it('throws error when is clicked', () => {
-    const errorOnClick = () => {
+  describe('Rendering', () => {
+    it('renders without errors', () => {
       render(<ErrorBtn />);
-      const errorButton = screen.getByTestId('error-button');
-      fireEvent.click(errorButton);
-    };
 
-    expect(errorOnClick).toThrow('test');
+      const errorButton = screen.getByTestId('error-button');
+      expect(errorButton).toBeInTheDocument();
+    });
   });
 
-  it('triggers error boundary fallback UI', () => {
-    const errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+  describe('Error Handling', () => {
+    it('throws error when is clicked', () => {
+      const errorOnClick = () => {
+        render(<ErrorBtn />);
+        const errorButton = screen.getByTestId('error-button');
+        fireEvent.click(errorButton);
+      };
 
-    render(
-      <ErrorBoundary>
-        <ErrorBtn />
-      </ErrorBoundary>
-    );
+      expect(errorOnClick).toThrow('test');
+    });
 
-    const errorButton = screen.getByTestId('error-button');
+    it('triggers error boundary fallback UI', () => {
+      const errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-    fireEvent.click(errorButton);
+      render(
+        <ErrorBoundary>
+          <ErrorBtn />
+        </ErrorBoundary>
+      );
 
-    const errorText = screen.getByTestId('render-error-text');
-    const resetErrorBtn = screen.getByTestId('reset-error-btn');
+      const errorButton = screen.getByTestId('error-button');
 
-    expect(errorText).toBeInTheDocument();
-    expect(resetErrorBtn).toBeInTheDocument();
+      fireEvent.click(errorButton);
 
-    errorMock.mockRestore();
+      const errorText = screen.getByTestId('render-error-text');
+      const resetErrorBtn = screen.getByTestId('reset-error-btn');
+
+      expect(errorText).toBeInTheDocument();
+      expect(resetErrorBtn).toBeInTheDocument();
+
+      errorMock.mockRestore();
+    });
   });
 });
