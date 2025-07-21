@@ -1,4 +1,12 @@
-import { describe, expect, it, vi } from 'vitest';
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from 'vitest';
 import { App } from './App';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -45,6 +53,16 @@ describe('App component', () => {
   });
 
   describe('API Integration', () => {
+    let errorMock: MockInstance;
+
+    beforeEach(() => {
+      errorMock = vi.spyOn(console, 'error').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      errorMock.mockRestore();
+    });
+
     it('success handle', async () => {
       const mockedSearchCharacter = vi.mocked(searchCharacter);
       mockedSearchCharacter.mockResolvedValue({ characters: mockChars });
