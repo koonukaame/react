@@ -1,76 +1,53 @@
-import { Component, type ReactNode } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
 import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
 import { CharactersContext } from './features';
 
-type Props = object;
+export function App() {
+  const [chars, setChars] = useState<Character[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
 
-type State = {
-  characters: Character[];
-  isLoading: boolean;
-  hasError: boolean;
-};
-
-export class App extends Component<Props, State> {
-  state: State = {
-    characters: [],
-    isLoading: false,
-    hasError: false,
-  };
-
-  constructor(props: Props) {
-    super(props);
-    this._handleSearch = this._handleSearch.bind(this);
-  }
-
-  render(): ReactNode {
-    return (
-      <CharactersContext.Provider
-        value={{
-          characters: this.state.characters,
-        }}
-      >
-        <header className="max-w-5xl p-6 mx-auto" data-testid="header">
-          <SearchForm onSearch={this._handleSearch} />
-        </header>
-        <main
-          className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
-          data-testid="main"
-        >
-          {this.state.isLoading ? (
-            <Spinner />
-          ) : (
-            <ResultDisplay hasError={this.state.hasError} />
-          )}
-          <ErrorBtn />
-        </main>
-      </CharactersContext.Provider>
-    );
-  }
-
-  private async _handleSearch(formData: FormData) {
-    this.setState({
-      isLoading: true,
-      characters: [],
-    });
-
+  const _handleSearch = useCallback(async (formData: FormData) => {
+    setIsLoading(true);
+    setChars([]);
     try {
       const { characters } = await searchCharacter(formData);
 
-      this.setState({
-        characters,
-        hasError: false,
-      });
+      setChars(characters);
+      setHasError(false);
     } catch (err) {
-      this.setState({
-        hasError: true,
-      });
+      setHasError(true);
       console.error(`${err}`);
     } finally {
-      this.setState({
-        isLoading: false,
-      });
+      setIsLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    const searchTerm = localStorage.getItem('search') ?? '';
+    const formData = new FormData();
+    formData.set('name', searchTerm);
+    _handleSearch(formData);
+  }, [_handleSearch]);
+
+  return (
+    <CharactersContext.Provider
+      value={{
+        characters: chars,
+      }}
+    >
+      <header className="max-w-5xl p-6 mx-auto" data-testid="header">
+        <SearchForm onSearch={_handleSearch} />
+      </header>
+      <main
+        className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
+        data-testid="main"
+      >
+        {isLoading ? <Spinner /> : <ResultDisplay hasError={hasError} />}
+        <ErrorBtn />
+      </main>
+    </CharactersContext.Provider>
+  );
 }

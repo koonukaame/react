@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 
 type Props = {
   onSearch: (data: FormData) => void;
@@ -10,13 +10,6 @@ export function SearchForm({ onSearch }: Props) {
   const [input, setInput] = useState<string>(() => {
     return localStorage.getItem(searchKey) ?? '';
   });
-
-  useEffect(() => {
-    const formData = new FormData();
-    formData.set('name', input);
-
-    onSearch(formData);
-  }, []);
 
   function _onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
