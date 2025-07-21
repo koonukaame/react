@@ -2,10 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SearchForm } from '../SearchForm';
+import { SEARCH_KEY } from '../../shared';
 
 describe('SearchForm component', () => {
   const mockSearch = vi.fn();
-  const searchKey = 'search';
 
   beforeEach(() => {
     localStorage.clear();
@@ -21,7 +21,7 @@ describe('SearchForm component', () => {
   });
 
   it('displays previously saved search term from localStorage on mount', () => {
-    localStorage.setItem(searchKey, 'Zzz');
+    localStorage.setItem(SEARCH_KEY, 'Zzz');
 
     render(<SearchForm onSearch={mockSearch} />);
 
@@ -54,11 +54,11 @@ describe('SearchForm component', () => {
     fireEvent.change(searchInput, { target: { value: 'Zyx' } });
     fireEvent.click(searchBtn);
 
-    expect(localStorage.getItem(searchKey)).toBe('Zyx');
+    expect(localStorage.getItem(SEARCH_KEY)).toBe('Zyx');
   });
 
   it('retrieves saved search term on component mount', () => {
-    localStorage.setItem(searchKey, 'Nnn');
+    localStorage.setItem(SEARCH_KEY, 'Nnn');
 
     render(<SearchForm onSearch={mockSearch} />);
 
@@ -66,15 +66,22 @@ describe('SearchForm component', () => {
     expect(searchInput).toBeInTheDocument();
   });
 
-  it('overwrites existing localStorage value when new search is performed', () => {
-    localStorage.setItem(searchKey, 'new');
+  it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
+    localStorage.setItem(SEARCH_KEY, 'old');
 
     render(<SearchForm onSearch={mockSearch} />);
 
     const searchInput = screen.getByTestId('search-input');
+    const searchBtn = screen.getByTestId('search-button');
 
-    fireEvent.change(searchInput, { target: { value: 'new' } });
+    fireEvent.change(searchInput, { target: { value: '  new  ' } });
+    fireEvent.click(searchBtn);
 
-    expect(localStorage.getItem(searchKey)).toBe('new');
+    const formData = new FormData();
+    formData.set('name', 'new');
+    expect(mockSearch).toHaveBeenCalledWith(formData);
+    expect(mockSearch).toHaveBeenCalledTimes(1);
+
+    expect(localStorage.getItem(SEARCH_KEY)).toBe('new');
   });
 });
