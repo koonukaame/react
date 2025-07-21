@@ -15,9 +15,10 @@ export function SearchForm({ onSearch }: Props) {
     event.preventDefault();
     const trimmedInput = input.trim();
 
+    localStorage.setItem(searchKey, trimmedInput);
     setInput(trimmedInput);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData();
     formData.set('name', trimmedInput);
 
     onSearch(formData);
