@@ -3,6 +3,7 @@ import { searchCharacter } from './services';
 import type { Character } from './entities';
 import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
 import { CharactersContext } from './features';
+import { SEARCH_KEY } from './shared';
 
 type Props = object;
 
@@ -22,6 +23,14 @@ export class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this._handleSearch = this._handleSearch.bind(this);
+  }
+
+  componentDidMount(): void {
+    const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
+    const formData = new FormData();
+    formData.set('name', searchTerm);
+
+    this._handleSearch(formData);
   }
 
   render(): ReactNode {
