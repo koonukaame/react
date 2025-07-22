@@ -1,8 +1,9 @@
-import type { Character } from '../../entities';
+import type { Character, Page } from '../../entities';
 
 export const searchCharacter = async (
-  body: FormData
-): Promise<{ characters: Character[] }> => {
+  body: FormData,
+  pageNumber: number
+): Promise<{ characters: Character[]; page: Page }> => {
   const formData = new URLSearchParams();
 
   for (const [key, value] of body) {
@@ -10,7 +11,7 @@ export const searchCharacter = async (
   }
 
   const response = await fetch(
-    `https://stapi.co/api/v1/rest/character/search`,
+    `https://stapi.co/api/v1/rest/character/search?pageNumber=${pageNumber}`,
     {
       method: 'POST',
       body: formData,
