@@ -5,7 +5,6 @@ import { SearchForm, ErrorBtn, ResultDisplay, Pagination } from './components';
 import { CharactersContext } from './features';
 import { SEARCH_KEY } from './shared';
 
-
 export function App() {
   const [chars, setChars] = useState<Character[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);

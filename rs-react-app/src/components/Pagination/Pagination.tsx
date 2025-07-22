@@ -17,11 +17,15 @@ export function Pagination({ page, onSearch }: Props) {
   }
 
   return (
-    <div className="flex gap-2 items-center justify-center">
+    <div
+      className="flex gap-2 items-center justify-center"
+      data-testid="pagination"
+    >
       <button
         onClick={() => changePage(page.pageNumber - 1)}
         disabled={page.firstPage}
         className={`${BTN_STYLES} disabled:bg-gray-400 disabled:hover:bg-gray-500 disabled:cursor-not-allowed`}
+        data-testid="previous-button"
       >
         Prev
       </button>
@@ -32,6 +36,7 @@ export function Pagination({ page, onSearch }: Props) {
         onClick={() => changePage(page.pageNumber + 1)}
         disabled={page.lastPage}
         className={`${BTN_STYLES} disabled:bg-gray-400 disabled:hover:bg-gray-500 disabled:cursor-not-allowed`}
+        data-testid="next-button"
       >
         Next
       </button>
