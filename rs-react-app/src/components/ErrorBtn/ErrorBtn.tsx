@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BTN_STYLES } from '../../shared/constants';
 
 export function ErrorBtn() {
   const [hasError, setError] = useState<boolean>(false);
@@ -13,7 +14,7 @@ export function ErrorBtn() {
 
   return (
     <button
-      className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 mt-2 rounded-full shadow transition"
+      className={BTN_STYLES}
       onClick={handleClick}
       data-testid="error-button"
     >
