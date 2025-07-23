@@ -10,11 +10,13 @@ export function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const [page, setPage] = useState<Page>();
+  const [selectedChar, setSelectedChar] = useState<Character | null>(null);
 
   const _handleSearch = useCallback(
     async (formData: FormData, pageNumber = 0) => {
       setIsLoading(true);
       setChars([]);
+      setSelectedChar(null);
       try {
         const { characters, page } = await searchCharacter(
           formData,
@@ -46,6 +48,7 @@ export function App() {
     <CharactersContext.Provider
       value={{
         characters: chars,
+        setSelectedChar,
       }}
     >
       <header className="max-w-5xl p-6 mx-auto" data-testid="header">
@@ -55,7 +58,11 @@ export function App() {
         className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
         data-testid="main"
       >
-        <ResultDisplay hasError={hasError} isLoading={isLoading} />
+        <ResultDisplay
+          hasError={hasError}
+          isLoading={isLoading}
+          selectedChar={selectedChar}
+        />
         <ErrorBtn />
       </main>
       <footer className="max-w-5xl p-6 mx-auto">
