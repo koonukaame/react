@@ -24,7 +24,7 @@ export function Pagination({ page, onSearch }: Props) {
       <button
         onClick={() => changePage(page.pageNumber - 1)}
         disabled={page.firstPage}
-        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:hover:bg-gray-500 disabled:cursor-not-allowed`}
+        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
         Prev
@@ -35,7 +35,7 @@ export function Pagination({ page, onSearch }: Props) {
       <button
         onClick={() => changePage(page.pageNumber + 1)}
         disabled={page.lastPage}
-        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:hover:bg-gray-500 disabled:cursor-not-allowed`}
+        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="next-button"
       >
         Next
