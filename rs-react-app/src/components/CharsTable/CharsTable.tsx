@@ -9,7 +9,7 @@ export function CharsTable() {
 
   return (
     <table
-      className="w-full text-center rounded-xl shadow my-4"
+      className="text-center rounded-xl shadow my-4 overflow-y-auto w-full"
       data-testid="chars-table"
     >
       {characters.length > 0 && (

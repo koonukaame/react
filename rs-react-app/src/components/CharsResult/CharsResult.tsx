@@ -7,12 +7,16 @@ export function CharsResult() {
   const context = useContext(CharactersContext);
   const characters = context.characters;
 
-  return !characters?.length ? (
-    <MsgBlock
-      title="No characters found 🕵️‍♀️"
-      msg="Try adjusting your search, maybe a typo snuck in?"
-    />
-  ) : (
-    <CharsTable />
+  return (
+    <div className="max-h-[300px] overflow-y-auto w-1/3 bg-rose-50">
+      {!characters?.length ? (
+        <MsgBlock
+          title="No characters found 🕵️‍♀️"
+          msg="Try adjusting your search, maybe a typo snuck in?"
+        />
+      ) : (
+        <CharsTable />
+      )}
+    </div>
   );
 }
