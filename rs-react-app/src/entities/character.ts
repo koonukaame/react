@@ -8,5 +8,5 @@ export type Character = {
   placeOfDeath: string | null;
   height: number | null;
   weight: number | null;
-  deceased: boolean;
+  deceased: boolean | null;
 };
