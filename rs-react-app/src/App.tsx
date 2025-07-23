@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { searchCharacter } from './services';
 import type { Character, Page } from './entities';
-import { SearchForm, ErrorBtn, ResultDisplay, Pagination } from './components';
+import {
+  SearchForm,
+  ResultDisplay,
+  Pagination,
+  ItemDetails,
+} from './components';
 import { CharactersContext } from './features';
 import { SEARCH_KEY } from './shared';
 
@@ -15,8 +20,6 @@ export function App() {
   const _handleSearch = useCallback(
     async (formData: FormData, pageNumber = 0) => {
       setIsLoading(true);
-      setChars([]);
-      setSelectedChar(null);
       try {
         const { characters, page } = await searchCharacter(
           formData,
@@ -51,23 +54,21 @@ export function App() {
         setSelectedChar,
       }}
     >
-      <header className="max-w-5xl p-6 mx-auto" data-testid="header">
-        <SearchForm onSearch={_handleSearch} />
-      </header>
-      <main
-        className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
-        data-testid="main"
-      >
-        <ResultDisplay
-          hasError={hasError}
-          isLoading={isLoading}
-          selectedChar={selectedChar}
-        />
-        <ErrorBtn />
-      </main>
-      <footer className="max-w-5xl p-6 mx-auto">
-        {page && <Pagination page={page} onSearch={_handleSearch} />}
-      </footer>
+      <div className="flex flex-col min-h-screen max-w overflow-hidden">
+        <header className="max-w px-6 pt-6" data-testid="header">
+          <SearchForm onSearch={_handleSearch} />
+        </header>
+        <main
+          className="flex flex-grow p-6 rounded-2xl shadow-lg my-10"
+          data-testid="main"
+        >
+          <ResultDisplay hasError={hasError} isLoading={isLoading} />
+          <ItemDetails character={selectedChar} />
+        </main>
+        <footer className="max-w p-6">
+          {page && <Pagination page={page} onSearch={_handleSearch} />}
+        </footer>
+      </div>
     </CharactersContext.Provider>
   );
 }
