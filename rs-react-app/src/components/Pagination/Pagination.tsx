@@ -30,7 +30,9 @@ export function Pagination({ page, onSearch }: Props) {
         Prev
       </button>
       <span>
-        {page.pageNumber + 1} / {page.totalPages}
+        {page.totalPages === 0
+          ? page.pageNumber + 1
+          : `${page.pageNumber + 1} / ${page.totalPages}`}
       </span>
       <button
         onClick={() => changePage(page.pageNumber + 1)}
