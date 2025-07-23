@@ -63,7 +63,10 @@ export function App() {
           data-testid="main"
         >
           <ResultDisplay hasError={hasError} isLoading={isLoading} />
-          <ItemDetails character={selectedChar} />
+          <ItemDetails
+            character={selectedChar}
+            _onClick={() => setSelectedChar(null)}
+          />
         </main>
         <footer className="max-w p-6">
           {page && <Pagination page={page} onSearch={_handleSearch} />}

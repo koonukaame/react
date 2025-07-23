@@ -4,9 +4,10 @@ import { MsgBlock } from '../MsgBlock';
 
 type Props = {
   character: Character | null;
+  _onClick: () => void;
 };
 
-export function ItemDetails({ character }: Props) {
+export function ItemDetails({ character, _onClick }: Props) {
   return !character ? (
     <MsgBlock
       title="No chosen character"
@@ -14,8 +15,14 @@ export function ItemDetails({ character }: Props) {
       isItemDetails={true}
     />
   ) : (
-    <div className="w-2/3 pb-6 px-6">
-      <h2 className="text-xl font-bold text-rose-800 mb-4 border-b pb-2">
+    <div className="w-2/3 relative pb-6 px-6">
+      <button
+        onClick={_onClick}
+        className="absolute right-6 text-gray-500 hover:text-rose-800 text-xl transition-colors"
+      >
+        X
+      </button>
+      <h2 className="text-xl font-bold text-rose-800 mb-4 border-b border-rose-800 pb-2">
         {character.name}
       </h2>
       <ul className="space-y-2">
