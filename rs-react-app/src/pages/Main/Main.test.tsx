@@ -7,15 +7,15 @@ import {
   vi,
   type MockInstance,
 } from 'vitest';
-import { App } from './App';
+import { Main } from './MainPage';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { searchCharacter } from './services';
-import { SEARCH_KEY } from './shared';
-import { mockChars } from './test-utils';
-import type { Page } from './entities';
+import { searchCharacter } from '../../services';
+import { SEARCH_KEY } from '../../shared';
+import { mockChars } from '../../test-utils';
+import type { Page } from '../../entities';
 
-vi.mock('./services', () => ({
+vi.mock('../../services', () => ({
   searchCharacter: vi.fn(),
 }));
 
@@ -38,7 +38,7 @@ describe('App component', () => {
       });
 
       await waitFor(() => {
-        render(<App />);
+        render(<Main />);
       });
 
       const header = screen.getByTestId('header');
@@ -60,7 +60,7 @@ describe('App component', () => {
       });
 
       await waitFor(() => {
-        render(<App />);
+        render(<Main />);
       });
 
       const searchInput = screen.getByDisplayValue('Nnn');
@@ -86,7 +86,7 @@ describe('App component', () => {
         page: mockPage,
       });
 
-      render(<App />);
+      render(<Main />);
 
       const button = screen.getByTestId('search-button');
       fireEvent.click(button);
@@ -103,7 +103,7 @@ describe('App component', () => {
       const mockedSearchCharacter = vi.mocked(searchCharacter);
       mockedSearchCharacter.mockRejectedValue({ characters: mockChars });
 
-      render(<App />);
+      render(<Main />);
 
       const button = screen.getByTestId('search-button');
       fireEvent.click(button);
