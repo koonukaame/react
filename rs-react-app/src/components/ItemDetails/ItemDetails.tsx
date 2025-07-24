@@ -1,5 +1,5 @@
 import type { Character } from '../../entities';
-import { CHAR_MAP } from '../../shared/constants';
+import { CHAR_MAP } from '../../shared';
 import { MsgBlock } from '../MsgBlock';
 
 type Props = {

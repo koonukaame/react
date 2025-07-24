@@ -1,6 +1,6 @@
 import type { Page } from '../../entities';
 import { SEARCH_KEY } from '../../shared';
-import { BTN_STYLES } from '../../shared/constants';
+import { BTN_STYLES } from '../../shared';
 
 type Props = {
   page: Page;

@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { BTN_STYLES } from '../../shared/constants';
+import { BTN_STYLES } from '../../shared';
 
 type Props = {
   onSearch: (data: FormData) => void;
