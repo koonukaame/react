@@ -9,6 +9,7 @@ import {
 } from './components';
 import { CharactersContext } from './features';
 import { SEARCH_KEY } from './shared';
+import { getCharacter } from './services';
 
 export function App() {
   const [chars, setChars] = useState<Character[]>([]);
@@ -39,6 +40,19 @@ export function App() {
     []
   );
 
+  const _handleCharClick = useCallback(async (uid: string) => {
+    setIsLoading(true);
+    try {
+      const { character } = await getCharacter(uid);
+      setSelectedChar(character);
+    } catch (err) {
+      console.error(`${err}`);
+      setSelectedChar(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
     const formData = new FormData();
@@ -51,7 +65,7 @@ export function App() {
     <CharactersContext.Provider
       value={{
         characters: chars,
-        setSelectedChar,
+        setSelectedChar: _handleCharClick,
       }}
     >
       <div className="flex flex-col min-h-screen max-w overflow-hidden">

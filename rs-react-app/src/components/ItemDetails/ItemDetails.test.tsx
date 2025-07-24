@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { ItemDetails } from './ItemDetails';
 import { mockChars } from '../../test-utils';
-import { CHAR_MAP } from '../../shared/constants';
+import { CHAR_MAP } from '../../shared';
 import '@testing-library/jest-dom';
 
 describe('ItemDetails component', () => {

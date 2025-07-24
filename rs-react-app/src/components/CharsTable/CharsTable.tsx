@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { CharactersContext } from '../../features';
-import { CHAR_MAP } from '../../shared/constants';
+import { CHAR_MAP } from '../../shared';
 
 export function CharsTable() {
   const context = useContext(CharactersContext);
@@ -25,7 +25,10 @@ export function CharsTable() {
       )}
       <tbody className="divide-y divide-rose-100">
         {characters.map((character) => (
-          <tr key={character.uid} onClick={() => setSelectedChar(character)}>
+          <tr
+            key={character.uid}
+            onClick={() => setSelectedChar(character.uid)}
+          >
             {CHAR_MAP.slice(0, 1).map((char) => (
               <td className="py-2 px-4" key={char.key}>
                 {character[char.dataToRender]}
