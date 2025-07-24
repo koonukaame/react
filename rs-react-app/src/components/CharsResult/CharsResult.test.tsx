@@ -10,6 +10,7 @@ describe('CharsTable component', () => {
     it('renders MsgBlock when characters array is empty', () => {
       const mockContext = {
         characters: [],
+        setSelectedChar: () => {},
       };
 
       render(
@@ -34,6 +35,7 @@ describe('CharsTable component', () => {
     it('renders CharsTable when characters array is not empty', () => {
       const mockContext = {
         characters: mockChars,
+        setSelectedChar: () => {},
       };
 
       render(

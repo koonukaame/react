@@ -28,7 +28,7 @@ export function CharsTable() {
           <tr key={character.uid} onClick={() => setSelectedChar(character)}>
             {CHAR_MAP.slice(0, 1).map((char) => (
               <td className="py-2 px-4" key={char.key}>
-                {character[char.dataToRender] ?? 'Unknown'}
+                {character[char.dataToRender]}
               </td>
             ))}
           </tr>

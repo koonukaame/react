@@ -8,6 +8,7 @@ import '@testing-library/jest-dom';
 describe('ResultDisplay component', () => {
   const mockContext = {
     characters: mockChars,
+    setSelectedChar: () => {},
   };
 
   describe('Rendering', () => {

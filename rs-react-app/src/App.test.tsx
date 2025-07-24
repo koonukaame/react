@@ -13,16 +13,29 @@ import '@testing-library/jest-dom';
 import { searchCharacter } from './services';
 import { SEARCH_KEY } from './shared';
 import { mockChars } from './test-utils';
+import type { Page } from './entities';
 
 vi.mock('./services', () => ({
   searchCharacter: vi.fn(),
 }));
 
 describe('App component', () => {
+  const mockPage: Page = {
+    pageNumber: 2,
+    pageSize: 50,
+    numberOfElements: 50,
+    totalElements: 123,
+    totalPages: 2,
+    firstPage: false,
+    lastPage: false,
+  };
   describe('Rendering', () => {
     it('renders header and main', async () => {
       const mockedSearchCharacter = vi.mocked(searchCharacter);
-      mockedSearchCharacter.mockResolvedValue({ characters: [] });
+      mockedSearchCharacter.mockResolvedValue({
+        characters: [],
+        page: mockPage,
+      });
 
       await waitFor(() => {
         render(<App />);
@@ -41,7 +54,10 @@ describe('App component', () => {
       localStorage.setItem(SEARCH_KEY, 'Nnn');
 
       const mockedSearchCharacter = vi.mocked(searchCharacter);
-      mockedSearchCharacter.mockResolvedValue({ characters: [] });
+      mockedSearchCharacter.mockResolvedValue({
+        characters: [],
+        page: mockPage,
+      });
 
       await waitFor(() => {
         render(<App />);
@@ -65,7 +81,10 @@ describe('App component', () => {
 
     it('success handle', async () => {
       const mockedSearchCharacter = vi.mocked(searchCharacter);
-      mockedSearchCharacter.mockResolvedValue({ characters: mockChars });
+      mockedSearchCharacter.mockResolvedValue({
+        characters: mockChars,
+        page: mockPage,
+      });
 
       render(<App />);
 
