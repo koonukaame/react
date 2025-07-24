@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import type { Character } from '../entities';
-import { CharactersContext } from '../features';
+import type { Character } from '../../entities';
+import { CharactersContext } from '../../features';
 
 type CharMapType = {
   key: string;
@@ -21,13 +21,16 @@ export class CharsTable extends Component {
 
   render() {
     return (
-      <table className="w-full text-center rounded-xl shadow my-4">
+      <table
+        className="w-full text-center rounded-xl shadow my-4"
+        data-testid="chars-table"
+      >
         {this.context.characters.length > 0 && (
           <thead>
             <tr className="bg-rose-200 text-rose-800">
-              {charMap.map((chat) => (
-                <th className="py-2 px-4" key={chat.key}>
-                  {chat.title}
+              {charMap.map((char) => (
+                <th className="py-2 px-4" key={char.key}>
+                  {char.title}
                 </th>
               ))}
             </tr>

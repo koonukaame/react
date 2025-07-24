@@ -1,8 +1,9 @@
 import { Component, type ReactNode } from 'react';
 import { searchCharacter } from './services';
 import type { Character } from './entities';
-import { SearchForm, Spinner, ErrorBtn, ResultDisplay } from './components';
+import { SearchForm, ErrorBtn, ResultDisplay } from './components';
 import { CharactersContext } from './features';
+import { SEARCH_KEY } from './shared';
 
 type Props = object;
 
@@ -24,6 +25,14 @@ export class App extends Component<Props, State> {
     this._handleSearch = this._handleSearch.bind(this);
   }
 
+  componentDidMount(): void {
+    const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
+    const formData = new FormData();
+    formData.set('name', searchTerm);
+
+    this._handleSearch(formData);
+  }
+
   render(): ReactNode {
     return (
       <CharactersContext.Provider
@@ -31,15 +40,17 @@ export class App extends Component<Props, State> {
           characters: this.state.characters,
         }}
       >
-        <header className="max-w-5xl p-6 mx-auto">
+        <header className="max-w-5xl p-6 mx-auto" data-testid="header">
           <SearchForm onSearch={this._handleSearch} />
         </header>
-        <main className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10">
-          {this.state.isLoading ? (
-            <Spinner />
-          ) : (
-            <ResultDisplay hasError={this.state.hasError} />
-          )}
+        <main
+          className="max-w-5xl p-6 bg-rose-50 rounded-2xl shadow-lg mx-auto my-10"
+          data-testid="main"
+        >
+          <ResultDisplay
+            hasError={this.state.hasError}
+            isLoading={this.state.isLoading}
+          />
           <ErrorBtn />
         </main>
       </CharactersContext.Provider>

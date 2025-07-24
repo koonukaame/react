@@ -1,0 +1,1 @@
+export { mockChars } from './mockChars';
