@@ -66,7 +66,7 @@ describe('CharsTable component', () => {
 
       for (const char of mockChars) {
         fireEvent.click(screen.getByText(char.name));
-        expect(mockSetSelectedChar).toHaveBeenCalledWith(char);
+        expect(mockSetSelectedChar).toHaveBeenCalledWith(char.uid);
       }
       expect(mockSetSelectedChar).toHaveBeenCalledTimes(mockChars.length);
     });
