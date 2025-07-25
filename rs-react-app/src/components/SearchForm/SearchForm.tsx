@@ -1,23 +1,19 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { BTN_STYLES } from '../../shared';
+import { type ChangeEvent, type FormEvent } from 'react';
+import { BTN_STYLES, SEARCH_KEY } from '../../shared';
+import { useLocalStorage } from '../../features';
 
 type Props = {
   onSearch: (data: FormData) => void;
 };
 
-const searchKey = 'search';
-
 export function SearchForm({ onSearch }: Props) {
-  const [input, setInput] = useState<string>(() => {
-    return localStorage.getItem(searchKey) ?? '';
-  });
+  const [value, setValue] = useLocalStorage(SEARCH_KEY);
 
   function _onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const trimmedInput = input.trim();
+    const trimmedInput = value.trim();
 
-    localStorage.setItem(searchKey, trimmedInput);
-    setInput(trimmedInput);
+    setValue(trimmedInput);
 
     const formData = new FormData();
     formData.set('name', trimmedInput);
@@ -26,9 +22,7 @@ export function SearchForm({ onSearch }: Props) {
   }
 
   function _onChange(e: ChangeEvent<HTMLInputElement>) {
-    localStorage.setItem(searchKey, e.target.value);
-
-    setInput(e.target.value);
+    setValue(e.target.value);
   }
 
   return (
@@ -38,7 +32,7 @@ export function SearchForm({ onSearch }: Props) {
       data-testid="search-form"
     >
       <input
-        value={input}
+        value={value}
         onChange={_onChange}
         name="name"
         type="search"

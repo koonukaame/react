@@ -20,7 +20,7 @@ export function About() {
       </p>
       <RedirectBtn url="/" locationText="Main Page" />
       <p className="absolute bottom-6 text-2xl text-rose-900 max-w-2xl leading-relaxed text-center">
-        made in&nbsp;
+        made in{' '}
         <a
           href="https://rs.school/courses/reactjs"
           target="_blank"
