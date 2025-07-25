@@ -4,3 +4,4 @@ export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 export { ResultDisplay } from './ResultDisplay/ResultDisplay';
 export { Pagination } from './Pagination';
 export { ItemDetails } from './ItemDetails';
+export { RedirectBtn } from './RedirectBtn';
