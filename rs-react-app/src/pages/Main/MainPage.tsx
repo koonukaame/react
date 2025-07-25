@@ -7,8 +7,9 @@ import {
 } from '../../components';
 import type { Character, Page } from '../../entities';
 import { searchCharacter, getCharacter } from '../../services';
-import { SEARCH_KEY } from '../../shared';
+import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
 import { CharactersContext } from '../../features';
+import { useSearchParams } from 'react-router';
 
 export function Main() {
   const [chars, setChars] = useState<Character[]>([]);
@@ -16,31 +17,30 @@ export function Main() {
   const [hasError, setHasError] = useState<boolean>(false);
   const [page, setPage] = useState<Page>();
   const [selectedChar, setSelectedChar] = useState<Character | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const _handleSearch = useCallback(
-    async (formData: FormData, pageNumber = 0) => {
-      setIsLoading(true);
-      try {
-        const { characters, page } = await searchCharacter(
-          formData,
-          pageNumber
-        );
+  const pageParam = searchParams.get('page');
+  const uidParam = searchParams.get('uid');
 
-        setChars(characters);
-        setPage(page);
-        setHasError(false);
-      } catch (err) {
-        setHasError(true);
-        console.error(`${err}`);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    []
-  );
-
-  const _handleCharClick = useCallback(async (uid: string) => {
+  const fetchChars = useCallback(async (formData: FormData, pageNumber = 0) => {
     setIsLoading(true);
+    try {
+      const { characters, page } = await searchCharacter(formData, pageNumber);
+
+      setChars(characters);
+      setPage(page);
+      setHasError(false);
+    } catch (err) {
+      setHasError(true);
+      console.error(`${err}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const fetchChar = useCallback(async (uid: string) => {
+    setIsLoading(true);
+
     try {
       const { character } = await getCharacter(uid);
       setSelectedChar(character);
@@ -52,13 +52,77 @@ export function Main() {
     }
   }, []);
 
+  const _handleSearch = useCallback(
+    async (formData: FormData, pageNumber = 0) => {
+      fetchChars(formData, pageNumber);
+      setSearchParams((params) => {
+        const newParams = new URLSearchParams(params);
+        newParams.set('page', String(pageNumber + PAGE_OFFSET));
+        return newParams;
+      });
+    },
+    [setSearchParams, fetchChars]
+  );
+
+  const _handleCharClick = useCallback(
+    async (uid: string) => {
+      setSearchParams((params) => {
+        const newParams = new URLSearchParams(params);
+        newParams.set('uid', uid);
+        return newParams;
+      });
+    },
+    [setSearchParams]
+  );
+
+  const _handleCharClose = useCallback(() => {
+    setSelectedChar(null);
+    setSearchParams((params) => {
+      const newParams = new URLSearchParams(params);
+      newParams.delete('uid');
+      return newParams;
+    });
+  }, [setSearchParams]);
+
   useEffect(() => {
-    const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
+    const currentPage = Number(pageParam);
+    const pageNumber = isNaN(currentPage) ? 0 : Math.max(0, currentPage - 1);
+
     const formData = new FormData();
-    formData.set('name', searchTerm);
-    formData.set('pageNumber', '0');
-    _handleSearch(formData);
-  }, [_handleSearch]);
+    formData.set('name', localStorage.getItem(SEARCH_KEY) ?? '');
+    formData.set('pageNumber', pageNumber.toString());
+
+    fetchChars(formData, pageNumber);
+  }, [pageParam, fetchChars]);
+
+  useEffect(() => {
+    if (!page) return;
+
+    const currentPage = Number(pageParam);
+    const min = 1;
+    const max = page.totalPages;
+
+    const isInvalid =
+      isNaN(currentPage) || currentPage < min || currentPage > max;
+
+    if (isInvalid) {
+      const validPage = isNaN(currentPage) || currentPage < min ? min : max;
+
+      setSearchParams((params) => {
+        const newParams = new URLSearchParams(params);
+        newParams.set('page', String(validPage));
+        return newParams;
+      });
+    }
+  }, [page, pageParam, setSearchParams]);
+
+  useEffect(() => {
+    if (uidParam) {
+      fetchChar(uidParam);
+    } else {
+      setSelectedChar(null);
+    }
+  }, [uidParam, fetchChar]);
 
   return (
     <CharactersContext.Provider
@@ -76,10 +140,7 @@ export function Main() {
           data-testid="main"
         >
           <ResultDisplay hasError={hasError} isLoading={isLoading} />
-          <ItemDetails
-            character={selectedChar}
-            _onClick={() => setSelectedChar(null)}
-          />
+          <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
         </main>
         <footer className="max-w p-6">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
