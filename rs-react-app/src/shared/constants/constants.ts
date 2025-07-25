@@ -1,9 +1,10 @@
 import type { Character } from '../../entities';
 
 export const SEARCH_KEY = 'search';
+export const PAGE_OFFSET = 1;
 
 export const BTN_STYLES =
-  'bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 rounded-full shadow transition cursor-pointer';
+  'bg-rose-700/80 hover:bg-rose-800 text-white font-medium px-6 py-2 rounded-full shadow transition cursor-pointer';
 
 type CharMapType = {
   key: string;
