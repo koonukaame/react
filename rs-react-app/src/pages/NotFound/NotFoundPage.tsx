@@ -2,7 +2,7 @@ import { RedirectBtn } from '../../components';
 
 export function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-50">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-9xl font-extrabold text-rose-700/80 mb-6 tracking-wide">
         404
       </h1>
