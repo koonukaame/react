@@ -11,7 +11,7 @@ export function ItemDetails({ character, _onClick }: Props) {
   return !character ? (
     <MsgBlock
       title="No chosen character"
-      msg="Please choose a character to learn more about them"
+      msg="Please click on a character to learn more"
       isItemDetails={true}
     />
   ) : (
