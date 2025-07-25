@@ -24,4 +24,11 @@ export const router = createBrowserRouter([
       return { Component: NotFound };
     },
   },
+  {
+    path: '/about',
+    lazy: async () => {
+      const { About } = await import('../pages');
+      return { Component: About };
+    },
+  },
 ]);

@@ -4,6 +4,7 @@ import {
   ResultDisplay,
   ItemDetails,
   Pagination,
+  RedirectBtn,
 } from '../../components';
 import type { Character, Page } from '../../entities';
 import { searchCharacter, getCharacter } from '../../services';
@@ -131,7 +132,11 @@ export function Main() {
         setSelectedChar: _handleCharClick,
       }}
     >
-      <div className="flex flex-col min-h-screen max-w overflow-hidden">
+      <div className="relative flex flex-col min-h-screen max-w overflow-hidden">
+        <div className="absolute bottom-6 right-6 z-50">
+          <RedirectBtn url="/about" locationText="About" />
+        </div>
+
         <header className="max-w px-6 pt-6" data-testid="header">
           <SearchForm onSearch={_handleSearch} />
         </header>
