@@ -14,9 +14,8 @@ export function RedirectBtn({ url, locationText }: Props) {
   }
 
   return (
-    <button
-      onClick={_onClick}
-      className={BTN_STYLES}
-    >{`Back to ${locationText}`}</button>
+    <button onClick={_onClick} className={BTN_STYLES}>
+      {locationText}
+    </button>
   );
 }

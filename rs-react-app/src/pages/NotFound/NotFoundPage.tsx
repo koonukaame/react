@@ -9,7 +9,7 @@ export function NotFound() {
       <span className="text-2xl font-semibold text-rose-900 mb-3">
         Page Not Found
       </span>
-      <RedirectBtn url="/" locationText="Main Page" />
+      <RedirectBtn url="/" locationText="Back to Main Page" />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export function About() {
         </a>
         . That’s it. Proceed accordingly.
       </p>
-      <RedirectBtn url="/" locationText="Main Page" />
+      <RedirectBtn url="/" locationText="Back to Main Page" />
       <p className="absolute bottom-6 text-2xl text-rose-900 max-w-2xl leading-relaxed text-center">
         made in{' '}
         <a
