@@ -193,7 +193,7 @@ describe('Main page', () => {
   describe('searchParams handling', () => {
     const mockRoutes = [
       {
-        path: ':uid',
+        path: '/character/:uid',
         element: <Main />,
       },
       {
@@ -214,7 +214,7 @@ describe('Main page', () => {
       mockedGetCharacter.mockResolvedValue({ character: oneChar });
 
       const testRouter = createMemoryRouter(mockRoutes, {
-        initialEntries: [`/${oneChar.uid}`],
+        initialEntries: [`/character/${oneChar.uid}`],
       });
 
       render(<RouterProvider router={testRouter} />);
@@ -264,7 +264,9 @@ describe('Main page', () => {
         expect(itemDetails).toBeInTheDocument();
       });
 
-      expect(testRouter.state.location.pathname).toBe(`/${oneChar.uid}`);
+      expect(testRouter.state.location.pathname).toBe(
+        `/character/${oneChar.uid}`
+      );
     });
   });
 });
