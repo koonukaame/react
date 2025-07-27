@@ -16,13 +16,13 @@ export function ItemDetails({ character, _onClick }: Props) {
     />
   ) : (
     <div className="w-2/3 relative pb-6 px-6" data-testid="item-details">
-      <div className="flex w-full justify-between border-b border-rose-800 pb-1">
+      <div className="flex w-full justify-between border-b border-rose-800 pb-2">
         <h2 className="text-xl font-bold text-rose-800" data-testid="char-name">
           {character.name}
         </h2>
         <button
           onClick={_onClick}
-          className="w-6 cursor-pointer mt-1 group"
+          className="w-5 cursor-pointer mt-1 group"
           data-testid="item-details-close"
         >
           <div className="w-full h-0.5 bg-gray-500 rotate-45 group-hover:bg-rose-800 transition-colors" />
@@ -30,7 +30,7 @@ export function ItemDetails({ character, _onClick }: Props) {
         </button>
       </div>
 
-      <ul className="space-y-2 pt-1">
+      <ul className="space-y-2 pt-2">
         {CHAR_MAP.map((char) => (
           <li
             key={char.key}
