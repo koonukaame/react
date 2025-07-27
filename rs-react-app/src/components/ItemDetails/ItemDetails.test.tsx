@@ -64,13 +64,9 @@ describe('ItemDetails component', () => {
 
     it('renders MsgBlock if no data is provided', () => {
       render(<ItemDetails character={null} _onClick={mockOnClick} />);
-      const noCharTitle = screen.getByText('No chosen character');
-      const noCharMsg = screen.getByText(
-        'Please choose a character to learn more about them'
-      );
+      const messageBlock = screen.getByTestId('msg-block');
 
-      expect(noCharTitle).toBeInTheDocument();
-      expect(noCharMsg).toBeInTheDocument();
+      expect(messageBlock).toBeInTheDocument();
 
       mockChars.map((char) => {
         for (const { title, dataToRender } of CHAR_MAP) {

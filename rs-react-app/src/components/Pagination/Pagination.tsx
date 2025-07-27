@@ -1,5 +1,5 @@
 import type { Page } from '../../entities';
-import { SEARCH_KEY } from '../../shared';
+import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
 import { BTN_STYLES } from '../../shared';
 
 type Props = {
@@ -22,20 +22,20 @@ export function Pagination({ page, onSearch }: Props) {
       data-testid="pagination"
     >
       <button
-        onClick={() => changePage(page.pageNumber - 1)}
+        onClick={() => changePage(page.pageNumber - PAGE_OFFSET)}
         disabled={page.firstPage}
         className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
         Prev
       </button>
-      <span>
+      <span data-testid="page-count">
         {page.totalPages === 0
-          ? page.pageNumber + 1
-          : `${page.pageNumber + 1} / ${page.totalPages}`}
+          ? page.pageNumber + PAGE_OFFSET
+          : `${page.pageNumber + PAGE_OFFSET} / ${page.totalPages}`}
       </span>
       <button
-        onClick={() => changePage(page.pageNumber + 1)}
+        onClick={() => changePage(page.pageNumber + PAGE_OFFSET)}
         disabled={page.lastPage}
         className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="next-button"

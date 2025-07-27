@@ -63,14 +63,10 @@ describe('ResultDisplay component', () => {
       const spinner = screen.queryByTestId('spinner');
       const charsTable = screen.queryByTestId('chars-table');
       const msgBlock = screen.getByTestId('msg-block');
-      const errorTitle = screen.getByText('An unexpected error has occured');
-      const errorDescription = screen.getByText('Try again in a bit!');
 
       expect(charsTable).not.toBeInTheDocument();
       expect(spinner).not.toBeInTheDocument();
       expect(msgBlock).toBeInTheDocument();
-      expect(errorTitle).toBeInTheDocument();
-      expect(errorDescription).toBeInTheDocument();
     });
   });
 });

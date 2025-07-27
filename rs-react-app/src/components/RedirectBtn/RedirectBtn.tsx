@@ -14,7 +14,11 @@ export function RedirectBtn({ url, locationText }: Props) {
   }
 
   return (
-    <button onClick={_onClick} className={BTN_STYLES}>
+    <button
+      data-testid="redirect-button"
+      onClick={_onClick}
+      className={BTN_STYLES}
+    >
       {locationText}
     </button>
   );

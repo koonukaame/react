@@ -1,14 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { describe, it, expect } from 'vitest';
+import { it, expect } from 'vitest';
 import { Spinner } from './Spinner';
 
-describe('Spinner', () => {
-  describe('Rendering', () => {
-    it('renders without errors', () => {
-      render(<Spinner />);
-      const spinner = screen.getByTestId('spinner');
-      expect(spinner).toBeInTheDocument();
-    });
-  });
+it('Spinner component renders without errors', () => {
+  render(<Spinner />);
+  const spinner = screen.getByTestId('spinner');
+  expect(spinner).toBeInTheDocument();
 });

@@ -20,11 +20,11 @@ export class ErrorBoundary extends Component<Props, State> {
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className="flex flex-col gap-4 items-center justify-center h-[60vh] text-center p-6">
-          <span
-            className="text-2xl font-bold text-rose-700"
-            data-testid="render-error-text"
-          >
+        <div
+          className="flex flex-col gap-4 items-center justify-center h-[60vh] text-center p-6"
+          data-testid="error-boundary"
+        >
+          <span className="text-2xl font-bold text-rose-700">
             Click the button below to return back✨
           </span>
           <button

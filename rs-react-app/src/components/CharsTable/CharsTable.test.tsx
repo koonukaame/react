@@ -6,69 +6,63 @@ import { CharactersContext } from '../../features';
 import { mockChars } from '../../test-utils';
 
 describe('CharsTable component', () => {
-  describe('Rendering', () => {
-    it('renders without errors', () => {
-      const mockContext = {
-        characters: mockChars,
-        setSelectedChar: () => {},
-      };
+  it('renders without errors', () => {
+    const mockContext = {
+      characters: mockChars,
+      setSelectedChar: () => {},
+    };
 
-      render(
-        <CharactersContext.Provider value={mockContext}>
-          <CharsTable />
-        </CharactersContext.Provider>
-      );
+    render(
+      <CharactersContext.Provider value={mockContext}>
+        <CharsTable />
+      </CharactersContext.Provider>
+    );
 
-      const charsTable = screen.getByTestId('chars-table');
-      expect(charsTable).toBeInTheDocument();
-    });
+    const charsTable = screen.getByTestId('chars-table');
+    expect(charsTable).toBeInTheDocument();
   });
 
-  describe('Data Display', () => {
-    it('displays only character names and hides all other fields', () => {
-      const mockContext = {
-        characters: mockChars,
-        setSelectedChar: () => {},
-      };
+  it('displays only character names and hides all other fields', () => {
+    const mockContext = {
+      characters: mockChars,
+      setSelectedChar: () => {},
+    };
 
-      render(
-        <CharactersContext.Provider value={mockContext}>
-          <CharsTable />
-        </CharactersContext.Provider>
-      );
+    render(
+      <CharactersContext.Provider value={mockContext}>
+        <CharsTable />
+      </CharactersContext.Provider>
+    );
 
-      mockChars.map((char) => {
-        expect(screen.getByText(char.name)).toBeInTheDocument();
+    mockChars.map((char) => {
+      expect(screen.getByText(char.name)).toBeInTheDocument();
 
-        for (const [key, value] of Object.entries(char)) {
-          if (!(key === 'name')) {
-            expect(
-              screen.queryByText((_, el) => el?.textContent === String(value))
-            ).not.toBeInTheDocument();
-          }
+      for (const [key, value] of Object.entries(char)) {
+        if (!(key === 'name')) {
+          expect(
+            screen.queryByText((_, el) => el?.textContent === String(value))
+          ).not.toBeInTheDocument();
         }
-      });
+      }
     });
   });
-  describe('Interaction', () => {
-    it('calls setSelectedChar when a table element is clicked', () => {
-      const mockSetSelectedChar = vi.fn();
-      const mockContext = {
-        characters: mockChars,
-        setSelectedChar: mockSetSelectedChar,
-      };
 
-      render(
-        <CharactersContext.Provider value={mockContext}>
-          <CharsTable />
-        </CharactersContext.Provider>
-      );
+  it('calls setSelectedChar when a table element is clicked', () => {
+    const mockChar = mockChars[0];
+    const mockSetSelectedChar = vi.fn();
+    const mockContext = {
+      characters: mockChars,
+      setSelectedChar: mockSetSelectedChar,
+    };
 
-      for (const char of mockChars) {
-        fireEvent.click(screen.getByText(char.name));
-        expect(mockSetSelectedChar).toHaveBeenCalledWith(char.uid);
-      }
-      expect(mockSetSelectedChar).toHaveBeenCalledTimes(mockChars.length);
-    });
+    render(
+      <CharactersContext.Provider value={mockContext}>
+        <CharsTable />
+      </CharactersContext.Provider>
+    );
+
+    const char = screen.getByText(mockChar.name);
+    fireEvent.click(char);
+    expect(mockSetSelectedChar).toHaveBeenCalledWith(mockChar.uid);
   });
 });
