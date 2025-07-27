@@ -2,7 +2,7 @@ import { RedirectBtn } from '../../components';
 
 export function About() {
   return (
-    <div
+    <main
       className="flex flex-col items-center justify-center min-h-screen"
       data-testid="about-page"
     >
@@ -32,6 +32,6 @@ export function About() {
           Rolling Scopes School
         </a>
       </p>
-    </div>
+    </main>
   );
 }

@@ -2,7 +2,7 @@ import { RedirectBtn } from '../../components';
 
 export function NotFound() {
   return (
-    <div
+    <main
       className="flex flex-col items-center justify-center min-h-screen"
       data-testid="not-found"
     >
@@ -13,6 +13,6 @@ export function NotFound() {
         Page Not Found
       </span>
       <RedirectBtn url="/" locationText="Back to Main Page" />
-    </div>
+    </main>
   );
 }

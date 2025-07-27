@@ -16,20 +16,21 @@ export function ItemDetails({ character, _onClick }: Props) {
     />
   ) : (
     <div className="w-2/3 relative pb-6 px-6" data-testid="item-details">
-      <button
-        onClick={_onClick}
-        className="absolute right-6 text-gray-500 hover:text-rose-800 text-xl transition-colors"
-        data-testid="item-details-close"
-      >
-        X
-      </button>
-      <h2
-        className="text-xl font-bold text-rose-800 mb-4 border-b border-rose-800 pb-2"
-        data-testid="char-name"
-      >
-        {character.name}
-      </h2>
-      <ul className="space-y-2">
+      <div className="flex w-full justify-between border-b border-rose-800 pb-1">
+        <h2 className="text-xl font-bold text-rose-800" data-testid="char-name">
+          {character.name}
+        </h2>
+        <button
+          onClick={_onClick}
+          className="w-6 cursor-pointer mt-1 group"
+          data-testid="item-details-close"
+        >
+          <div className="w-full h-0.5 bg-gray-500 rotate-45 group-hover:bg-rose-800 transition-colors" />
+          <div className="w-full h-0.5 bg-gray-500 -rotate-45 -mt-0.5 group-hover:bg-rose-800 transition-colors" />
+        </button>
+      </div>
+
+      <ul className="space-y-2 pt-1">
         {CHAR_MAP.map((char) => (
           <li
             key={char.key}

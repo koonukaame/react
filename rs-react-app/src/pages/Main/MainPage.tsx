@@ -149,7 +149,6 @@ export function Main() {
         </main>
         <footer className="max-w p-6 flex items-center justify-center relative">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
-
           <div className="absolute right-6">
             <RedirectBtn url="/about" locationText="About" />
           </div>
