@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
-import { searchCharacter } from './startrack';
+import { searchCharacter } from './character-search';
 import { mockChars } from '../../test-utils';
 
 describe('searchCharacter function', () => {
