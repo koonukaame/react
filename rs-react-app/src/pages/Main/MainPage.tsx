@@ -103,11 +103,15 @@ export function Main() {
     const min = 1;
     const max = page.totalPages;
 
+    if (max === 0) {
+      return;
+    }
+
     const isInvalid =
       isNaN(currentPage) || currentPage < min || currentPage > max;
 
     if (isInvalid) {
-      const validPage = isNaN(currentPage) || currentPage < min ? min : max;
+      const validPage = currentPage >= min && !isNaN(currentPage) ? max : min;
 
       setSearchParams((params) => {
         const newParams = new URLSearchParams(params);
@@ -145,9 +149,7 @@ export function Main() {
         </header>
         <main className="flex flex-grow p-6 rounded-2xl shadow-lg my-10">
           <ResultDisplay hasError={hasError} isLoading={isLoading} />
-          {uidParam && (
-            <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
-          )}
+          <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
         </main>
         <footer className="max-w p-6">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
