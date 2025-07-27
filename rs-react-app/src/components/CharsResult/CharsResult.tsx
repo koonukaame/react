@@ -8,7 +8,7 @@ export function CharsResult() {
   const characters = context.characters;
 
   return (
-    <div className="max-h-[300px] overflow-y-auto w-1/3 bg-rose-50">
+    <div className="overflow-y-auto w-1/3 bg-rose-50">
       {!characters?.length ? (
         <MsgBlock
           title="No characters found 🕵️‍♀️"

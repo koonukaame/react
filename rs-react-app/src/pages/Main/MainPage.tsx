@@ -137,22 +137,22 @@ export function Main() {
       }}
     >
       <div
-        className="relative flex flex-col min-h-screen max-w overflow-hidden"
+        className="flex flex-col min-h-screen max-w overflow-hidden"
         data-testid="main-page"
       >
-        <div className="absolute bottom-6 right-6 z-50">
-          <RedirectBtn url="/about" locationText="About" />
-        </div>
-
         <header className="max-w px-6 pt-6">
           <SearchForm onSearch={_handleSearch} />
         </header>
-        <main className="flex flex-grow p-6 rounded-2xl shadow-lg my-10">
+        <main className="max-h-[80vh] flex flex-row flex-grow p-6 rounded-2xl shadow-lg overflow-hidden">
           <ResultDisplay hasError={hasError} isLoading={isLoading} />
           <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
         </main>
-        <footer className="max-w p-6">
+        <footer className="max-w p-6 flex items-center justify-center relative">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
+
+          <div className="absolute right-6">
+            <RedirectBtn url="/about" locationText="About" />
+          </div>
         </footer>
       </div>
     </CharactersContext.Provider>
