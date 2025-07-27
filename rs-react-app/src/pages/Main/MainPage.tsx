@@ -69,7 +69,7 @@ export function Main() {
   const _handleCharClick = useCallback(
     (uid: string) => {
       navigate({
-        pathname: `/${uid}`,
+        pathname: `/character/${uid}`,
         search: searchParams.toString(),
       });
     },

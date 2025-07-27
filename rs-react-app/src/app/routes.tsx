@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
     },
   },
   {
-    path: ':uid',
+    path: '/character/:uid',
     lazy: async () => {
       const { Main } = await import('../pages');
       return { Component: Main };
