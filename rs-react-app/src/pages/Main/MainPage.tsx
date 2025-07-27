@@ -10,7 +10,7 @@ import type { Character, Page } from '../../entities';
 import { searchCharacter, getCharacter } from '../../services';
 import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
 import { CharactersContext } from '../../features';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 
 export function Main() {
   const [chars, setChars] = useState<Character[]>([]);
@@ -21,7 +21,8 @@ export function Main() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageParam = searchParams.get('page');
-  const uidParam = searchParams.get('uid');
+  const { uid: uidParam } = useParams();
+  const navigate = useNavigate();
 
   const fetchChars = useCallback(async (formData: FormData, pageNumber = 0) => {
     setIsLoading(true);
@@ -66,24 +67,21 @@ export function Main() {
   );
 
   const _handleCharClick = useCallback(
-    async (uid: string) => {
-      setSearchParams((params) => {
-        const newParams = new URLSearchParams(params);
-        newParams.set('uid', uid);
-        return newParams;
+    (uid: string) => {
+      navigate({
+        pathname: `/${uid}`,
+        search: searchParams.toString(),
       });
     },
-    [setSearchParams]
+    [navigate, searchParams]
   );
 
   const _handleCharClose = useCallback(() => {
-    setSelectedChar(null);
-    setSearchParams((params) => {
-      const newParams = new URLSearchParams(params);
-      newParams.delete('uid');
-      return newParams;
+    navigate({
+      pathname: '/',
+      search: searchParams.toString(),
     });
-  }, [setSearchParams]);
+  }, [navigate, searchParams]);
 
   useEffect(() => {
     const currentPage = Number(pageParam);
@@ -97,7 +95,9 @@ export function Main() {
   }, [pageParam, fetchChars]);
 
   useEffect(() => {
-    if (!page) return;
+    if (!page) {
+      return;
+    }
 
     const currentPage = Number(pageParam);
     const min = 1;
@@ -132,20 +132,22 @@ export function Main() {
         setSelectedChar: _handleCharClick,
       }}
     >
-      <div className="relative flex flex-col min-h-screen max-w overflow-hidden">
+      <div
+        className="relative flex flex-col min-h-screen max-w overflow-hidden"
+        data-testid="main-page"
+      >
         <div className="absolute bottom-6 right-6 z-50">
           <RedirectBtn url="/about" locationText="About" />
         </div>
 
-        <header className="max-w px-6 pt-6" data-testid="header">
+        <header className="max-w px-6 pt-6">
           <SearchForm onSearch={_handleSearch} />
         </header>
-        <main
-          className="flex flex-grow p-6 rounded-2xl shadow-lg my-10"
-          data-testid="main"
-        >
+        <main className="flex flex-grow p-6 rounded-2xl shadow-lg my-10">
           <ResultDisplay hasError={hasError} isLoading={isLoading} />
-          <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
+          {uidParam && (
+            <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
+          )}
         </main>
         <footer className="max-w p-6">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
