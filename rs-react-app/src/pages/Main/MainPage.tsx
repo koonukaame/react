@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   SearchForm,
-  ResultDisplay,
   ItemDetails,
   Pagination,
   RedirectBtn,
@@ -10,7 +9,7 @@ import type { Character, Page } from '../../entities';
 import { searchCharacter, getCharacter } from '../../services';
 import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
 import { CharactersContext } from '../../features';
-import { useNavigate, useParams, useSearchParams } from 'react-router';
+import { Outlet, useNavigate, useParams, useSearchParams } from 'react-router';
 
 export function Main() {
   const [chars, setChars] = useState<Character[]>([]);
@@ -131,10 +130,7 @@ export function Main() {
 
   return (
     <CharactersContext.Provider
-      value={{
-        characters: chars,
-        setSelectedChar: _handleCharClick,
-      }}
+      value={{ characters: chars, setSelectedChar: _handleCharClick }}
     >
       <div
         className="flex flex-col min-h-screen max-w overflow-hidden"
@@ -144,8 +140,11 @@ export function Main() {
           <SearchForm onSearch={_handleSearch} />
         </header>
         <main className="max-h-[80vh] flex flex-row flex-grow p-6 rounded-2xl shadow-lg overflow-hidden">
-          <ResultDisplay hasError={hasError} isLoading={isLoading} />
-          <ItemDetails character={selectedChar} _onClick={_handleCharClose} />
+          <Outlet context={{ isLoading, hasError }} />
+          <ItemDetails
+            character={selectedChar ?? null}
+            _onClick={_handleCharClose}
+          />
         </main>
         <footer className="max-w p-6 flex items-center justify-center relative">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
