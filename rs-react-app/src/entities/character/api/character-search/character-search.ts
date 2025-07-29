@@ -1,4 +1,5 @@
-import type { Character, Page } from '../../entities';
+import type { Character, Page } from '../../..';
+import { responseSchema } from '../../model';
 
 export const searchCharacter = async (
   body: FormData,
@@ -21,11 +22,12 @@ export const searchCharacter = async (
     }
   );
 
-  if (response.ok) {
-    return await response.json();
-  }
+  const data = await response.json();
+  const result = responseSchema.safeParse(data);
 
-  throw new Error(
-    `Api error response ${response.status} ${response.statusText}`
-  );
+  if (!result.success) {
+    console.error(result.error);
+    throw new Error('API error');
+  }
+  return { characters: result.data.characters, page: result.data.page };
 };

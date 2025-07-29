@@ -1,26 +1,25 @@
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
-import { searchCharacter } from './character-search';
-import { mockChars } from '../../test-utils';
+import { getCharacter } from './character-get';
+import { mockChars } from '../../../../test-utils';
 
 describe('searchCharacter function', () => {
   const mockFetch = vi.fn();
   globalThis.fetch = mockFetch;
 
   describe('Mocked API Calls', () => {
-    it('returns characters on successful scenario', async () => {
+    const mockChar = mockChars[0];
+    it('returns character on successful scenario', async () => {
       const mockResponse = {
         ok: true,
-        json: vi.fn().mockResolvedValue({ characters: mockChars }),
+        json: vi.fn().mockResolvedValue({ character: mockChar }),
       };
       mockFetch.mockResolvedValue(mockResponse);
 
-      const formData = new FormData();
-      formData.append('name', 'Ggg');
+      const uid = mockChar.uid;
+      const result = await getCharacter(uid);
 
-      const result = await searchCharacter(formData, 0);
-
-      expect(result).toEqual({ characters: mockChars });
+      expect(result).toEqual({ character: mockChar });
     });
 
     it('throws an error on error scenario', async () => {
@@ -31,10 +30,9 @@ describe('searchCharacter function', () => {
       };
       mockFetch.mockResolvedValue(mockResponse);
 
-      const formData = new FormData();
-      formData.append('name', 'Fff');
+      const uid = mockChar.uid;
 
-      await expect(searchCharacter(formData, 0)).rejects.toThrow(
+      await expect(getCharacter(uid)).rejects.toThrow(
         'Api error response 404 Not Found'
       );
     });
