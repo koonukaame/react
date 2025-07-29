@@ -1,6 +1,6 @@
 import type { Page } from '../../entities';
 import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
-import { BTN_STYLES } from '../../shared';
+import { Button } from '../../shared/ui-kit/Button';
 
 type Props = {
   page: Page;
@@ -21,27 +21,27 @@ export function Pagination({ page, onSearch }: Props) {
       className="flex gap-2 items-center justify-center"
       data-testid="pagination"
     >
-      <button
+      <Button
         onClick={() => changePage(page.pageNumber - PAGE_OFFSET)}
         disabled={page.firstPage}
-        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
+        classNames={`disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
         Prev
-      </button>
+      </Button>
       <span data-testid="page-count">
         {page.totalPages === 0
           ? page.pageNumber + PAGE_OFFSET
           : `${page.pageNumber + PAGE_OFFSET} / ${page.totalPages}`}
       </span>
-      <button
+      <Button
         onClick={() => changePage(page.pageNumber + PAGE_OFFSET)}
         disabled={page.lastPage}
-        className={`${BTN_STYLES} disabled:bg-gray-400 disabled:cursor-not-allowed`}
+        classNames={'disabled:bg-gray-400 disabled:cursor-not-allowed'}
         data-testid="next-button"
       >
         Next
-      </button>
+      </Button>
     </div>
   );
 }

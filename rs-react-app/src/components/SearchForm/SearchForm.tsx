@@ -1,6 +1,7 @@
 import { type ChangeEvent, type FormEvent } from 'react';
-import { BTN_STYLES, SEARCH_KEY } from '../../shared';
+import { SEARCH_KEY } from '../../shared';
 import { useLocalStorage } from '../../features';
+import { Button } from '../../shared/ui-kit/Button';
 
 type Props = {
   onSearch: (data: FormData) => void;
@@ -40,9 +41,9 @@ export function SearchForm({ onSearch }: Props) {
         data-testid="search-input"
         className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
       />
-      <button type="submit" data-testid="search-button" className={BTN_STYLES}>
+      <Button type="submit" data-testid="search-button">
         Search
-      </button>
+      </Button>
     </form>
   );
 }
