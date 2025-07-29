@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import {
-  SearchForm,
-  ItemDetails,
-  Pagination,
-  RedirectBtn,
-} from '../../components';
+import { SearchForm, ItemDetails, Pagination } from '../../components';
 import type { Character, Page } from '../../entities';
 import { searchCharacter, getCharacter } from '../../services';
 import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
@@ -132,27 +127,25 @@ export function Main() {
     <CharactersContext.Provider
       value={{ characters: chars, setSelectedChar: _handleCharClick }}
     >
-      <div
+      <main
         className="flex flex-col min-h-screen max-w overflow-hidden"
         data-testid="main-page"
       >
-        <header className="max-w px-6 pt-6">
+        <div className="max-w pt-6">
           <SearchForm onSearch={_handleSearch} />
-        </header>
-        <main className="max-h-[80vh] flex flex-row flex-grow p-6 rounded-2xl shadow-lg overflow-hidden">
+        </div>
+        <div className="max-h-[80vh] flex flex-row flex-grow pt-6 rounded-2xl shadow-lg overflow-hidden">
           <Outlet context={{ isLoading, hasError }} />
           <ItemDetails
             character={selectedChar ?? null}
             _onClick={_handleCharClose}
           />
-        </main>
-        <footer className="max-w p-6 flex items-center justify-center relative">
+        </div>
+
+        <div className="max-w pt-6 flex items-center justify-center relative">
           {page && <Pagination page={page} onSearch={_handleSearch} />}
-          <div className="absolute right-6">
-            <RedirectBtn url="/about" locationText="About" />
-          </div>
-        </footer>
-      </div>
+        </div>
+      </main>
     </CharactersContext.Provider>
   );
 }
