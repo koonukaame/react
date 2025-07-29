@@ -1,0 +1,41 @@
+import { NavLink, Outlet } from 'react-router';
+
+const NavLinkMap = [
+  {
+    path: '/',
+    text: 'Main',
+  },
+  {
+    path: '/about',
+    text: 'About',
+  },
+];
+
+export function Layout() {
+  return (
+    <div>
+      <header>
+        <nav>
+          {NavLinkMap.map((nav) => (
+            <NavLink
+              key={nav.text.toLowerCase()}
+              to={nav.path}
+              className={({ isActive }) =>
+                `text-white font-medium px-6 py-2 rounded-full shadow transition ${
+                  isActive
+                    ? 'bg-rose-700/80 cursor-default'
+                    : 'bg-stone-700/80 hover:bg-rose-800 cursor-pointer'
+                }`
+              }
+            >
+              {nav.text}
+            </NavLink>
+          ))}
+        </nav>
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  );
+}
