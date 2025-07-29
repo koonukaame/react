@@ -1,10 +1,9 @@
 import { Link } from 'react-router';
-import { RedirectBtn } from '../../components';
 
 export function About() {
   return (
     <main
-      className="flex flex-col items-center justify-center min-h-screen"
+      className="flex flex-col items-center justify-center min-h-[80vh]"
       data-testid="about-page"
     >
       <h1 className="text-9xl font-extrabold text-rose-700/80 mb-6 tracking-wide">
@@ -21,7 +20,6 @@ export function About() {
           koonukaame
         </Link>
       </p>
-      <RedirectBtn url="/" locationText="Back to Main Page" />
       <p className="absolute bottom-6 text-2xl text-rose-900 max-w-2xl leading-relaxed text-center">
         made in{' '}
         <Link
