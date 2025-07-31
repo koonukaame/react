@@ -16,7 +16,7 @@ export const CharacterDetails = ({ character }: Props) => {
           {character.name}
         </h2>
         <Link
-          to={{ pathname: '/', search: params.toString() }}
+          to={{ pathname: '/character', search: params.toString() }}
           className="w-5 cursor-pointer mt-1 group"
           data-testid="item-details-close"
         >

@@ -41,7 +41,7 @@ vi.mock('react-router', async () => {
 describe('Main page', () => {
   const Stub = createRoutesStub([
     {
-      path: '/',
+      path: '/character',
       Component: Main,
     },
   ]);
@@ -60,7 +60,7 @@ describe('Main page', () => {
       });
 
       await waitFor(() => {
-        render(<Stub initialEntries={['/']} />);
+        render(<Stub initialEntries={['/character']} />);
       });
 
       const mainPage = screen.getByTestId('main-page');
@@ -77,7 +77,7 @@ describe('Main page', () => {
     });
 
     await waitFor(() => {
-      render(<Stub initialEntries={['/']} />);
+      render(<Stub initialEntries={['/character']} />);
     });
 
     const msgBlock = screen.getByTestId('msg-block');
@@ -92,7 +92,9 @@ describe('Main page', () => {
     });
 
     await waitFor(() => {
-      render(<Stub initialEntries={[`/?page=${mockPage.pageNumber}`]} />);
+      render(
+        <Stub initialEntries={[`/character/?page=${mockPage.pageNumber}`]} />
+      );
     });
 
     const prevButton = await screen.findByTestId('previous-button');

@@ -23,12 +23,12 @@ describe('CharacterWidget', () => {
 
       const Stub = createRoutesStub([
         {
-          path: '/:uid',
+          path: '/character/:uid',
           Component: CharacterWidget,
         },
       ]);
 
-      render(<Stub initialEntries={[`/${mockChar.uid}`]} />);
+      render(<Stub initialEntries={[`/character/${mockChar.uid}`]} />);
 
       const spinner = screen.getByTestId('spinner');
       expect(spinner).toBeInTheDocument();
@@ -45,12 +45,12 @@ describe('CharacterWidget', () => {
 
       const Stub = createRoutesStub([
         {
-          path: '/:uid',
+          path: '/character/:uid',
           Component: CharacterWidget,
         },
       ]);
 
-      render(<Stub initialEntries={[`/${mockChar.uid}`]} />);
+      render(<Stub initialEntries={[`/character/${mockChar.uid}`]} />);
 
       const spinner = screen.getByTestId('spinner');
       expect(spinner).toBeInTheDocument();
@@ -70,16 +70,16 @@ describe('CharacterWidget', () => {
 
       const Stub = createRoutesStub([
         {
-          path: '/',
+          path: '/character',
           Component: CharacterWidget,
         },
         {
-          path: '/:uid',
+          path: '/character/:uid',
           Component: CharacterWidget,
         },
       ]);
 
-      render(<Stub initialEntries={['/']} />);
+      render(<Stub initialEntries={['/character']} />);
 
       await waitFor(() => {
         const itemDetails = screen.queryByTestId('item-details');

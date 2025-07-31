@@ -13,12 +13,12 @@ describe('CharsTable component', () => {
 
     const Stub = createRoutesStub([
       {
-        path: '/',
+        path: '/character',
         Component: () => <CharacterList {...mockProps} />,
       },
     ]);
 
-    render(<Stub initialEntries={['/']} />);
+    render(<Stub initialEntries={['/character']} />);
 
     const characterList = screen.getByTestId('character-list');
     expect(characterList).toBeInTheDocument();

@@ -9,12 +9,20 @@ export const router = createBrowserRouter([
       {
         path: '/',
         lazy: async () => {
+          const { Home } = await import('../pages/Home');
+          const { loader } = await import('./loader');
+          return { Component: Home, loader };
+        },
+      },
+      {
+        path: '/character',
+        lazy: async () => {
           const { Main } = await import('../pages');
           return { Component: Main };
         },
         children: [
           {
-            path: '/:uid',
+            path: ':uid',
             element: <CharacterWidget />,
           },
         ],

@@ -7,12 +7,12 @@ import '@testing-library/jest-dom';
 it('renders Layout page without errors', () => {
   const Stub = createRoutesStub([
     {
-      path: '/',
+      path: '/character',
       Component: Layout,
     },
   ]);
 
-  render(<Stub initialEntries={['/']} />);
+  render(<Stub initialEntries={['/character']} />);
 
   const layout = screen.getByTestId('layout');
   expect(layout).toBeInTheDocument();
