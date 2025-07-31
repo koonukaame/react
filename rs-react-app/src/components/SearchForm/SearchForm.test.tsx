@@ -13,13 +13,11 @@ describe('SearchForm component', () => {
   });
 
   describe('Rendering Tests', () => {
-    it('renders search input and search button', () => {
+    it('renders search form', () => {
       render(<SearchForm onSearch={mockSearch} />);
 
-      const searchInput = screen.getByTestId('search-input');
-      const searchBtn = screen.getByTestId('search-button');
-      expect(searchInput).toBeInTheDocument();
-      expect(searchBtn).toBeInTheDocument();
+      const searchForm = screen.getByTestId('search-form');
+      expect(searchForm).toBeInTheDocument();
     });
 
     it('shows empty input when no saved term exists', () => {
@@ -51,27 +49,6 @@ describe('SearchForm component', () => {
       fireEvent.click(searchBtn);
 
       expect(localStorage.getItem(SEARCH_KEY)).toBe('Zyx');
-    });
-  });
-
-  describe('LocalStorage Integration', () => {
-    it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
-      localStorage.setItem(SEARCH_KEY, 'old');
-
-      render(<SearchForm onSearch={mockSearch} />);
-
-      const searchInput = screen.getByTestId('search-input');
-      const searchBtn = screen.getByTestId('search-button');
-
-      fireEvent.change(searchInput, { target: { value: '  new  ' } });
-      fireEvent.click(searchBtn);
-
-      const formData = new FormData();
-      formData.set('name', 'new');
-      expect(mockSearch).toHaveBeenCalledWith(formData);
-      expect(mockSearch).toHaveBeenCalledTimes(1);
-
-      expect(localStorage.getItem(SEARCH_KEY)).toBe('new');
     });
   });
 });

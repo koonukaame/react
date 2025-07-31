@@ -34,11 +34,8 @@ describe('CharsResults component', () => {
         </ErrorBoundary>
       );
 
-      const errorText = screen.getByTestId('render-error-text');
-      const resetErrorBtn = screen.getByTestId('reset-error-btn');
-
-      expect(errorText).toBeInTheDocument();
-      expect(resetErrorBtn).toBeInTheDocument();
+      const errorBoundary = screen.getByTestId('error-boundary');
+      expect(errorBoundary).toBeInTheDocument();
     });
 
     it('displays correct UI', () => {
@@ -56,26 +53,24 @@ describe('CharsResults component', () => {
       expect(app).toBeInTheDocument();
     });
 
-    describe('Reset Error', () => {
-      it('removes fallback UI on reset button click', () => {
-        const ErrorComponent = () => {
-          throw new Error('error');
-        };
+    it('removes fallback UI on reset button click', () => {
+      const ErrorComponent = () => {
+        throw new Error('error');
+      };
 
-        render(
-          <ErrorBoundary>
-            <ErrorComponent />
-          </ErrorBoundary>
-        );
+      render(
+        <ErrorBoundary>
+          <ErrorComponent />
+        </ErrorBoundary>
+      );
 
-        const resetErrorBtn = screen.getByTestId('reset-error-btn');
-        const errorText = screen.getByTestId('render-error-text');
+      const resetErrorBtn = screen.getByTestId('reset-error-btn');
+      const errorBoundary = screen.getByTestId('error-boundary');
 
-        fireEvent.click(resetErrorBtn);
+      fireEvent.click(resetErrorBtn);
 
-        expect(errorText).not.toBeInTheDocument();
-        expect(resetErrorBtn).not.toBeInTheDocument();
-      });
+      expect(errorBoundary).not.toBeInTheDocument();
+      expect(resetErrorBtn).not.toBeInTheDocument();
     });
   });
 });

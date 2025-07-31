@@ -1,80 +1,44 @@
-import {
-  Component,
-  type ChangeEvent,
-  type FormEvent,
-  type ReactNode,
-} from 'react';
-import { SEARCH_KEY } from '../../shared';
+import { type ChangeEvent, type FormEvent } from 'react';
+import { SEARCH_KEY, Button } from '../../shared';
+import { useLocalStorage } from '../../shared';
 
 type Props = {
-  onSearch: (data: FormData) => void;
+  onSearch: (data: string) => void;
 };
 
-type State = {
-  input: string;
-};
+export function SearchForm({ onSearch }: Props) {
+  const [value, setValue] = useLocalStorage(SEARCH_KEY);
 
-export class SearchForm extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this._onSearch = props.onSearch;
-    this._onChange = this._onChange.bind(this);
-    this._onSubmit = this._onSubmit.bind(this);
-
-    const initInputValue = localStorage.getItem(SEARCH_KEY) ?? '';
-
-    this.state = {
-      input: initInputValue,
-    };
-  }
-
-  render(): ReactNode {
-    return (
-      <form
-        onSubmit={this._onSubmit}
-        className="flex items-center justify-center gap-3"
-        data-testid="search-form"
-      >
-        <input
-          value={this.state.input}
-          onChange={this._onChange}
-          name="name"
-          type="search"
-          placeholder="Who are you looking for?"
-          data-testid="search-input"
-          className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
-        />
-        <button
-          type="submit"
-          data-testid="search-button"
-          className="bg-rose-400 hover:bg-rose-500 text-white font-medium px-6 py-2 rounded-full shadow transition"
-        >
-          Search
-        </button>
-      </form>
-    );
-  }
-
-  private _onSubmit(event: FormEvent<HTMLFormElement>) {
+  function _onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const trimmedInput = this.state.input.trim();
+    const trimmedInput = value.trim();
 
-    this.setState({ input: trimmedInput });
-    localStorage.setItem(SEARCH_KEY, trimmedInput);
-
-    const formData = new FormData(event.currentTarget);
-    formData.set('name', trimmedInput);
-
-    this._onSearch(formData);
+    setValue(trimmedInput);
+    onSearch(trimmedInput);
   }
 
-  private _onChange(e: ChangeEvent<HTMLInputElement>) {
-    localStorage.setItem(SEARCH_KEY, e.target.value);
-
-    this.setState({
-      input: e.target.value,
-    });
+  function _onChange(e: ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value);
   }
 
-  private _onSearch: Props['onSearch'];
+  return (
+    <form
+      onSubmit={_onSubmit}
+      className="flex items-center justify-center gap-3"
+      data-testid="search-form"
+    >
+      <input
+        value={value}
+        onChange={_onChange}
+        name="name"
+        type="search"
+        placeholder="Who are you looking for?"
+        data-testid="search-input"
+        className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
+      />
+      <Button type="submit" data-testid="search-button">
+        Search
+      </Button>
+    </form>
+  );
 }

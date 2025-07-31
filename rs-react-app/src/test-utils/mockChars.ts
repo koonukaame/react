@@ -7,6 +7,11 @@ export const mockChars: Character[] = [
     gender: 'F',
     yearOfBirth: 1,
     yearOfDeath: 10,
+    placeOfBirth: 'hh',
+    placeOfDeath: 'zz',
+    height: 183,
+    weight: 70,
+    deceased: true,
   },
   {
     uid: '2',
@@ -14,5 +19,10 @@ export const mockChars: Character[] = [
     gender: 'M',
     yearOfBirth: 2,
     yearOfDeath: 11,
+    placeOfBirth: 'yy',
+    placeOfDeath: 'ii',
+    height: 4,
+    weight: 1,
+    deceased: false,
   },
 ];
