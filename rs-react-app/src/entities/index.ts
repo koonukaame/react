@@ -1,2 +1,8 @@
-export type { Character } from './character';
-export type { Page } from './page';
+export {
+  searchCharacter,
+  getCharacter,
+  CharacterList,
+  CharacterDetails,
+  Character,
+  CharacterResponse,
+} from './character';

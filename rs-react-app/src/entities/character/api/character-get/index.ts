@@ -1,1 +1,1 @@
-export { getCharacter } from './character-get';
+export { getCharacter } from './get-character';

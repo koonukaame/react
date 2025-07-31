@@ -1,1 +1,1 @@
-export { searchCharacter } from './character-search';
+export { searchCharacter } from './search-character';

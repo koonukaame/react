@@ -1,6 +1,7 @@
 import * as z from 'zod';
+import { ResponsePage } from '../../../shared';
 
-export const charSchema = z.object({
+export const Character = z.object({
   uid: z.string(),
   name: z.string(),
   gender: z.string().nullable(),
@@ -13,15 +14,11 @@ export const charSchema = z.object({
   deceased: z.boolean().nullable(),
 });
 
-export const responseSchema = z.object({
-  page: z.object({
-    pageNumber: z.number(),
-    pageSize: z.number(),
-    numberOfElements: z.number(),
-    totalElements: z.number(),
-    totalPages: z.number(),
-    firstPage: z.boolean(),
-    lastPage: z.boolean(),
-  }),
-  characters: z.array(charSchema),
+export type Character = z.infer<typeof Character>;
+
+export const CharacterResponse = z.object({
+  page: ResponsePage,
+  characters: z.array(Character),
 });
+
+export type CharacterResponse = z.infer<typeof CharacterResponse>;
