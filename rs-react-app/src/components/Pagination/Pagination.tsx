@@ -1,42 +1,31 @@
-import type { Page } from '../../entities';
-import { PAGE_OFFSET, SEARCH_KEY } from '../../shared';
-import { Button } from '../../shared/ui-kit/Button';
+import { Button } from '../../shared';
 
 type Props = {
-  page: Page;
-  onSearch: (formData: FormData, pageNum: number) => void;
+  page: number;
+  onChange: (page: number) => void;
+  totalPages: number;
 };
 
-export function Pagination({ page, onSearch }: Props) {
-  function changePage(pageNum: number) {
-    const searchTerm = localStorage.getItem(SEARCH_KEY) ?? '';
-    const formData = new FormData();
-    formData.set('name', searchTerm);
-
-    onSearch(formData, pageNum);
-  }
-
+export function Pagination({ page, onChange, totalPages }: Props) {
   return (
     <div
       className="flex gap-2 items-center justify-center"
       data-testid="pagination"
     >
       <Button
-        onClick={() => changePage(page.pageNumber - PAGE_OFFSET)}
-        disabled={page.firstPage}
+        onClick={() => onChange(page - 1)}
+        disabled={page === 1}
         classNames={`disabled:bg-gray-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
         Prev
       </Button>
       <span data-testid="page-count">
-        {page.totalPages === 0
-          ? page.pageNumber + PAGE_OFFSET
-          : `${page.pageNumber + PAGE_OFFSET} / ${page.totalPages}`}
+        {page} / {totalPages}
       </span>
       <Button
-        onClick={() => changePage(page.pageNumber + PAGE_OFFSET)}
-        disabled={page.lastPage}
+        onClick={() => onChange(page + 1)}
+        disabled={page === totalPages}
         classNames={'disabled:bg-gray-400 disabled:cursor-not-allowed'}
         data-testid="next-button"
       >
