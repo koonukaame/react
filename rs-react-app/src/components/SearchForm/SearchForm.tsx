@@ -36,7 +36,7 @@ export function SearchForm({ onSearch }: Props) {
         data-testid="search-input"
         className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
       />
-      <Button type="submit" data-testid="search-button" classNames="">
+      <Button type="submit" data-testid="search-button">
         Search
       </Button>
     </form>

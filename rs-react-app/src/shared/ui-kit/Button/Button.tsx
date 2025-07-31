@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../lib';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  classNames: string;
+  classNames?: string;
 };
 
 export function Button({ classNames, ...props }: Props) {
