@@ -35,11 +35,6 @@ export function Layout() {
                       : 'bg-stone-700/80 hover:bg-rose-800 cursor-pointer'
                   }`
                 }
-                onClick={(e) => {
-                  if (isActive) {
-                    e.preventDefault();
-                  }
-                }}
               >
                 {nav.text}
               </NavLink>
