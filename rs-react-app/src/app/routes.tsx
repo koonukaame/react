@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { Layout } from '../components';
-import { CharacterWidget } from '../widget/CharacterWidget/CharacterWidget';
+import { CharacterWidget } from '../widget';
 
 export const router = createBrowserRouter([
   {
