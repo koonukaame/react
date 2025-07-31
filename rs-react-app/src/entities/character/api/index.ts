@@ -1,2 +1,2 @@
-export { searchCharacter } from './character-search';
-export { getCharacter } from './character-get';
+export { searchCharacter } from './search-character';
+export { getCharacter } from './get-character';

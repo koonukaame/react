@@ -1,5 +1,4 @@
-import type { Character } from '../../..';
-import { charSchema } from '../../model';
+import { Character } from '../../..';
 
 type CharacterSuccessResult = {
   character: Character;
@@ -24,7 +23,7 @@ export const getCharacter = async (uid: string): Promise<CharacterResult> => {
     }
 
     const data = await response.json();
-    const result = charSchema.safeParse(data.character);
+    const result = Character.safeParse(data.character);
 
     if (!result.success) {
       return {

@@ -1,5 +1,5 @@
 import type { ResponsePage } from '../../../../shared';
-import { responseSchema } from '../../model';
+import { CharacterResponse } from '../../model/character-schema';
 import type { Character } from '../../model/character-schema';
 
 type CharacterSearchSuccess = {
@@ -35,7 +35,7 @@ export const searchCharacter = async (
     );
 
     const data = await response.json();
-    const result = responseSchema.safeParse(data);
+    const result = CharacterResponse.safeParse(data);
 
     if (!response.ok) {
       return { message: 'api error', ok: false }; // TODO: better error message
