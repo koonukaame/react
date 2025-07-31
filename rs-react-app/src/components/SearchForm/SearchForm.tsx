@@ -1,10 +1,9 @@
 import { type ChangeEvent, type FormEvent } from 'react';
-import { SEARCH_KEY } from '../../shared';
-import { useLocalStorage } from '../../features';
-import { Button } from '../../shared/ui-kit/Button';
+import { SEARCH_KEY, Button } from '../../shared';
+import { useLocalStorage } from '../../shared';
 
 type Props = {
-  onSearch: (data: FormData) => void;
+  onSearch: (data: string) => void;
 };
 
 export function SearchForm({ onSearch }: Props) {
@@ -15,11 +14,7 @@ export function SearchForm({ onSearch }: Props) {
     const trimmedInput = value.trim();
 
     setValue(trimmedInput);
-
-    const formData = new FormData();
-    formData.set('name', trimmedInput);
-
-    onSearch(formData);
+    onSearch(trimmedInput);
   }
 
   function _onChange(e: ChangeEvent<HTMLInputElement>) {
