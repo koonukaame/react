@@ -24,23 +24,21 @@ export function Main() {
       const result = await searchCharacter(name, page);
       setIsLoading(false);
 
-      if (result.ok) {
-        const {
-          characters,
-          page: { totalPages, pageNumber },
-        } = result;
-
-        setChars(characters);
-
-        setTotalPages(totalPages);
-        const nextPage = Math.min(totalPages, pageNumber);
-        setPage(nextPage);
-        setSearchParams({
-          page: nextPage.toString(),
-        });
-      } else {
+      if (!result.ok) {
         setHasError(true);
+        return;
       }
+      const {
+        characters,
+        page: { totalPages, pageNumber },
+      } = result;
+      setChars(characters);
+      setTotalPages(totalPages);
+      const nextPage = Math.min(totalPages, pageNumber);
+      setPage(nextPage);
+      setSearchParams({
+        page: nextPage.toString(),
+      });
     },
     [setSearchParams]
   );
