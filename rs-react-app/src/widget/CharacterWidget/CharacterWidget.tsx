@@ -12,12 +12,13 @@ export function CharacterWidget() {
     setIsLoading(true);
     const result = await getCharacter(uid);
     setIsLoading(false);
-    if (result.ok) {
-      const { character } = result;
-      setSelectedChar(character);
-    } else {
+    if (!result.ok) {
       setSelectedChar(null);
+      return;
     }
+
+    const { character } = result;
+    setSelectedChar(character);
   }, []);
 
   useEffect(() => {
