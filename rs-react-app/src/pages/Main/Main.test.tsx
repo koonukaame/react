@@ -22,7 +22,6 @@ vi.mock('../../entities', async () => {
   return {
     ...originalModule,
     searchCharacter: vi.fn(),
-    // getCharacter: vi.fn(),
   };
 });
 

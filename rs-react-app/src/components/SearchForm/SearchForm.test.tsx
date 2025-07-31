@@ -51,22 +51,4 @@ describe('SearchForm component', () => {
       expect(localStorage.getItem(SEARCH_KEY)).toBe('Zyx');
     });
   });
-  // it('overwrites existing localStorage value when new search is performed & trims whitespaces', () => {
-  //   localStorage.setItem(SEARCH_KEY, 'old');
-
-  //   render(<SearchForm onSearch={mockSearch} />);
-
-  //   const searchInput = screen.getByTestId('search-input');
-  //   const searchBtn = screen.getByTestId('search-button');
-
-  //   fireEvent.change(searchInput, { target: { value: '  new  ' } });
-  //   fireEvent.click(searchBtn);
-
-  //   const formData = new FormData();
-  //   formData.set('name', 'new');
-  //   expect(mockSearch).toHaveBeenCalledWith(formData);
-  //   expect(mockSearch).toHaveBeenCalledTimes(1);
-
-  //   expect(localStorage.getItem(SEARCH_KEY)).toBe('new');
-  // });
 });

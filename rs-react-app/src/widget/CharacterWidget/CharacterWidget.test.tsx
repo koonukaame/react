@@ -10,7 +10,6 @@ vi.mock('../../entities', async () => {
   const originalModule = await vi.importActual('../../entities');
   return {
     ...originalModule,
-    // searchCharacter: vi.fn(),
     getCharacter: vi.fn(),
   };
 });

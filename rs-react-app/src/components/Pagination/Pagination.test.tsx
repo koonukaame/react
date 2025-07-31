@@ -57,27 +57,5 @@ describe('Pagination component', () => {
       expect(mockOnChange).toHaveBeenCalledTimes(0);
       expect(nextBtn).toBeDisabled();
     });
-
-    // it('buttons are not disabled on middle page', () => {
-    //   render(<Pagination page={mockPage} onSearch={mockOnSearch} />);
-
-    //   const prevBtn = screen.getByTestId('previous-button');
-    //   const nextBtn = screen.getByTestId('next-button');
-
-    //   expect(prevBtn).toBeEnabled();
-    //   expect(nextBtn).toBeEnabled();
-    // });
   });
-
-  // it('calls onSearch on pagination button click', () => {
-  //   const searchTerm = 'test';
-  //   localStorage.setItem(SEARCH_KEY, searchTerm);
-
-  //   render(<Pagination page={mockPage} onSearch={mockOnSearch} />);
-
-  //   const prevBtn = screen.getByTestId('previous-button');
-  //   fireEvent.click(prevBtn);
-
-  //   expect(mockOnSearch).toHaveBeenCalledTimes(1);
-  // });
 });
