@@ -1,27 +1,21 @@
 import { createBrowserRouter } from 'react-router';
-import { ResultDisplay } from '../components';
+import { Layout } from '../components';
+import { CharacterWidget } from '../widget/CharacterWidget/CharacterWidget';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    lazy: async () => {
-      const { Layout } = await import('../components');
-      return { Component: Layout };
-    },
+    Component: Layout,
     children: [
       {
+        path: '/',
         lazy: async () => {
           const { Main } = await import('../pages');
           return { Component: Main };
         },
         children: [
           {
-            index: true,
-            element: <ResultDisplay />,
-          },
-          {
-            path: 'character/:uid',
-            element: <ResultDisplay />,
+            path: '/:uid',
+            element: <CharacterWidget />,
           },
         ],
       },
