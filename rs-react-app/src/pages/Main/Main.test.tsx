@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { Main } from './Main';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { searchCharacter } from '../../entities';
 import { ResponsePage } from '../../shared';
@@ -59,7 +59,7 @@ describe('Main page', () => {
         page: mockPage,
       });
 
-      await waitFor(() => {
+      await act(async () => {
         render(<Stub initialEntries={['/character']} />);
       });
 
@@ -76,7 +76,7 @@ describe('Main page', () => {
       message: 'api error',
     });
 
-    await waitFor(() => {
+    await act(async () => {
       render(<Stub initialEntries={['/character']} />);
     });
 
@@ -91,14 +91,16 @@ describe('Main page', () => {
       page: mockPage,
     });
 
-    await waitFor(() => {
+    await act(async () => {
       render(
         <Stub initialEntries={[`/character/?page=${mockPage.pageNumber}`]} />
       );
     });
 
     const prevButton = await screen.findByTestId('previous-button');
-    fireEvent.click(prevButton);
+    await act(async () => {
+      fireEvent.click(prevButton);
+    });
 
     expect(setSearchParamsMock).toHaveBeenCalledWith({
       page: (mockPage.pageNumber - 1).toString(),
