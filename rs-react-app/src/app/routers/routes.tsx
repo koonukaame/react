@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router';
-import { Layout } from '../components';
-import { CharacterWidget } from '../widget';
+import { Layout } from '../../components';
+import { CharacterWidget } from '../../widget';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
       {
         path: '/character',
         lazy: async () => {
-          const { Main } = await import('../pages');
+          const { Main } = await import('../../pages');
           return { Component: Main };
         },
         children: [
@@ -26,14 +26,14 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         lazy: async () => {
-          const { About } = await import('../pages');
+          const { About } = await import('../../pages');
           return { Component: About };
         },
       },
       {
         path: '*',
         lazy: async () => {
-          const { NotFound } = await import('../pages');
+          const { NotFound } = await import('../../pages');
           return { Component: NotFound };
         },
       },
