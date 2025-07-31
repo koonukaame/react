@@ -1,1 +1,0 @@
-export { CharsTable } from './CharsTable';
