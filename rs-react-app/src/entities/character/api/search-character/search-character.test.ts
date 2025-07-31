@@ -53,7 +53,7 @@ describe('searchCharacter function', () => {
       const result = await searchCharacter('Fff', 1);
 
       expect(result).toEqual({
-        message: 'api error',
+        message: `API failed with error ${mockResponse.status}: ${mockResponse.statusText}`,
         ok: false,
       });
     });

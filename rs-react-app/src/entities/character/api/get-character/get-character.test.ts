@@ -33,7 +33,10 @@ describe('searchCharacter function', () => {
       const uid = mockChar.uid;
       const result = await getCharacter(uid);
 
-      expect(result).toEqual({ message: 'api error', ok: false });
+      expect(result).toEqual({
+        message: `API failed with error ${mockResponse.status}: ${mockResponse.statusText}`,
+        ok: false,
+      });
     });
 
     it('returns error when data does not satisfy Character schema', async () => {

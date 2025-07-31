@@ -19,7 +19,10 @@ export const getCharacter = async (uid: string): Promise<CharacterResult> => {
     );
 
     if (!response.ok) {
-      return { message: 'api error', ok: false }; // TODO: better error message
+      return {
+        message: `API failed with error ${response.status}: ${response.statusText}`,
+        ok: false,
+      };
     }
 
     const data = await response.json();

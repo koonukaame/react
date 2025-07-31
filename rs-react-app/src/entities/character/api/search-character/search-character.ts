@@ -38,7 +38,10 @@ export const searchCharacter = async (
     const result = CharacterResponse.safeParse(data);
 
     if (!response.ok) {
-      return { message: 'api error', ok: false }; // TODO: better error message
+      return {
+        message: `API failed with error ${response.status}: ${response.statusText}`,
+        ok: false,
+      };
     }
 
     if (!result.success) {
