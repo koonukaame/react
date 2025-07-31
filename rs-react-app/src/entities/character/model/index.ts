@@ -1,4 +1,1 @@
-export {
-  Character as charSchema,
-  CharacterResponse as responseSchema,
-} from './character-schema';
+export { Character, CharacterResponse } from './character-schema';
