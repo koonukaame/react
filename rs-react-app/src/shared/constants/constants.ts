@@ -1,7 +1,6 @@
 import type { Character } from '../../entities';
 
 export const SEARCH_KEY = 'search';
-export const PAGE_OFFSET = 1;
 
 type CharMapType = {
   key: string;
