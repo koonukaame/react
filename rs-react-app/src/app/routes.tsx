@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 import { Layout } from '../components';
 import { CharacterWidget } from '../widget';
 
@@ -8,11 +8,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        lazy: async () => {
-          const { Home } = await import('../pages/Home');
-          const { loader } = await import('./loader');
-          return { Component: Home, loader };
-        },
+        loader: () => redirect('/character'),
       },
       {
         path: '/character',
