@@ -6,7 +6,7 @@ type Props = {
   totalPages: number;
 };
 
-export function Pagination({ page, onChange, totalPages }: Props) {
+export const Pagination = ({ page, onChange, totalPages }: Props) => {
   return (
     <div
       className="flex gap-2 items-center justify-center"
@@ -33,4 +33,4 @@ export function Pagination({ page, onChange, totalPages }: Props) {
       </Button>
     </div>
   );
-}
+};

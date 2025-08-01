@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 type useLocalStorageReturn = [string, (newValue: string) => void];
 
-export function useLocalStorage(key: string): useLocalStorageReturn {
+export const useLocalStorage = (key: string): useLocalStorageReturn => {
   const [value, setValue] = useState<string>(() => {
     return localStorage.getItem(key) ?? '';
   });
@@ -13,4 +13,4 @@ export function useLocalStorage(key: string): useLocalStorageReturn {
   }
 
   return [value, updateValue];
-}
+};

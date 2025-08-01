@@ -8,7 +8,7 @@ type Props = {
   characters: Character[];
 };
 
-export function CharacterList({ characters }: Props) {
+export const CharacterList = ({ characters }: Props) => {
   const [params] = useSearchParams();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -46,4 +46,4 @@ export function CharacterList({ characters }: Props) {
       ))}
     </ul>
   );
-}
+};

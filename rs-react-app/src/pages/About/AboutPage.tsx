@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-export function About() {
+export const About = () => {
   return (
     <main
       className="flex flex-col items-center justify-center min-h-[80vh]"
@@ -33,4 +33,4 @@ export function About() {
       </p>
     </main>
   );
-}
+};

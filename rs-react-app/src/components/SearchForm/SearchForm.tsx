@@ -6,20 +6,20 @@ type Props = {
   onSearch: (data: string) => void;
 };
 
-export function SearchForm({ onSearch }: Props) {
+export const SearchForm = ({ onSearch }: Props) => {
   const [value, setValue] = useLocalStorage(SEARCH_KEY);
 
-  function _onSubmit(event: FormEvent<HTMLFormElement>) {
+  const _onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const trimmedInput = value.trim();
 
     setValue(trimmedInput);
     onSearch(trimmedInput);
-  }
+  };
 
-  function _onChange(e: ChangeEvent<HTMLInputElement>) {
+  const _onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }
+  };
 
   return (
     <form
@@ -41,4 +41,4 @@ export function SearchForm({ onSearch }: Props) {
       </Button>
     </form>
   );
-}
+};

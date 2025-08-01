@@ -5,7 +5,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   classNames?: string;
 };
 
-export function Button({ classNames, ...props }: Props) {
+export const Button = ({ classNames, ...props }: Props) => {
   return (
     <button
       {...props}
@@ -15,4 +15,4 @@ export function Button({ classNames, ...props }: Props) {
       )}
     />
   );
-}
+};

@@ -5,7 +5,7 @@ import { MsgBlock, SEARCH_KEY } from '../../shared';
 import { useLocalStorage } from '../../shared';
 import { Outlet, useSearchParams } from 'react-router';
 
-export function Main() {
+export const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageParam = searchParams.get('page') ?? '';
@@ -93,4 +93,4 @@ export function Main() {
       </div>
     </main>
   );
-}
+};

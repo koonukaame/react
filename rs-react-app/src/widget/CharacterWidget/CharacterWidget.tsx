@@ -3,7 +3,7 @@ import { getCharacter, type Character, CharacterDetails } from '../../entities';
 import { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
 
-export function CharacterWidget() {
+export const CharacterWidget = () => {
   const { uid } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedChar, setSelectedChar] = useState<Character | null>(null);
@@ -37,4 +37,4 @@ export function CharacterWidget() {
   ) : selectedChar ? (
     <CharacterDetails character={selectedChar} />
   ) : null;
-}
+};

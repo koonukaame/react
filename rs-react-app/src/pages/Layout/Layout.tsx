@@ -12,7 +12,7 @@ const navigationLinks = [
   },
 ];
 
-export function Layout() {
+export const Layout = () => {
   const location = useLocation();
 
   return (
@@ -49,4 +49,4 @@ export function Layout() {
       <Flyout />
     </div>
   );
-}
+};

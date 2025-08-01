@@ -6,7 +6,7 @@ export const Flyout = () => {
   const characters = useSelector((state: RootState) => state.select);
   const dispatch = useDispatch();
 
-  function handleDownload(): string {
+  const handleDownload = () => {
     const headers = Object.keys(characters[0] || {}).join(', ');
 
     const formattedData = characters.map((item) =>
@@ -22,7 +22,7 @@ export const Flyout = () => {
     });
 
     return URL.createObjectURL(blob);
-  }
+  };
 
   return characters.length > 0 ? (
     <div className="fixed left-6 bottom-6">

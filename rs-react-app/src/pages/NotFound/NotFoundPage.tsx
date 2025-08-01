@@ -1,4 +1,4 @@
-export function NotFound() {
+export const NotFound = () => {
   return (
     <main
       className="flex flex-col items-center justify-center min-h-[80vh]"
@@ -12,4 +12,4 @@ export function NotFound() {
       </span>
     </main>
   );
-}
+};

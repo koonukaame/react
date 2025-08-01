@@ -4,7 +4,7 @@ export type Props = {
   isItemDetails?: boolean;
 };
 
-export function MsgBlock({ title, msg }: Props) {
+export const MsgBlock = ({ title, msg }: Props) => {
   return (
     <div
       className={'bg-rose-50 text-rose-800 text-center p-6'}
@@ -14,4 +14,4 @@ export function MsgBlock({ title, msg }: Props) {
       <p className="text-sm">{msg}</p>
     </div>
   );
-}
+};

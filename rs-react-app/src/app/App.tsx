@@ -3,7 +3,7 @@ import { router } from './routers';
 import { ErrorBoundary } from '../components';
 import { MainProviders } from './providers';
 
-export function App() {
+export const App = () => {
   return (
     <ErrorBoundary>
       <MainProviders>
@@ -11,4 +11,4 @@ export function App() {
       </MainProviders>
     </ErrorBoundary>
   );
-}
+};
