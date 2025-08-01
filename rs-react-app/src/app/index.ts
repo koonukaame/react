@@ -1,3 +1,8 @@
 export { App } from './App';
-export { mainStore } from './stores';
+export {
+  mainStore,
+  type AppStore,
+  type RootState,
+  type AppDispatch,
+} from './stores';
 export { MainProviders } from './providers';

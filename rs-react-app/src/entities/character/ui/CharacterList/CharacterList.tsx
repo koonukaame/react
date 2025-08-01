@@ -1,5 +1,8 @@
 import { Link, useLocation, useSearchParams } from 'react-router';
 import type { Character } from '../../..';
+import { useDispatch, useSelector } from 'react-redux';
+import { type RootState } from '../../../../app';
+import { unselectCharacter, selectCharacter } from '../../../../features';
 
 type Props = {
   characters: Character[];
@@ -8,6 +11,11 @@ type Props = {
 export function CharacterList({ characters }: Props) {
   const [params] = useSearchParams();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const uids = useSelector((state: RootState) => state.select);
+
+  console.log(uids);
 
   return (
     <ul
@@ -15,7 +23,16 @@ export function CharacterList({ characters }: Props) {
       data-testid="character-list"
     >
       {characters.map((character) => (
-        <li key={character.uid} className="w-full">
+        <li key={character.uid} className="w-full flex justify-center">
+          <input
+            type="checkbox"
+            checked={uids.includes(character)}
+            onChange={() =>
+              uids.includes(character)
+                ? dispatch(unselectCharacter(character))
+                : dispatch(selectCharacter(character))
+            }
+          />
           <Link
             to={{
               pathname: `/character/${character.uid}`,
