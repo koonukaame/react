@@ -1,4 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router';
+import { Flyout } from '../../components/Flyout';
 
 const navigationLinks = [
   {
@@ -16,7 +17,7 @@ export function Layout() {
 
   return (
     <div
-      className="flex flex-col min-h-screen max-w overflow-hidden p-6"
+      className=" relative flex flex-col min-h-screen max-w overflow-hidden p-6"
       data-testid="layout"
     >
       <header>
@@ -45,6 +46,7 @@ export function Layout() {
       <main>
         <Outlet />
       </main>
+      <Flyout />
     </div>
   );
 }
