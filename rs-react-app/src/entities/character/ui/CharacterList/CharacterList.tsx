@@ -14,7 +14,7 @@ export const CharacterList = ({ characters }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const uids = useSelector((state: RootState) => state.select);
+  const charactersState = useSelector((state: RootState) => state.select);
 
   return (
     <ul
@@ -35,14 +35,14 @@ export const CharacterList = ({ characters }: Props) => {
           <input
             data-testid="checkbox"
             type="checkbox"
-            checked={uids.includes(character)}
+            checked={charactersState.some((char) => char.uid === character.uid)}
             onChange={() =>
-              uids.includes(character)
+              charactersState.some((char) => char.uid === character.uid)
                 ? dispatch(unselectCharacter(character))
                 : dispatch(selectCharacter(character))
             }
           />
-          <span className="px-4 py-2 text-rose-800 dark:text-stone-200 transition-colors block">
+          <span className="px-4 py-2 text-rose-800 dark:text-stone-200 transition-colors">
             {character.name ?? 'Anonymous character'}
           </span>
         </li>
