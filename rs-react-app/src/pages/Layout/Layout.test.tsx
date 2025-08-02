@@ -5,6 +5,7 @@ import { createRoutesStub } from 'react-router';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { mockStore } from '../../test-utils';
+import { ThemeProvider } from '../../app';
 
 it('renders Layout page without errors', () => {
   const Stub = createRoutesStub([
@@ -13,7 +14,9 @@ it('renders Layout page without errors', () => {
       Component: () => {
         return (
           <Provider store={mockStore}>
-            <Layout />
+            <ThemeProvider>
+              <Layout />
+            </ThemeProvider>
           </Provider>
         );
       },

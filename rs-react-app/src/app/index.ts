@@ -6,3 +6,4 @@ export {
   type AppDispatch,
 } from './stores';
 export { useTheme } from './providers';
+export { ThemeProvider } from './providers';
