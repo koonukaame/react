@@ -1,13 +1,13 @@
 import { expect, it } from 'vitest';
-import { MainProviders } from './provider';
+import { StoreProvider } from './StoreProvider';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 it('Provider renders children correctly', () => {
   render(
-    <MainProviders>
+    <StoreProvider>
       <div data-testid="child"></div>
-    </MainProviders>
+    </StoreProvider>
   );
 
   expect(screen.getByTestId('child')).toBeInTheDocument();
