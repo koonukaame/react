@@ -20,7 +20,7 @@ export const CharacterDetails = ({ character }: Props) => {
         </h2>
         <Link
           to={{ pathname: '/character', search: params.toString() }}
-          className="w-5 cursor-pointer mt-1 group"
+          className="w-5 cursor-pointer mt-4 group"
           data-testid="item-details-close"
         >
           <div className="w-full h-0.5 bg-stone-500 dark:bg-stone-400 dark: rotate-45 group-hover:bg-rose-800 dark:group-hover:bg-rose-300 transition-colors" />
