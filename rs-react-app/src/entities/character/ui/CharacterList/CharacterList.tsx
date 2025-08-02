@@ -1,4 +1,4 @@
-import { Link, useLocation, useSearchParams } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import type { Character } from '../../..';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '../../../../app';
@@ -12,6 +12,7 @@ export const CharacterList = ({ characters }: Props) => {
   const [params] = useSearchParams();
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const uids = useSelector((state: RootState) => state.select);
 
@@ -23,7 +24,16 @@ export const CharacterList = ({ characters }: Props) => {
       data-testid="character-list"
     >
       {characters.map((character) => (
-        <li key={character.uid} className="w-full flex justify-center">
+        <li
+          key={character.uid}
+          className="w-full flex justify-center hover:bg-rose-200"
+          onClick={() =>
+            navigate({
+              pathname: `/character/${character.uid}`,
+              search: params.toString(),
+            })
+          }
+        >
           <input
             data-testid="checkbox"
             type="checkbox"
@@ -34,15 +44,9 @@ export const CharacterList = ({ characters }: Props) => {
                 : dispatch(selectCharacter(character))
             }
           />
-          <Link
-            to={{
-              pathname: `/character/${character.uid}`,
-              search: params.toString(),
-            }}
-            className="px-4 py-2 hover:bg-rose-200 text-rose-800 transition-colors block"
-          >
+          <span className="px-4 py-2 text-rose-800 transition-colors block">
             {character.name ?? 'Anonymous character'}
-          </Link>
+          </span>
         </li>
       ))}
     </ul>
