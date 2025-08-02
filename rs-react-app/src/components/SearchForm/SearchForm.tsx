@@ -34,7 +34,7 @@ export const SearchForm = ({ onSearch }: Props) => {
         type="search"
         placeholder="Who are you looking for?"
         data-testid="search-input"
-        className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
+        className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-stone-700 dark:text-stone-200 dark:border-stone-700 transition"
       />
       <Button type="submit" data-testid="search-button">
         Search

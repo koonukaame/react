@@ -24,7 +24,7 @@ export const CharacterList = ({ characters }: Props) => {
       {characters.map((character) => (
         <li
           key={character.uid}
-          className="w-full flex justify-center hover:bg-rose-200"
+          className="w-full flex justify-center hover:bg-rose-200 dark:hover:bg-stone-600"
           onClick={() =>
             navigate({
               pathname: `/character/${character.uid}`,
@@ -42,7 +42,7 @@ export const CharacterList = ({ characters }: Props) => {
                 : dispatch(selectCharacter(character))
             }
           />
-          <span className="px-4 py-2 text-rose-800 transition-colors block">
+          <span className="px-4 py-2 text-rose-800 dark:text-stone-200 transition-colors block">
             {character.name ?? 'Anonymous character'}
           </span>
         </li>

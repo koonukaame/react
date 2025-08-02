@@ -15,12 +15,12 @@ export const Pagination = ({ page, onChange, totalPages }: Props) => {
       <Button
         onClick={() => onChange(page - 1)}
         disabled={page === 1}
-        classNames={`disabled:bg-gray-400 disabled:cursor-not-allowed`}
+        classNames={`disabled:bg-stone-400 dark:hover:disabled:bg-stone-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
         Prev
       </Button>
-      <span data-testid="page-count">
+      <span data-testid="page-count" className="dark:text-stone-200">
         {page} / {totalPages}
       </span>
       <Button

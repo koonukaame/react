@@ -3,3 +3,5 @@
 :root {
   scrollbar-gutter: stable;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

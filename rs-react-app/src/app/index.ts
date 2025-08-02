@@ -5,4 +5,4 @@ export {
   type RootState,
   type AppDispatch,
 } from './stores';
-export { MainProviders } from './providers';
+export { useTheme } from './providers';

@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useLocation } from 'react-router';
 import { Flyout } from '../../components/Flyout';
+import { ThemeToggle } from '../../components';
 
 const navigationLinks = [
   {
@@ -17,10 +18,10 @@ export const Layout = () => {
 
   return (
     <div
-      className=" relative flex flex-col min-h-screen max-w overflow-hidden p-6"
+      className=" relative flex flex-col min-h-screen max-w overflow-hidden p-6 dark:bg-neutral-900"
       data-testid="layout"
     >
-      <header>
+      <header className="flex justify-between">
         <nav className="flex gap-6">
           {navigationLinks.map((nav) => {
             const isActive = location.pathname.startsWith(nav.path);
@@ -32,8 +33,8 @@ export const Layout = () => {
                 className={() =>
                   `text-white font-medium px-6 py-2 rounded-full shadow transition ${
                     isActive
-                      ? 'bg-rose-700/80 cursor-default'
-                      : 'bg-stone-700/80 hover:bg-rose-800 cursor-pointer'
+                      ? 'bg-rose-700/80 dark:bg-rose-300 dark:text-stone-800 cursor-default'
+                      : 'bg-stone-700/80 dark:bg-stone-400 hover:bg-rose-800 dark:hover:bg-stone-500 dark:text-stone-800 cursor-pointer'
                   }`
                 }
               >
@@ -42,6 +43,7 @@ export const Layout = () => {
             );
           })}
         </nav>
+        <ThemeToggle />
       </header>
       <main>
         <Outlet />
