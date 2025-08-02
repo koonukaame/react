@@ -2,7 +2,7 @@ import { it, describe, expect, beforeAll, vi } from 'vitest';
 import { mockChars, mockStore } from '../../test-utils';
 import { Provider } from 'react-redux';
 import { Flyout } from './Flyout';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { selectSlice } from '../../features';
@@ -61,6 +61,9 @@ describe('Flyout component', () => {
         </Provider>
       );
 
+      const flyout = screen.getByTestId('flyout');
+      fireEvent.click(flyout);
+
       const itemAmount = screen.getByText('1 item is selected');
       const link = screen.getByTestId('download-file');
 
@@ -83,6 +86,9 @@ describe('Flyout component', () => {
           <Flyout />
         </Provider>
       );
+
+      const flyout = screen.getByTestId('flyout');
+      fireEvent.click(flyout);
 
       const itemAmount = screen.getByText(
         `${mockChars.length} items are selected`

@@ -16,8 +16,6 @@ export const CharacterList = ({ characters }: Props) => {
 
   const uids = useSelector((state: RootState) => state.select);
 
-  console.log(uids);
-
   return (
     <ul
       className={`${location.pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto `}

@@ -48,6 +48,10 @@ describe('CharacterList component', () => {
             </Provider>
           ),
         },
+        {
+          path: '/character/:uid',
+          Component: () => <div>details</div>,
+        },
       ]);
       render(<Stub initialEntries={['/character']} />);
 
@@ -78,6 +82,10 @@ describe('CharacterList component', () => {
               <CharacterList characters={[mockChars[0]]} />
             </Provider>
           ),
+        },
+        {
+          path: '/character/:uid',
+          Component: () => <div>details</div>,
         },
       ]);
       render(<Stub initialEntries={['/character']} />);
