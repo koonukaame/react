@@ -55,7 +55,7 @@ export const Main = () => {
 
   useEffect(() => {
     fetchChars(searchTerm, page);
-  }, [searchTerm, page]);
+  }, [searchTerm, page, fetchChars]);
 
   return (
     <main

@@ -10,7 +10,7 @@ export const CharacterDetails = ({ character }: Props) => {
   const [params] = useSearchParams();
 
   return (
-    <div className="w-2/3 relative pb-6 px-6" data-testid="item-details">
+    <div className="w-2/3 relative pb-6 px-6" data-testid="character-details">
       <div className="flex w-full justify-between border-b border-rose-800 pb-2">
         <h2 className="text-xl font-bold text-rose-800" data-testid="char-name">
           {character.name}

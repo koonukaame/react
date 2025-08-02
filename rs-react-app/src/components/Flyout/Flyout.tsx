@@ -25,7 +25,7 @@ export const Flyout = () => {
   };
 
   return characters.length > 0 ? (
-    <div className="fixed left-6 bottom-6">
+    <div className="fixed left-6 bottom-6" data-testid="flyout">
       <div>
         {`${characters.length} `}
         {characters.length === 1 ? 'item is ' : 'items are '}selected
@@ -35,6 +35,7 @@ export const Flyout = () => {
           <a
             href={handleDownload()}
             download={`${characters.length}_item${characters.length !== 1 ? 's' : ''}.csv`}
+            data-testid="download-file"
           >
             Download CSV
           </a>

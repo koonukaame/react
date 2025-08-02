@@ -25,6 +25,7 @@ export const CharacterList = ({ characters }: Props) => {
       {characters.map((character) => (
         <li key={character.uid} className="w-full flex justify-center">
           <input
+            data-testid="checkbox"
             type="checkbox"
             checked={uids.includes(character)}
             onChange={() =>
