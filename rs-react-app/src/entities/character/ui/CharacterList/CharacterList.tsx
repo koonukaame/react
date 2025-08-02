@@ -36,6 +36,7 @@ export const CharacterList = ({ characters }: Props) => {
             data-testid="checkbox"
             type="checkbox"
             checked={charactersState.some((char) => char.uid === character.uid)}
+            onClick={(e) => e.stopPropagation()}
             onChange={() =>
               charactersState.some((char) => char.uid === character.uid)
                 ? dispatch(unselectCharacter(character))
