@@ -11,11 +11,13 @@ export const Flyout = () => {
   const handleDownload = () => {
     const headers = Object.keys(characters[0] || {}).join(', ');
 
-    const formattedData = characters.map((item) =>
-      Object.values(item)
-        .map((value) => (value === null ? 'Unknown' : value))
-        .join(', ')
-    );
+    const formattedData = characters
+      .map((item) =>
+        Object.values(item)
+          .map((value) => (value === null ? 'Unknown' : value))
+          .join(', ')
+      )
+      .join('\n');
 
     const csv = [headers, formattedData].join('\n');
 
