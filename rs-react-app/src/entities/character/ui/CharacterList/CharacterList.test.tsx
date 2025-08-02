@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
-import { mockChars } from '../../../../test-utils';
+import { mockChars, mockStore } from '../../../../test-utils';
 import { CharacterList } from './CharacterList';
 import { createRoutesStub } from 'react-router';
+import { Provider } from 'react-redux';
 
-describe('CharsTable component', () => {
+describe('CharacterList component', () => {
   it('renders without errors', () => {
     const mockProps = {
       characters: mockChars,
@@ -14,7 +15,11 @@ describe('CharsTable component', () => {
     const Stub = createRoutesStub([
       {
         path: '/character',
-        Component: () => <CharacterList {...mockProps} />,
+        Component: () => (
+          <Provider store={mockStore}>
+            <CharacterList {...mockProps} />
+          </Provider>
+        ),
       },
     ]);
 

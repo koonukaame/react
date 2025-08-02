@@ -3,12 +3,20 @@ import { expect, it } from 'vitest';
 import { Layout } from './Layout';
 import { createRoutesStub } from 'react-router';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import { mockStore } from '../../test-utils';
 
 it('renders Layout page without errors', () => {
   const Stub = createRoutesStub([
     {
       path: '/character',
-      Component: Layout,
+      Component: () => {
+        return (
+          <Provider store={mockStore}>
+            <Layout />
+          </Provider>
+        );
+      },
     },
   ]);
 

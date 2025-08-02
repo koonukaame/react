@@ -5,7 +5,8 @@ import '@testing-library/jest-dom';
 import { searchCharacter } from '../../entities';
 import { ResponsePage } from '../../shared';
 import { createRoutesStub } from 'react-router';
-import { mockChars } from '../../test-utils';
+import { mockChars, mockStore } from '../../test-utils';
+import { Provider } from 'react-redux';
 
 const mockPage: ResponsePage = {
   pageNumber: 3,
@@ -42,7 +43,13 @@ describe('Main page', () => {
   const Stub = createRoutesStub([
     {
       path: '/character',
-      Component: Main,
+      Component: () => {
+        return (
+          <Provider store={mockStore}>
+            <Main />
+          </Provider>
+        );
+      },
     },
   ]);
 
