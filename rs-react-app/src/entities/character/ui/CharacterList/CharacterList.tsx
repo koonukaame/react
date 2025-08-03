@@ -18,13 +18,13 @@ export const CharacterList = ({ characters }: Props) => {
 
   return (
     <ul
-      className={`${location.pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto `}
+      className={`${location.pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
       data-testid="character-list"
     >
       {characters.map((character) => (
         <li
           key={character.uid}
-          className="w-full flex justify-center hover:bg-rose-200 dark:hover:bg-stone-600"
+          className="w-full flex items-center justify-center hover:bg-rose-200 dark:hover:bg-stone-600 cursor-pointer"
           onClick={() =>
             navigate({
               pathname: `/character/${character.uid}`,
@@ -33,6 +33,7 @@ export const CharacterList = ({ characters }: Props) => {
           }
         >
           <input
+            className="w-4 h-4 accent-rose-700/80 dark:accent-rose-300 cursor-pointer"
             data-testid="checkbox"
             type="checkbox"
             checked={charactersState.some((char) => char.uid === character.uid)}

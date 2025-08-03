@@ -34,7 +34,7 @@ export const Flyout = () => {
       data-testid="flyout"
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center gap-2 cursor-pointer">
         <span className="text-stone-700 dark:text-stone-200 font-medium text-center">
           {`${characters.length} `}
           {characters.length === 1 ? 'item is ' : 'items are '}selected
@@ -48,7 +48,7 @@ export const Flyout = () => {
         <div className="flex gap-2 flex-col">
           <button
             onClick={() => dispatch(unselectAll())}
-            className="bg-stone-100 text-stone-700 text-sm font-semibold px-4 py-2 rounded-xl hover:bg-rose-200 transition"
+            className="bg-stone-100 text-stone-700 text-sm font-semibold px-4 py-2 rounded-xl hover:bg-rose-200 transition cursor-pointer"
           >
             Unselect All
           </button>

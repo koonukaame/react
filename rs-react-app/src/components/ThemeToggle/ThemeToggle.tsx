@@ -9,7 +9,7 @@ export const ThemeToggle = () => {
 
       <button
         onClick={toggleTheme}
-        className={`flex h-6 w-11 items-center rounded-full transition ${
+        className={`flex h-6 w-11 items-center rounded-full transition cursor-pointer ${
           theme === 'dark' ? 'bg-gray-600 dark:bg-rose-300' : 'bg-gray-300'
         }`}
       >
