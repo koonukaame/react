@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { About } from './AboutPage';
+import { About } from './About';
 import { createRoutesStub } from 'react-router';
 
 it('About page renders without error', () => {
