@@ -1,6 +1,5 @@
 import { type ChangeEvent, type FormEvent } from 'react';
-import { SEARCH_KEY, Button } from '../../shared';
-import { useLocalStorage } from '../../shared';
+import { SEARCH_KEY, Button, useLocalStorage } from '@shared';
 
 type Props = {
   onSearch: (data: string) => void;

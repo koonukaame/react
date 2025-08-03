@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { mockChars } from '../../test-utils';
+import { mockChars } from '@test';
 import '@testing-library/jest-dom';
 import { createRoutesStub } from 'react-router';
-import { getCharacter } from '../../entities';
+import { getCharacter } from '@entities';
 import { CharacterWidget } from './CharacterWidget';
 
 vi.mock('../../entities', async () => {

@@ -1,5 +1,5 @@
-import { Spinner } from '../../components';
-import { getCharacter, type Character, CharacterDetails } from '../../entities';
+import { Spinner } from '@components';
+import { getCharacter, type Character, CharacterDetails } from '@entities';
 import { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router';
 

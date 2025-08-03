@@ -5,7 +5,7 @@ import {
   unselectAll,
   unselectCharacter,
 } from './selectSlice';
-import { mockChars } from '../../test-utils';
+import { mockChars } from '@test';
 
 describe('selectSlice', () => {
   it('adds character to the state', () => {

@@ -1,15 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
-import { mockChars, mockStore } from '../../../../test-utils';
+import { mockChars, mockStore } from '@test';
 import { CharacterList } from './CharacterList';
 import { createRoutesStub } from 'react-router';
 import { Provider } from 'react-redux';
-import {
-  selectCharacter,
-  selectSlice,
-  unselectCharacter,
-} from '../../../../features';
+import { selectCharacter, selectSlice, unselectCharacter } from '@features';
 import { configureStore } from '@reduxjs/toolkit';
 
 describe('CharacterList component', () => {

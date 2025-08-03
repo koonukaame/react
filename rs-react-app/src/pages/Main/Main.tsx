@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { SearchForm, Pagination, Spinner } from '../../components';
-import { CharacterList, searchCharacter, type Character } from '../../entities';
-import { MsgBlock, SEARCH_KEY } from '../../shared';
-import { useLocalStorage } from '../../shared';
+import { SearchForm, Spinner, Pagination } from '@components';
+import { CharacterList, searchCharacter, type Character } from '@entities';
+import { MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
 import { Outlet, useSearchParams } from 'react-router';
 
 export const Main = () => {

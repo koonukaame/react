@@ -1,11 +1,11 @@
 import { it, describe, expect, beforeAll, vi } from 'vitest';
-import { mockChars, mockStore } from '../../test-utils';
+import { mockChars, mockStore } from '@test';
 import { Provider } from 'react-redux';
 import { Flyout } from './Flyout';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { configureStore } from '@reduxjs/toolkit';
-import { selectSlice } from '../../features';
+import { selectSlice } from '@features';
 
 describe('Flyout component', () => {
   beforeAll(() => {

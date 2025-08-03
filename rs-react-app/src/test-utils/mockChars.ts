@@ -1,4 +1,4 @@
-import { type Character } from '../entities';
+import { type Character } from '@entities';
 
 export const mockChars: Character[] = [
   {

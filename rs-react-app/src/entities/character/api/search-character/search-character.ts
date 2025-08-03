@@ -1,6 +1,5 @@
-import type { ResponsePage } from '../../../../shared';
-import { CharacterResponse } from '../../model/character-schema';
-import type { Character } from '../../model/character-schema';
+import type { ResponsePage } from '@shared';
+import { CharacterResponse, Character } from '../../model/character-schema';
 
 type CharacterSearchSuccess = {
   characters: Character[];

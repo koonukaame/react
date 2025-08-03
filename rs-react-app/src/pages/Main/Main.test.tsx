@@ -2,10 +2,10 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { Main } from './Main';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { searchCharacter } from '../../entities';
-import { ResponsePage } from '../../shared';
+import { searchCharacter } from '@entities';
+import { ResponsePage } from '@shared';
 import { createRoutesStub } from 'react-router';
-import { mockChars, mockStore } from '../../test-utils';
+import { mockChars, mockStore } from '@test';
 import { Provider } from 'react-redux';
 
 const mockPage: ResponsePage = {

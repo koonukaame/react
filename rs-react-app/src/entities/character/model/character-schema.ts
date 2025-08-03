@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { ResponsePage } from '../../../shared';
+import { ResponsePage } from '@shared';
 
 export const Character = z.object({
   uid: z.string(),

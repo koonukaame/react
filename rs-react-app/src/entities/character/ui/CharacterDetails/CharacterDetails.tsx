@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router';
 import type { Character } from '../../..';
-import { CHAR_MAP } from '../../../../shared';
+import { CHAR_MAP } from '@shared';
 
 type Props = {
   character: Character;

@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SearchForm } from '../SearchForm';
-import { SEARCH_KEY } from '../../shared';
+import { SEARCH_KEY } from '@shared';
 
 describe('SearchForm component', () => {
   const mockSearch = vi.fn();

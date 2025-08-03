@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router';
-import { Layout } from '../../pages';
-import { CharacterWidget } from '../../widget';
+import { Layout } from '@pages';
+import { CharacterWidget } from '@widget';
 
 export const router = createBrowserRouter([
   {

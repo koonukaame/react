@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { MemoryRouter } from 'react-router';
 import { render, screen } from '@testing-library/react';
-import { mockChars } from '../../../../test-utils';
+import { mockChars } from '@test';
 import '@testing-library/jest-dom';
 import { CharacterDetails } from './CharacterDetails';
 

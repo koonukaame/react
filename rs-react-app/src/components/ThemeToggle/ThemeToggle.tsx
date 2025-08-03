@@ -1,4 +1,4 @@
-import { useTheme } from '../../app';
+import { useTheme } from '@app';
 
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();

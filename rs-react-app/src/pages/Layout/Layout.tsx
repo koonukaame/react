@@ -1,6 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router';
-import { Flyout } from '../../components/Flyout';
-import { ThemeToggle } from '../../components';
+import { Flyout, ThemeToggle } from '@components';
 
 const navigationLinks = [
   {

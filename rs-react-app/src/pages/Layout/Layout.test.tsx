@@ -4,8 +4,8 @@ import { Layout } from './Layout';
 import { createRoutesStub } from 'react-router';
 import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
-import { mockStore } from '../../test-utils';
-import { ThemeProvider } from '../../app';
+import { mockStore } from '@test';
+import { ThemeProvider } from '@app';
 
 it('renders Layout page without errors', () => {
   const Stub = createRoutesStub([

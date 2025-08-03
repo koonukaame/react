@@ -1,6 +1,6 @@
 import { RouterProvider } from 'react-router';
 import { router } from './routers';
-import { ErrorBoundary } from '../components';
+import { ErrorBoundary } from '@components';
 import { StoreProvider, ThemeProvider } from './providers';
 
 export const App = () => {

@@ -1,8 +1,8 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import type { Character } from '../../..';
 import { useDispatch, useSelector } from 'react-redux';
-import { type RootState } from '../../../../app';
-import { unselectCharacter, selectCharacter } from '../../../../features';
+import { type RootState } from '@app';
+import { unselectCharacter, selectCharacter } from '@features';
 
 type Props = {
   characters: Character[];

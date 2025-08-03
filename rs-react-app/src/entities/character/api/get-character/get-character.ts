@@ -1,4 +1,4 @@
-import { Character } from '../../..';
+import { Character } from '../../model';
 
 type CharacterSuccessResult = {
   character: Character;
