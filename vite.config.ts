@@ -40,4 +40,9 @@ export default defineConfig({
       '@widget': path.resolve(__dirname, './src/widget'),
     },
   },
+  server: {
+    watch: {
+      ignored: ['**/coverage/**'],
+    },
+  },
 });
