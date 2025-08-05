@@ -28,7 +28,11 @@ export const Flyout = () => {
     return URL.createObjectURL(blob);
   };
 
-  return characters.length > 0 ? (
+  if (characters.length === 0) {
+    return null;
+  }
+
+  return (
     <div
       className="fixed flex flex-col-reverse gap-3 left-6 bottom-6 rounded-xl p-3 bg-white dark:bg-neutral-900 border border-stone-200 dark:border-stone-700"
       data-testid="flyout"
@@ -63,5 +67,5 @@ export const Flyout = () => {
         </div>
       )}
     </div>
-  ) : null;
+  );
 };
