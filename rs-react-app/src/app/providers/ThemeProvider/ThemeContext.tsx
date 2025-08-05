@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 type ThemeContextProps = {
-  theme: 'dark' | null;
+  theme: 'dark' | 'light';
   toggleTheme: () => void;
 };
 

@@ -6,10 +6,10 @@ type ThemeProviderProps = {
 };
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const [theme, setTheme] = useState<null | 'dark'>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   const toggleTheme = () => {
-    setTheme((theme) => (theme === null ? 'dark' : null));
+    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'));
   };
 
   useEffect(() => {
