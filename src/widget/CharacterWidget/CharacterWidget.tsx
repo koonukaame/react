@@ -1,40 +1,52 @@
 import { Spinner } from '@components';
-import { getCharacter, type Character, CharacterDetails } from '@entities';
-import { useState, useCallback, useEffect } from 'react';
+import { CharacterDetails, useGetCharacterQuery } from '@entities';
+import { ErrorMsgBlock, MsgBlock } from '@shared';
 import { useParams } from 'react-router';
 
 export const CharacterWidget = () => {
   const { uid } = useParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedChar, setSelectedChar] = useState<Character | null>(null);
+  const {
+    data: character,
+    isFetching,
+    isError,
+    error,
+  } = useGetCharacterQuery(uid ?? '');
 
-  const fetchChar = useCallback(async (uid: string) => {
-    setIsLoading(true);
-    const result = await getCharacter(uid);
-    setIsLoading(false);
-    if (!result.ok) {
-      setSelectedChar(null);
-      return;
+  if (isFetching) {
+    return (
+      <div className="relative flex-grow">
+        <Spinner isFullScreen={false} />
+      </div>
+    );
+  }
+
+  if (!character) {
+    return MsgBlock({
+      title: 'Character was not found',
+      msg: 'Please choose another character',
+    });
+  }
+
+  if (isError && error) {
+    console.log(error);
+    const cases = [
+      ['FETCH_ERROR', 'Something is wrong with the server response'],
+      ['TIMEOUT_ERROR', 'Server timeout'],
+      ['PARSING_ERROR', 'Something went wrong while reading data.'],
+    ] as const;
+
+    for (const [status, title] of cases) {
+      return ErrorMsgBlock(error, status, title);
     }
 
-    const { character } = result;
-    setSelectedChar(character);
-  }, []);
-
-  useEffect(() => {
-    if (!uid) {
-      setSelectedChar(null);
-      return;
+    if ('status' in error && typeof error.status === 'number') {
+      return ErrorMsgBlock(
+        error,
+        error.status,
+        `Response failed with status ${error.status}`
+      );
     }
+  }
 
-    fetchChar(uid);
-  }, [fetchChar, uid]);
-
-  return isLoading ? (
-    <div className="relative flex-grow">
-      <Spinner isFullScreen={false} />
-    </div>
-  ) : selectedChar ? (
-    <CharacterDetails character={selectedChar} />
-  ) : null;
+  return <CharacterDetails character={character} />;
 };

@@ -8,7 +8,7 @@ export const MsgBlock = ({ title, msg }: Props) => {
   return (
     <div
       className={
-        'bg-rose-50 text-rose-800 text-center p-6 dark:bg-neutral-900 dark:text-stone-200'
+        'w-2/3 bg-rose-50 text-rose-800 text-center p-6 dark:bg-neutral-900 dark:text-stone-200'
       }
       data-testid="msg-block"
     >

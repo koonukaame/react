@@ -1,2 +1,2 @@
 export { Button } from './Button';
-export { MsgBlock } from './MsgBlock';
+export { MsgBlock, ErrorMsgBlock } from './MsgBlock';

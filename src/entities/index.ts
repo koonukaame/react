@@ -5,4 +5,6 @@ export {
   CharacterDetails,
   Character,
   CharacterResponse,
+  startrackApi,
+  useGetCharacterQuery,
 } from './character';
