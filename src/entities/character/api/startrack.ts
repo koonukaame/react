@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Character } from '../model';
+import { CharacterResponse, type Character } from '../model';
 
-type Response = { character: Character };
+type getCharacterResponse = { character: Character };
+
+type SearchCharacterArguments = {
+  name: string;
+  pageNumber: number;
+};
 
 export const startrackApi = createApi({
   reducerPath: 'startrackApi',
@@ -11,9 +16,32 @@ export const startrackApi = createApi({
   endpoints: (build) => ({
     getCharacter: build.query<Character, string>({
       query: (uid) => `?uid=${uid}`,
-      transformResponse: (response: Response) => response.character,
+      transformResponse: (response: getCharacterResponse) => response.character,
+    }),
+
+    setCharacter: build.query<CharacterResponse, SearchCharacterArguments>({
+      query: ({ name, pageNumber }) => {
+        const formData = new URLSearchParams();
+        formData.append('name', name);
+
+        return {
+          url: `search?pageNumber=${pageNumber - 1}`,
+          body: formData,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        };
+      },
+      transformResponse: (response: CharacterResponse) => ({
+        characters: response.characters,
+        page: {
+          ...response.page,
+          pageNumber: response.page.pageNumber + 1,
+        },
+      }),
     }),
   }),
 });
 
-export const { useGetCharacterQuery } = startrackApi;
+export const { useGetCharacterQuery, useSetCharacterQuery } = startrackApi;

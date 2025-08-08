@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SearchForm, Spinner, Pagination } from '@components';
-import { CharacterList, searchCharacter, type Character } from '@entities';
+import { CharacterList, useSetCharacterQuery } from '@entities';
 import { MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
 import { Outlet, useSearchParams } from 'react-router';
 
@@ -11,36 +11,12 @@ export const Main = () => {
   const [page, setPage] = useState<number>(() =>
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasError, setHasError] = useState<boolean>(false);
-  const [chars, setChars] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useLocalStorage(SEARCH_KEY);
 
-  const fetchChars = useCallback(
-    async (name: string, page: number) => {
-      setIsLoading(true);
-      const result = await searchCharacter(name, page);
-      setIsLoading(false);
-
-      if (!result.ok) {
-        setHasError(true);
-        return;
-      }
-      const {
-        characters,
-        page: { totalPages, pageNumber },
-      } = result;
-      setChars(characters);
-      setTotalPages(totalPages);
-      const nextPage = Math.min(totalPages, pageNumber);
-      setPage(nextPage);
-      setSearchParams({
-        page: nextPage.toString(),
-      });
-    },
-    [setSearchParams]
-  );
+  const { data, isFetching, isError } = useSetCharacterQuery({
+    name: searchTerm,
+    pageNumber: page,
+  });
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -52,10 +28,6 @@ export const Main = () => {
     [setSearchParams]
   );
 
-  useEffect(() => {
-    fetchChars(searchTerm, page);
-  }, [searchTerm, page]);
-
   return (
     <main
       className="flex flex-col min-h-screen max-w overflow-hidden"
@@ -65,20 +37,20 @@ export const Main = () => {
         <SearchForm onSearch={setSearchTerm} />
       </div>
       <div className="max-h-[80vh] flex flex-row flex-grow pt-6 overflow-hidden">
-        {isLoading ? (
+        {isFetching ? (
           <Spinner isFullScreen />
-        ) : hasError ? (
+        ) : isError ? (
           <MsgBlock
             title="An unexpected error has occured"
             msg="Try again in a bit!"
           />
-        ) : chars.length === 0 ? (
+        ) : data?.characters?.length === 0 ? (
           <MsgBlock
             title="No characters found 🕵️‍♀️"
             msg="Try adjusting your search, maybe a typo snuck in?"
           />
         ) : (
-          <CharacterList characters={chars} />
+          <CharacterList characters={data?.characters ?? []} />
         )}
         <Outlet />
       </div>
@@ -87,7 +59,7 @@ export const Main = () => {
         <Pagination
           page={page}
           onChange={handlePageChange}
-          totalPages={totalPages}
+          totalPages={data?.page.totalPages ?? 1}
         />
       </div>
     </main>
