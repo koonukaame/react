@@ -1,10 +1,9 @@
 export {
-  searchCharacter,
-  getCharacter,
   CharacterList,
   CharacterDetails,
   Character,
   CharacterResponse,
   startrackApi,
   useGetCharacterQuery,
+  useSetCharacterQuery,
 } from './character';

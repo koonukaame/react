@@ -1,3 +1,5 @@
-export { searchCharacter } from './search-character';
-export { getCharacter } from './get-character';
-export { startrackApi, useGetCharacterQuery } from './startrack';
+export {
+  startrackApi,
+  useGetCharacterQuery,
+  useSetCharacterQuery,
+} from './startrack';
