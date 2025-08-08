@@ -1,5 +1,5 @@
 export {
   startrackApi,
   useGetCharacterQuery,
-  useSetCharacterQuery,
+  useSearchCharacterQuery,
 } from './startrack';

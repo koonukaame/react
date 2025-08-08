@@ -1,19 +1,24 @@
 import { useCallback, useState } from 'react';
 import { SearchForm, Spinner, Pagination } from '@components';
-import { CharacterList, useSetCharacterQuery } from '@entities';
-import { MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
+import {
+  CharacterList,
+  startrackApi,
+  useSearchCharacterQuery,
+} from '@entities';
+import { Button, MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
 import { Outlet, useSearchParams } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 export const Main = () => {
+  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const pageParam = searchParams.get('page') ?? '';
   const [page, setPage] = useState<number>(() =>
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
   const [searchTerm, setSearchTerm] = useLocalStorage(SEARCH_KEY);
 
-  const { data, isFetching, isError } = useSetCharacterQuery({
+  const { data, isFetching, isError } = useSearchCharacterQuery({
     name: searchTerm,
     pageNumber: page,
   });
@@ -35,6 +40,14 @@ export const Main = () => {
     >
       <div className="max-w pt-6">
         <SearchForm onSearch={setSearchTerm} />
+        <Button
+          classNames="mt-3"
+          onClick={() =>
+            dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
+          }
+        >
+          Refetch List
+        </Button>
       </div>
       <div className="max-h-[80vh] flex flex-row flex-grow pt-6 overflow-hidden">
         {isFetching ? (

@@ -3,5 +3,5 @@ export { CharacterList, CharacterDetails } from './ui';
 export {
   startrackApi,
   useGetCharacterQuery,
-  useSetCharacterQuery,
+  useSearchCharacterQuery,
 } from './api';

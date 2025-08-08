@@ -5,5 +5,5 @@ export {
   CharacterResponse,
   startrackApi,
   useGetCharacterQuery,
-  useSetCharacterQuery,
+  useSearchCharacterQuery,
 } from './character';

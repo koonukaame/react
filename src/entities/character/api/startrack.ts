@@ -13,13 +13,15 @@ export const startrackApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://stapi.co/api/v1/rest/character',
   }),
+  tagTypes: ['getCharacter', 'searchCharacter'],
   endpoints: (build) => ({
     getCharacter: build.query<Character, string>({
+      providesTags: ['getCharacter'],
       query: (uid) => `?uid=${uid}`,
       transformResponse: (response: getCharacterResponse) => response.character,
     }),
 
-    setCharacter: build.query<CharacterResponse, SearchCharacterArguments>({
+    searchCharacter: build.query<CharacterResponse, SearchCharacterArguments>({
       query: ({ name, pageNumber }) => {
         const formData = new URLSearchParams();
         formData.append('name', name);
@@ -33,6 +35,7 @@ export const startrackApi = createApi({
           },
         };
       },
+      providesTags: ['searchCharacter'],
       transformResponse: (response: CharacterResponse) => ({
         characters: response.characters,
         page: {
@@ -44,4 +47,4 @@ export const startrackApi = createApi({
   }),
 });
 
-export const { useGetCharacterQuery, useSetCharacterQuery } = startrackApi;
+export const { useGetCharacterQuery, useSearchCharacterQuery } = startrackApi;
