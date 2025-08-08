@@ -40,14 +40,22 @@ export const Main = () => {
     >
       <div className="max-w pt-6">
         <SearchForm onSearch={setSearchTerm} />
-        <Button
-          classNames="mt-3"
-          onClick={() =>
-            dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
-          }
-        >
-          Refetch List
-        </Button>
+        <div className="flex mt-3 gap-3">
+          <Button
+            onClick={() =>
+              dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
+            }
+          >
+            Refetch List
+          </Button>
+          <Button
+            onClick={() =>
+              dispatch(startrackApi.util.invalidateTags(['getCharacter']))
+            }
+          >
+            Refetch Character
+          </Button>
+        </div>
       </div>
       <div className="max-h-[80vh] flex flex-row flex-grow pt-6 overflow-hidden">
         {isFetching ? (
