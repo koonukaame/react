@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router';
-import type { Character } from '../../..';
+import type { Character } from '../../model';
 import { CHAR_MAP } from '@shared';
 
 type Props = {

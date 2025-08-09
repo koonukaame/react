@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { selectSlice } from '@features';
-import { startrackApi } from '@entities';
+import { startrackApi } from '../../entities/character/api/startrack';
 
 export const mainStore = configureStore({
   reducer: {

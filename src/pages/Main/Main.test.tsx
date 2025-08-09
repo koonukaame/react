@@ -2,11 +2,14 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { Main } from './Main';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { searchCharacter } from '@entities';
 import { ResponsePage } from '@shared';
 import { createRoutesStub } from 'react-router';
 import { mockChars, mockStore } from '@test';
 import { Provider } from 'react-redux';
+import {
+  startrackApi,
+  useSearchCharacterQuery,
+} from '../../entities/character/api/startrack';
 
 const mockPage: ResponsePage = {
   pageNumber: 3,
@@ -18,11 +21,14 @@ const mockPage: ResponsePage = {
   lastPage: false,
 };
 
-vi.mock('../../entities', async () => {
-  const originalModule = await vi.importActual('../../entities');
+vi.mock('../../entities/character/api/startrack', async (importOriginal) => {
+  const actual =
+    await importOriginal<
+      typeof import('../../entities/character/api/startrack')
+    >();
   return {
-    ...originalModule,
-    searchCharacter: vi.fn(),
+    ...actual,
+    useSearchCharacterQuery: vi.fn(),
   };
 });
 
@@ -59,11 +65,11 @@ describe('Main page', () => {
 
   describe('Rendering', () => {
     it('renders page', async () => {
-      const mockedSearchCharacter = vi.mocked(searchCharacter);
-      mockedSearchCharacter.mockResolvedValue({
-        ok: true,
-        characters: [],
-        page: mockPage,
+      vi.mocked(useSearchCharacterQuery).mockReturnValue({
+        data: { characters: [], page: mockPage },
+        isFetching: true,
+        isError: false,
+        refetch: vi.fn(),
       });
 
       await act(async () => {
@@ -77,10 +83,11 @@ describe('Main page', () => {
   });
 
   it('shows error message when searchCharacter fails', async () => {
-    const mockedSearchCharacter = vi.mocked(searchCharacter);
-    mockedSearchCharacter.mockResolvedValue({
-      ok: false,
-      message: 'api error',
+    vi.mocked(useSearchCharacterQuery).mockReturnValue({
+      data: null,
+      isFetching: false,
+      isError: true,
+      refetch: vi.fn(),
     });
 
     await act(async () => {
@@ -92,10 +99,11 @@ describe('Main page', () => {
   });
 
   it('calls setSearchParams with new page number on pagination button click', async () => {
-    vi.mocked(searchCharacter).mockResolvedValue({
-      ok: true,
-      characters: mockChars,
-      page: mockPage,
+    vi.mocked(useSearchCharacterQuery).mockReturnValue({
+      data: { characters: mockChars, page: mockPage },
+      isFetching: true,
+      isError: false,
+      refetch: vi.fn(),
     });
 
     await act(async () => {
@@ -111,6 +119,58 @@ describe('Main page', () => {
 
     expect(setSearchParamsMock).toHaveBeenCalledWith({
       page: (mockPage.pageNumber - 1).toString(),
+    });
+  });
+
+  describe('Invalidation', () => {
+    it('invalidates getCharacter cache when clicking Refetch Character button', async () => {
+      const dispatch = vi.fn();
+      vi.spyOn(mockStore, 'dispatch').mockImplementation(dispatch);
+
+      vi.mocked(useSearchCharacterQuery).mockReturnValue({
+        data: { characters: mockChars, page: mockPage },
+        isFetching: false,
+        isError: false,
+        refetch: vi.fn(),
+      });
+
+      await act(async () => {
+        render(<Stub initialEntries={['/character']} />);
+      });
+
+      const refetchCharacterButton = screen.getByTestId('refetch-character');
+      await act(async () => {
+        fireEvent.click(refetchCharacterButton);
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(
+        startrackApi.util.invalidateTags(['getCharacter'])
+      );
+    });
+
+    it('invalidates searchCharacter cache when clicking Refetch Character button', async () => {
+      const dispatch = vi.fn();
+      vi.spyOn(mockStore, 'dispatch').mockImplementation(dispatch);
+
+      vi.mocked(useSearchCharacterQuery).mockReturnValue({
+        data: { characters: mockChars, page: mockPage },
+        isFetching: false,
+        isError: false,
+        refetch: vi.fn(),
+      });
+
+      await act(async () => {
+        render(<Stub initialEntries={['/character']} />);
+      });
+
+      const refetchCharacterButton = screen.getByTestId('refetch-list');
+      await act(async () => {
+        fireEvent.click(refetchCharacterButton);
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(
+        startrackApi.util.invalidateTags(['searchCharacter'])
+      );
     });
   });
 });

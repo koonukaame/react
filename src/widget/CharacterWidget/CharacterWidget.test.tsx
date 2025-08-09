@@ -3,14 +3,17 @@ import { describe, expect, it, vi } from 'vitest';
 import { mockChars } from '@test';
 import '@testing-library/jest-dom';
 import { createRoutesStub } from 'react-router';
-import { getCharacter } from '@entities';
 import { CharacterWidget } from './CharacterWidget';
+import { useGetCharacterQuery } from '../../entities/character/api/startrack';
 
-vi.mock('../../entities', async () => {
-  const originalModule = await vi.importActual('../../entities');
+vi.mock('../../entities/character/api/startrack', async (importOriginal) => {
+  const actual =
+    await importOriginal<
+      typeof import('../../entities/character/api/startrack')
+    >();
   return {
-    ...originalModule,
-    getCharacter: vi.fn(),
+    ...actual,
+    useGetCharacterQuery: vi.fn(),
   };
 });
 
@@ -18,8 +21,12 @@ describe('CharacterWidget', () => {
   const mockChar = mockChars[0];
   describe('Rendering', () => {
     it('does not render character when getCharacter returns error', async () => {
-      const mockedGetCharacter = vi.mocked(getCharacter);
-      mockedGetCharacter.mockResolvedValue({ message: 'api error', ok: false });
+      vi.mocked(useGetCharacterQuery).mockReturnValue({
+        data: null,
+        isFetching: true,
+        isError: true,
+        refetch: vi.fn(),
+      });
 
       const Stub = createRoutesStub([
         {
@@ -40,10 +47,11 @@ describe('CharacterWidget', () => {
     });
 
     it('does not render character details if uid is not set', async () => {
-      const mockedGetCharacter = vi.mocked(getCharacter);
-      mockedGetCharacter.mockResolvedValue({
-        character: mockChar,
-        ok: true,
+      vi.mocked(useGetCharacterQuery).mockReturnValue({
+        data: mockChar,
+        isFetching: false,
+        isError: false,
+        refetch: vi.fn(),
       });
 
       const Stub = createRoutesStub([

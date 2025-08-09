@@ -42,6 +42,7 @@ export const Main = () => {
         <SearchForm onSearch={setSearchTerm} />
         <div className="flex mt-3 gap-3">
           <Button
+            data-testid="refetch-list"
             onClick={() =>
               dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
             }
@@ -49,6 +50,7 @@ export const Main = () => {
             Refetch List
           </Button>
           <Button
+            data-testid="refetch-character"
             onClick={() =>
               dispatch(startrackApi.util.invalidateTags(['getCharacter']))
             }
