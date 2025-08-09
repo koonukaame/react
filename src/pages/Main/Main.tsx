@@ -55,7 +55,7 @@ export const Main = () => {
               dispatch(startrackApi.util.invalidateTags(['getCharacter']))
             }
           >
-            Refetch Character
+            Refetch Characters
           </Button>
         </div>
       </div>
