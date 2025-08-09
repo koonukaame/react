@@ -11,31 +11,23 @@ export const CharacterWidget = () => {
     isError,
   } = useGetCharacterQuery(uid ?? '');
 
-  if (isFetching) {
-    return (
-      <div className="relative flex-grow">
+  return (
+    <div className="relative flex-grow">
+      {isFetching ? (
         <Spinner isFullScreen={false} />
-      </div>
-    );
-  }
-
-  if (!character) {
-    return (
-      <MsgBlock
-        title="Character was not found"
-        msg="Please choose another character"
-      />
-    );
-  }
-
-  if (isError) {
-    return (
-      <MsgBlock
-        title="An unexpected error has occured"
-        msg="Please try again in a bit!"
-      />
-    );
-  }
-
-  return <CharacterDetails character={character} />;
+      ) : isError ? (
+        <MsgBlock
+          title="An unexpected error has occured"
+          msg="Please try again in a bit!"
+        />
+      ) : !character ? (
+        <MsgBlock
+          title="Character was not found"
+          msg="Please choose another character"
+        />
+      ) : (
+        <CharacterDetails character={character} />
+      )}
+    </div>
+  );
 };
