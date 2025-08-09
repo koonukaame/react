@@ -20,10 +20,10 @@ vi.mock('../../entities/character/api/startrack', async (importOriginal) => {
 describe('CharacterWidget', () => {
   const mockChar = mockChars[0];
   describe('Rendering', () => {
-    it('does not render character when getCharacter returns error', async () => {
+    it('renders MsgBlock component when getCharacter query returns error', async () => {
       vi.mocked(useGetCharacterQuery).mockReturnValue({
         data: null,
-        isFetching: true,
+        isFetching: false,
         isError: true,
         refetch: vi.fn(),
       });
@@ -37,12 +37,9 @@ describe('CharacterWidget', () => {
 
       render(<Stub initialEntries={[`/character/${mockChar.uid}`]} />);
 
-      const spinner = screen.getByTestId('spinner');
-      expect(spinner).toBeInTheDocument();
-
       await waitFor(() => {
-        const itemDetails = screen.queryByTestId('item-details');
-        expect(itemDetails).not.toBeInTheDocument();
+        const msgBlock = screen.getByTestId('msg-block');
+        expect(msgBlock).toBeInTheDocument();
       });
     });
 

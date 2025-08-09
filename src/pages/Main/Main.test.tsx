@@ -82,7 +82,7 @@ describe('Main page', () => {
     });
   });
 
-  it('shows error message when searchCharacter fails', async () => {
+  it('renders MsgBlock component when searchCharacter query fails', async () => {
     vi.mocked(useSearchCharacterQuery).mockReturnValue({
       data: null,
       isFetching: false,
@@ -123,7 +123,7 @@ describe('Main page', () => {
   });
 
   describe('Invalidation', () => {
-    it('invalidates getCharacter cache when clicking Refetch Character button', async () => {
+    it('invalidates getCharacter cache when clicking Refetch Characters button', async () => {
       const dispatch = vi.fn();
       vi.spyOn(mockStore, 'dispatch').mockImplementation(dispatch);
 
@@ -148,7 +148,7 @@ describe('Main page', () => {
       );
     });
 
-    it('invalidates searchCharacter cache when clicking Refetch Character button', async () => {
+    it('invalidates searchCharacter cache when clicking Refetch List button', async () => {
       const dispatch = vi.fn();
       vi.spyOn(mockStore, 'dispatch').mockImplementation(dispatch);
 
