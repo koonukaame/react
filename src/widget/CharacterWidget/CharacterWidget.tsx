@@ -20,17 +20,21 @@ export const CharacterWidget = () => {
   }
 
   if (!character) {
-    return MsgBlock({
-      title: 'Character was not found',
-      msg: 'Please choose another character',
-    });
+    return (
+      <MsgBlock
+        title="Character was not found"
+        msg="Please choose another character"
+      />
+    );
   }
 
   if (isError) {
-    return MsgBlock({
-      title: 'An unexpected error has occured',
-      msg: 'Please try again in a bit!',
-    });
+    return (
+      <MsgBlock
+        title="An unexpected error has occured"
+        msg="Please try again in a bit!"
+      />
+    );
   }
 
   return <CharacterDetails character={character} />;
