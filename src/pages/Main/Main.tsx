@@ -18,7 +18,7 @@ export const Main = () => {
   );
   const [searchTerm, setSearchTerm] = useLocalStorage(SEARCH_KEY);
 
-  const { data, isFetching, isError } = useSearchCharacterQuery({
+  const { data, isFetching, isError, isSuccess } = useSearchCharacterQuery({
     name: searchTerm,
     pageNumber: page,
   });
@@ -56,7 +56,7 @@ export const Main = () => {
           </Button>
         </div>
       </div>
-      <div className="max-h-[60vh] flex flex-row flex-grow pt-6 overflow-hidden">
+      <div className="h-[60vh] flex flex-row flex-grow pt-6 overflow-hidden">
         {isFetching ? (
           <Spinner isFullScreen />
         ) : isError ? (
@@ -64,13 +64,13 @@ export const Main = () => {
             title="An unexpected error has occured"
             msg="Try again in a bit!"
           />
-        ) : data?.characters?.length === 0 ? (
+        ) : isSuccess && data.characters.length === 0 ? (
           <MsgBlock
             title="No characters found 🕵️‍♀️"
             msg="Try adjusting your search, maybe a typo snuck in?"
           />
         ) : (
-          <CharacterList characters={data?.characters ?? []} />
+          isSuccess && <CharacterList characters={data.characters} />
         )}
         <Outlet />
       </div>
