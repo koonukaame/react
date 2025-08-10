@@ -9,6 +9,7 @@ export const CharacterWidget = () => {
     data: character,
     isFetching,
     isError,
+    isSuccess,
   } = useGetCharacterQuery(uid ?? '');
 
   return (
@@ -20,13 +21,13 @@ export const CharacterWidget = () => {
           title="An unexpected error has occured"
           msg="Please try again in a bit!"
         />
-      ) : !character ? (
+      ) : isSuccess && character ? (
+        <CharacterDetails character={character} />
+      ) : (
         <MsgBlock
           title="Character was not found"
           msg="Please choose another character"
         />
-      ) : (
-        <CharacterDetails character={character} />
       )}
     </div>
   );
