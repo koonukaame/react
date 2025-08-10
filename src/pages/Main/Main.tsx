@@ -35,7 +35,7 @@ export const Main = () => {
 
   return (
     <div className="flex flex-col" data-testid="main-page">
-      <div className="max-w pt-6">
+      <div className="max-w pt-3">
         <SearchForm onSearch={setSearchTerm} />
         <div className="flex mt-3 gap-3">
           <Button
@@ -56,7 +56,7 @@ export const Main = () => {
           </Button>
         </div>
       </div>
-      <div className="h-[60vh] flex flex-row flex-grow pt-6 overflow-hidden">
+      <div className="h-[60vh] flex flex-row flex-grow mt-3 overflow-hidden">
         {isFetching ? (
           <Spinner isFullScreen />
         ) : isError ? (
