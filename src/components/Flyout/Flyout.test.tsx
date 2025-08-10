@@ -6,6 +6,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { selectSlice } from '@features';
+import { startrackApi } from '../../entities/character/api/startrack';
 
 describe('Flyout component', () => {
   beforeAll(() => {
@@ -16,10 +17,13 @@ describe('Flyout component', () => {
       const store = configureStore({
         reducer: {
           select: selectSlice.reducer,
+          [startrackApi.reducerPath]: startrackApi.reducer,
         },
         preloadedState: {
           select: mockChars,
         },
+        middleware: (getDefaultMiddleware) =>
+          getDefaultMiddleware().concat(startrackApi.middleware),
       });
 
       render(
@@ -49,10 +53,13 @@ describe('Flyout component', () => {
       const store = configureStore({
         reducer: {
           select: selectSlice.reducer,
+          [startrackApi.reducerPath]: startrackApi.reducer,
         },
         preloadedState: {
           select: [mockChars[0]],
         },
+        middleware: (getDefaultMiddleware) =>
+          getDefaultMiddleware().concat(startrackApi.middleware),
       });
 
       render(
@@ -75,10 +82,13 @@ describe('Flyout component', () => {
       const store = configureStore({
         reducer: {
           select: selectSlice.reducer,
+          [startrackApi.reducerPath]: startrackApi.reducer,
         },
         preloadedState: {
           select: mockChars,
         },
+        middleware: (getDefaultMiddleware) =>
+          getDefaultMiddleware().concat(startrackApi.middleware),
       });
 
       render(

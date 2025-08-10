@@ -17,7 +17,7 @@ export const Layout = () => {
 
   return (
     <div
-      className=" relative flex flex-col min-h-screen max-w overflow-hidden p-6 dark:bg-neutral-900"
+      className="box-border relative flex flex-col h-screen max-w px-6 py-3 dark:bg-neutral-900"
       data-testid="layout"
     >
       <header className="flex justify-between">

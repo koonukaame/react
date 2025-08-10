@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router';
-import type { Character } from '../../..';
+import type { Character } from '../../model';
 import { CHAR_MAP } from '@shared';
 
 type Props = {
@@ -10,7 +10,7 @@ export const CharacterDetails = ({ character }: Props) => {
   const [params] = useSearchParams();
 
   return (
-    <div className="w-2/3 relative pb-6 px-6" data-testid="character-details">
+    <div className="relative pb-6 px-6" data-testid="character-details">
       <div className="flex w-full justify-between border-b border-rose-800 dark:border-stone-700 pb-2">
         <h2
           className="text-xl font-bold text-rose-800 dark:text-stone-200"

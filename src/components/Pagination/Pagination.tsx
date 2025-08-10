@@ -14,7 +14,7 @@ export const Pagination = ({ page, onChange, totalPages }: Props) => {
     >
       <Button
         onClick={() => onChange(page - 1)}
-        disabled={page === 1}
+        disabled={page <= 1}
         classNames={`disabled:bg-stone-400 dark:hover:disabled:bg-stone-400 disabled:cursor-not-allowed`}
         data-testid="previous-button"
       >
@@ -25,7 +25,7 @@ export const Pagination = ({ page, onChange, totalPages }: Props) => {
       </span>
       <Button
         onClick={() => onChange(page + 1)}
-        disabled={page === totalPages}
+        disabled={page >= totalPages}
         classNames={'disabled:bg-gray-400 disabled:cursor-not-allowed'}
         data-testid="next-button"
       >
