@@ -34,10 +34,7 @@ export const Main = () => {
   );
 
   return (
-    <main
-      className="flex flex-col min-h-screen max-w overflow-hidden"
-      data-testid="main-page"
-    >
+    <div className="flex flex-col" data-testid="main-page">
       <div className="max-w pt-6">
         <SearchForm onSearch={setSearchTerm} />
         <div className="flex mt-3 gap-3">
@@ -59,7 +56,7 @@ export const Main = () => {
           </Button>
         </div>
       </div>
-      <div className="max-h-[80vh] flex flex-row flex-grow pt-6 overflow-hidden">
+      <div className="max-h-[60vh] flex flex-row flex-grow pt-6 overflow-hidden">
         {isFetching ? (
           <Spinner isFullScreen />
         ) : isError ? (
@@ -85,6 +82,6 @@ export const Main = () => {
           totalPages={data?.page.totalPages ?? 1}
         />
       </div>
-    </main>
+    </div>
   );
 };
