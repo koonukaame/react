@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '@app';
+import type { RootState } from '../../app';
 import { unselectAll } from '@features';
 import { useState } from 'react';
 

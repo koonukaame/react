@@ -1,4 +1,3 @@
-export { App } from './App';
 export {
   mainStore,
   type AppStore,

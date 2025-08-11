@@ -1,9 +1,9 @@
 import { RouterProvider } from 'react-router';
-import { router } from './routers';
+import { router } from './app/routers';
 import { ErrorBoundary } from '@components';
-import { StoreProvider, ThemeProvider } from './providers';
+import { StoreProvider, ThemeProvider } from './app/providers';
 
-export const App = () => {
+const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <StoreProvider>
@@ -14,3 +14,5 @@ export const App = () => {
     </ErrorBoundary>
   );
 };
+
+export default App;
