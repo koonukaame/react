@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+'use client';
+
+import { useCallback, useState, type ReactNode } from 'react';
 import { SearchForm, Spinner, Pagination } from '@components';
 import {
   CharacterList,
@@ -6,12 +8,16 @@ import {
   useSearchCharacterQuery,
 } from '@entities';
 import { Button, MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
-import { Outlet, useSearchParams } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
 
-export const Main = () => {
+type Props = {
+  children: ReactNode;
+};
+
+export const Main = ({ children }: Props) => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const pageParam = searchParams.get('page') ?? '';
   const [page, setPage] = useState<number>(() =>
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
@@ -26,11 +32,10 @@ export const Main = () => {
   const handlePageChange = useCallback(
     (page: number) => {
       setPage(page);
-      setSearchParams({
-        page: page.toString(),
-      });
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('page', page.toString());
     },
-    [setSearchParams]
+    [searchParams]
   );
 
   return (
@@ -72,7 +77,7 @@ export const Main = () => {
         ) : (
           isSuccess && <CharacterList characters={data.characters} />
         )}
-        <Outlet />
+        {children}
       </div>
 
       <div className="max-w pt-6 flex items-center justify-center relative">

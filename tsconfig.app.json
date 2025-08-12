@@ -13,7 +13,7 @@
       "@components": ["src/components/index.ts"],
       "@entities": ["src/entities/index.ts"],
       "@features": ["src/features/index.ts"],
-      "@pages": ["src/pages/index.ts"],
+      "@pages": ["src/view/index.ts"],
       "@shared": ["src/shared/index.ts"],
       "@test": ["src/test-utils/index.ts"],
       "@widget": ["src/widget/index.ts"],

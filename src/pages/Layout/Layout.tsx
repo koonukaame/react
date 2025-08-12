@@ -1,5 +1,8 @@
-import { NavLink, Outlet, useLocation } from 'react-router';
+'use client';
 import { Flyout, ThemeToggle } from '@components';
+import type { ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const navigationLinks = [
   {
@@ -12,8 +15,12 @@ const navigationLinks = [
   },
 ];
 
-export const Layout = () => {
-  const location = useLocation();
+type Props = {
+  children: ReactNode;
+};
+
+export const Layout = ({ children }: Props) => {
+  const pathname = usePathname();
 
   return (
     <div
@@ -23,30 +30,26 @@ export const Layout = () => {
       <header className="flex justify-between">
         <nav className="flex gap-6">
           {navigationLinks.map((nav) => {
-            const isActive = location.pathname.startsWith(nav.path);
+            const isActive = pathname.startsWith(nav.path);
 
             return (
-              <NavLink
+              <Link
                 key={nav.text.toLowerCase()}
-                to={nav.path}
-                className={() =>
-                  `text-white font-medium px-6 py-2 rounded-full shadow transition ${
-                    isActive
-                      ? 'bg-rose-700/80 dark:bg-rose-300 dark:text-stone-800 cursor-default'
-                      : 'bg-stone-700/80 dark:bg-stone-400 hover:bg-rose-800 dark:hover:bg-stone-500 dark:text-stone-800 cursor-pointer'
-                  }`
-                }
+                href={nav.path}
+                className={`text-white font-medium px-6 py-2 rounded-full shadow transition ${
+                  isActive
+                    ? 'bg-rose-700/80 dark:bg-rose-300 dark:text-stone-800 cursor-default'
+                    : 'bg-stone-700/80 dark:bg-stone-400 hover:bg-rose-800 dark:hover:bg-stone-500 dark:text-stone-800 cursor-pointer'
+                }`}
               >
                 {nav.text}
-              </NavLink>
+              </Link>
             );
           })}
         </nav>
         <ThemeToggle />
       </header>
-      <main>
-        <Outlet />
-      </main>
+      <main>{children}</main>
       <Flyout />
     </div>
   );

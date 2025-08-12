@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import Link from 'next/link';
 
 export const About = () => {
   return (
@@ -13,7 +13,7 @@ export const About = () => {
         My GitHub:{' '}
         <Link
           className="font-semibold text-pink-700 dark:text-rose-300 underline underline-offset-2 hover:text-pink-900 transition-colors duration-200"
-          to="https://github.com/koonukaame"
+          href="https://github.com/koonukaame"
           target="_blank"
           rel="noreferrer"
         >
@@ -23,7 +23,7 @@ export const About = () => {
       <p className="absolute bottom-6 text-2xl text-rose-900 dark:text-rose-400 max-w-2xl leading-relaxed text-center">
         made in{' '}
         <Link
-          to="https://rs.school/courses/reactjs"
+          href="https://rs.school/courses/reactjs"
           target="_blank"
           rel="noreferrer"
           className="font-semibold text-pink-700 dark:text-rose-300 underline underline-offset-2 hover:text-pink-900 transition-colors duration-200"

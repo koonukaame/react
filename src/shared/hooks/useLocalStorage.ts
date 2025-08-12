@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 type useLocalStorageReturn = [string, (newValue: string) => void];

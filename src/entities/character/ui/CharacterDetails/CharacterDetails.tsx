@@ -1,6 +1,7 @@
-import { Link, useSearchParams } from 'react-router';
 import type { Character } from '../../model';
 import { CHAR_MAP } from '@shared';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
   character: Character;
@@ -19,7 +20,7 @@ export const CharacterDetails = ({ character }: Props) => {
           {character.name}
         </h2>
         <Link
-          to={{ pathname: '/character', search: params.toString() }}
+          href={{ pathname: '/character', search: params.toString() }}
           className="w-5 cursor-pointer mt-4 group"
           data-testid="item-details-close"
         >

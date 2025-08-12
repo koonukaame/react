@@ -1,8 +1,9 @@
-import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import type { Character } from '../../model';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '@app';
 import { unselectCharacter, selectCharacter } from '@features';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+// import { useRouter } from 'next/router';
 
 type Props = {
   characters: Character[];
@@ -10,15 +11,15 @@ type Props = {
 
 export const CharacterList = ({ characters }: Props) => {
   const [params] = useSearchParams();
-  const location = useLocation();
+  const pathname = usePathname();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const charactersState = useSelector((state: RootState) => state.select);
 
   return (
     <ul
-      className={`${location.pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
+      className={`${pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
       data-testid="character-list"
     >
       {characters.map((character) => (
@@ -26,10 +27,9 @@ export const CharacterList = ({ characters }: Props) => {
           key={character.uid}
           className="w-full flex items-center justify-center hover:bg-rose-200 dark:hover:bg-stone-600 cursor-pointer"
           onClick={() =>
-            navigate({
-              pathname: `/character/${character.uid}`,
-              search: params.toString(),
-            })
+            router.push(
+              `/character/${character.uid}${params?.toString() ? params?.toString() : ''}`
+            )
           }
         >
           <input

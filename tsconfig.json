@@ -9,7 +9,6 @@
     "./dist/types/**/*.ts",
     "./next-env.d.ts",
     ".next/types/**/*.ts",
-    "src/globals.d.ts"
   ],
   "exclude": [
     "./node_modules"
@@ -55,7 +54,7 @@
         "src/features/index.ts"
       ],
       "@pages": [
-        "src/pages/index.ts"
+        "src/view/index.ts"
       ],
       "@shared": [
         "src/shared/index.ts"
