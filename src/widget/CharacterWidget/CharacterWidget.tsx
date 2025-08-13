@@ -14,6 +14,10 @@ export const CharacterWidget = () => {
     isSuccess,
   } = useGetCharacterQuery(uid ?? '');
 
+  if (!uid) {
+    return null;
+  }
+
   return (
     <div className="relative flex-grow">
       {isFetching ? (

@@ -1,15 +1,10 @@
 import { ReactNode } from 'react';
+import { Main } from '../../src/pages';
 
 type Props = {
-  list: ReactNode;
-  details: ReactNode;
+  children: ReactNode;
 };
 
-export default function CharacterLayout({ list, details }: Props) {
-  return (
-    <div>
-      <div>{list}</div>
-      <div>{details}</div>
-    </div>
-  );
+export default function CharacterLayout({ children }: Props) {
+  return <Main>{children}</Main>;
 }
