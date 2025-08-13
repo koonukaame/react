@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const CharacterDetails = ({ character }: Props) => {
-  const [params] = useSearchParams();
+  const params = useSearchParams();
 
   return (
     <div className="relative pb-6 px-6" data-testid="character-details">

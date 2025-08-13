@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const CharacterList = ({ characters }: Props) => {
-  const [params] = useSearchParams();
+  const params = useSearchParams();
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -26,11 +26,13 @@ export const CharacterList = ({ characters }: Props) => {
         <li
           key={character.uid}
           className="w-full flex items-center justify-center hover:bg-rose-200 dark:hover:bg-stone-600 cursor-pointer"
-          onClick={() =>
+          onClick={() => {
             router.push(
-              `/character/${character.uid}${params?.toString() ? params?.toString() : ''}`
-            )
-          }
+              params?.toString()
+                ? `/character/${character.uid}?${params?.toString()}`
+                : `/character/${character.uid}`
+            );
+          }}
         >
           <input
             className="w-4 h-4 accent-rose-700/80 dark:accent-rose-300 cursor-pointer"

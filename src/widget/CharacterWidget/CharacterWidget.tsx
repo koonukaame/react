@@ -1,10 +1,12 @@
+'use client';
+
 import { Spinner } from '@components';
 import { CharacterDetails, useGetCharacterQuery } from '@entities';
 import { MsgBlock } from '@shared';
-import { useParams } from 'react-router';
+import { useParams } from 'next/navigation';
 
 export const CharacterWidget = () => {
-  const { uid } = useParams();
+  const { uid } = useParams<{ uid: string }>();
   const {
     data: character,
     isFetching,

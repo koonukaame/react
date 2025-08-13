@@ -9,7 +9,7 @@ import {
 } from '@entities';
 import { Button, MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
   children: ReactNode;
@@ -23,6 +23,7 @@ export const Main = ({ children }: Props) => {
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
   const [searchTerm, setSearchTerm] = useLocalStorage(SEARCH_KEY);
+  const router = useRouter();
 
   const { data, isFetching, isError, isSuccess } = useSearchCharacterQuery({
     name: searchTerm,
@@ -34,8 +35,9 @@ export const Main = ({ children }: Props) => {
       setPage(page);
       const params = new URLSearchParams(searchParams.toString());
       params.set('page', page.toString());
+      router.push(`?${params.toString()}`);
     },
-    [searchParams]
+    [router, searchParams]
   );
 
   return (
