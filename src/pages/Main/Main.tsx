@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { SearchForm, Spinner, Pagination } from '@components';
 import {
   CharacterList,
@@ -38,9 +38,11 @@ export const Main = ({ children, initialData }: Props) => {
     { skip: !hasSearched }
   );
 
-  if (hasSearched && data && data !== displayData) {
-    setDisplayData(data);
-  }
+  useEffect(() => {
+    if (hasSearched && data) {
+      setDisplayData(data);
+    }
+  }, [setDisplayData, data, hasSearched]);
 
   const handlePageChange = useCallback(
     (page: number) => {
