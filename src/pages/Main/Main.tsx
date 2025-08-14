@@ -4,31 +4,43 @@ import { useCallback, useState, type ReactNode } from 'react';
 import { SearchForm, Spinner, Pagination } from '@components';
 import {
   CharacterList,
+  CharacterResponse,
   startrackApi,
   useSearchCharacterQuery,
 } from '@entities';
-import { Button, MsgBlock, SEARCH_KEY, useLocalStorage } from '@shared';
+import { Button, MsgBlock } from '@shared';
 import { useDispatch } from 'react-redux';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
   children: ReactNode;
+  initialData: CharacterResponse;
 };
 
-export const Main = ({ children }: Props) => {
+export const Main = ({ children, initialData }: Props) => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const pageParam = searchParams.get('page') ?? '';
   const [page, setPage] = useState<number>(() =>
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
-  const [searchTerm, setSearchTerm] = useLocalStorage(SEARCH_KEY);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
+  const [displayData, setDisplayData] =
+    useState<CharacterResponse>(initialData);
   const router = useRouter();
 
-  const { data, isFetching, isError, isSuccess } = useSearchCharacterQuery({
-    name: searchTerm,
-    pageNumber: page,
-  });
+  const { data, isFetching, isError } = useSearchCharacterQuery(
+    {
+      name: searchTerm,
+      pageNumber: page,
+    },
+    { skip: !hasSearched }
+  );
+
+  if (hasSearched && data && data !== displayData) {
+    setDisplayData(data);
+  }
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -36,14 +48,20 @@ export const Main = ({ children }: Props) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set('page', page.toString());
       router.push(`?${params.toString()}`);
+      setHasSearched(true);
     },
     [router, searchParams]
   );
 
+  const handleSearch = useCallback((searchTerm: string) => {
+    setSearchTerm(searchTerm);
+    setHasSearched(true);
+  }, []);
+
   return (
     <div className="flex flex-col" data-testid="main-page">
       <div className="max-w pt-3">
-        <SearchForm onSearch={setSearchTerm} />
+        <SearchForm onSearch={handleSearch} />
         <div className="flex mt-3 gap-3">
           <Button
             data-testid="refetch-list"
@@ -71,13 +89,13 @@ export const Main = ({ children }: Props) => {
             title="An unexpected error has occured"
             msg="Try again in a bit!"
           />
-        ) : isSuccess && data.characters.length === 0 ? (
+        ) : displayData.characters.length === 0 ? (
           <MsgBlock
             title="No characters found 🕵️‍♀️"
             msg="Try adjusting your search, maybe a typo snuck in?"
           />
         ) : (
-          isSuccess && <CharacterList characters={data.characters} />
+          <CharacterList characters={displayData.characters} />
         )}
         {children}
       </div>
@@ -86,7 +104,7 @@ export const Main = ({ children }: Props) => {
         <Pagination
           page={page}
           onChange={handlePageChange}
-          totalPages={data?.page.totalPages ?? 1}
+          totalPages={displayData.page.totalPages ?? 1}
         />
       </div>
     </div>
