@@ -1,7 +1,5 @@
-'use client';
-
 import { ErrorBoundary } from '@components';
-import { StoreProvider, ThemeProvider } from './providers';
+import { ThemeProvider } from './providers';
 import type { ReactNode } from 'react';
 
 type Props = {
@@ -11,9 +9,9 @@ type Props = {
 const App = ({ children }: Props) => {
   return (
     <ErrorBoundary>
-      <StoreProvider>
-        <ThemeProvider>{children}</ThemeProvider>
-      </StoreProvider>
+      {/* <StoreProvider> */}
+      <ThemeProvider>{children}</ThemeProvider>
+      {/* </StoreProvider> */}
     </ErrorBoundary>
   );
 };

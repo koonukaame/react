@@ -1,9 +1,10 @@
+'use client';
+
 import type { Character } from '../../model';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '@app';
 import { unselectCharacter, selectCharacter } from '@features';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-// import { useRouter } from 'next/router';
 
 type Props = {
   characters: Character[];

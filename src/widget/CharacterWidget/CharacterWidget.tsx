@@ -12,7 +12,7 @@ export const CharacterWidget = () => {
     isFetching,
     isError,
     isSuccess,
-  } = useGetCharacterQuery(uid ?? '');
+  } = useGetCharacterQuery(uid ?? '', { skip: !uid });
 
   if (!uid) {
     return null;

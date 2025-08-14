@@ -1,12 +1,14 @@
-import { type ChangeEvent, type FormEvent } from 'react';
-import { SEARCH_KEY, Button, useLocalStorage } from '@shared';
+'use client';
+
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { Button } from '@shared';
 
 type Props = {
   onSearch: (data: string) => void;
 };
 
 export const SearchForm = ({ onSearch }: Props) => {
-  const [value, setValue] = useLocalStorage(SEARCH_KEY);
+  const [value, setValue] = useState('');
 
   const _onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

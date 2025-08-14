@@ -6,4 +6,5 @@ export {
   startrackApi,
   useGetCharacterQuery,
   useSearchCharacterQuery,
+  getInitialCharacters,
 } from './character';

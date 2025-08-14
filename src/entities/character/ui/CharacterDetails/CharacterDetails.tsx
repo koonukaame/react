@@ -1,3 +1,5 @@
+'use client';
+
 import type { Character } from '../../model';
 import { CHAR_MAP } from '@shared';
 import Link from 'next/link';
