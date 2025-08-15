@@ -28,14 +28,17 @@ export const Main = ({ children, initialData }: Props) => {
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
   const [searchTerm, setSearchTerm] = useState(searchParam);
-  // const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [displayData, setDisplayData] =
     useState<CharacterResponse>(initialData);
 
-  const { data, isFetching, isError } = useSearchCharacterQuery({
-    name: searchTerm,
-    pageNumber: page,
-  });
+  const { data, isFetching, isError } = useSearchCharacterQuery(
+    {
+      name: searchTerm,
+      pageNumber: page,
+    },
+    { skip: !hasSearched }
+  );
 
   useEffect(() => {
     if (data) {
@@ -49,6 +52,7 @@ export const Main = ({ children, initialData }: Props) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set('page', page.toString());
       router.push(`?${params.toString()}`);
+      setHasSearched(true);
     },
     [router, searchParams]
   );
@@ -65,6 +69,7 @@ export const Main = ({ children, initialData }: Props) => {
         params.delete(SEARCH_KEY);
       }
       router.push(`?${params.toString()}`);
+      setHasSearched(true);
     },
     [router, searchParams]
   );
