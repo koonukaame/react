@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
-import { SearchForm, Spinner, Pagination } from '@components';
+import { SearchForm, Spinner, Pagination, Flyout } from '@components';
 import {
   CharacterList,
   CharacterResponse,
@@ -100,6 +100,7 @@ export const Main = ({ children, initialData }: Props) => {
           <CharacterList characters={displayData.characters} />
         )}
         {children}
+        <Flyout />
       </div>
 
       <div className="max-w pt-6 flex items-center justify-center relative">

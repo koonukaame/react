@@ -1,6 +1,5 @@
-import { Flyout, ThemeToggle } from '@components';
+import { ThemeToggle } from '@components';
 import type { ReactNode } from 'react';
-import { StoreProvider } from 'src/app/providers';
 import { Navigation } from '@shared';
 
 type Props = {
@@ -18,9 +17,6 @@ export const Layout = ({ children }: Props) => {
         <ThemeToggle />
       </header>
       <main>{children}</main>
-      <StoreProvider>
-        <Flyout />
-      </StoreProvider>
     </div>
   );
 };
