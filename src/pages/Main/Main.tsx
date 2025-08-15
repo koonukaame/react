@@ -8,7 +8,7 @@ import {
   startrackApi,
   useSearchCharacterQuery,
 } from '@entities';
-import { Button, MsgBlock } from '@shared';
+import { Button, MsgBlock, SEARCH_KEY } from '@shared';
 import { useDispatch } from 'react-redux';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -20,29 +20,28 @@ type Props = {
 export const Main = ({ children, initialData }: Props) => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
+  const router = useRouter();
+
   const pageParam = searchParams.get('page') ?? '';
+  const searchParam = searchParams.get(SEARCH_KEY) ?? '';
   const [page, setPage] = useState<number>(() =>
     isNaN(parseInt(pageParam)) ? 1 : parseInt(pageParam)
   );
-  const [searchTerm, setSearchTerm] = useState('');
-  const [hasSearched, setHasSearched] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(searchParam);
+  // const [hasSearched, setHasSearched] = useState(false);
   const [displayData, setDisplayData] =
     useState<CharacterResponse>(initialData);
-  const router = useRouter();
 
-  const { data, isFetching, isError } = useSearchCharacterQuery(
-    {
-      name: searchTerm,
-      pageNumber: page,
-    },
-    { skip: !hasSearched }
-  );
+  const { data, isFetching, isError } = useSearchCharacterQuery({
+    name: searchTerm,
+    pageNumber: page,
+  });
 
   useEffect(() => {
-    if (hasSearched && data) {
+    if (data) {
       setDisplayData(data);
     }
-  }, [setDisplayData, data, hasSearched]);
+  }, [data]);
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -50,15 +49,25 @@ export const Main = ({ children, initialData }: Props) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set('page', page.toString());
       router.push(`?${params.toString()}`);
-      setHasSearched(true);
     },
     [router, searchParams]
   );
 
-  const handleSearch = useCallback((searchTerm: string) => {
-    setSearchTerm(searchTerm);
-    setHasSearched(true);
-  }, []);
+  const handleSearch = useCallback(
+    (searchTerm: string) => {
+      setSearchTerm(searchTerm);
+      setPage(1);
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('page', '1');
+      params.set(SEARCH_KEY, searchTerm);
+      if (!searchTerm) {
+        params.delete(SEARCH_KEY);
+      }
+      router.push(`?${params.toString()}`);
+    },
+    [router, searchParams]
+  );
 
   return (
     <div className="flex flex-col" data-testid="main-page">
