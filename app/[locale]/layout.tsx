@@ -6,6 +6,7 @@ import { Navigation } from '../../src/shared';
 import { hasLocale } from 'next-intl';
 import { routing } from '../../src/i18n';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 
 type Props = {
   children: ReactNode;
@@ -18,6 +19,8 @@ export default async function RootLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
@@ -44,4 +47,8 @@ export default async function RootLayout({ children, params }: Props) {
       </body>
     </html>
   );
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
 }
