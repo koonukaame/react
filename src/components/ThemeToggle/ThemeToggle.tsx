@@ -1,13 +1,15 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useTheme } from '../../app';
 
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
+  const t = useTranslations('theme');
 
   return (
     <div className="flex items-center space-x-2">
-      <span className="text-stone-800 dark:text-stone-200">Light</span>
+      <span className="text-stone-800 dark:text-stone-200">{t('light')}</span>
 
       <button
         onClick={toggleTheme}
@@ -22,7 +24,7 @@ export const ThemeToggle = () => {
         />
       </button>
 
-      <span className="text-stone-800 dark:text-stone-200">Dark</span>
+      <span className="text-stone-800 dark:text-stone-200">{t('dark')}</span>
     </div>
   );
 };

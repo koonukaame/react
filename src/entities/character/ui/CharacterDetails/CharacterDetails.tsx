@@ -1,9 +1,10 @@
 'use client';
 
 import type { Character } from '../../model';
-import { CHAR_MAP } from '@shared';
-import Link from 'next/link';
+import { Link } from '@i18n';
 import { useSearchParams } from 'next/navigation';
+import { createCharMap } from '@shared';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   character: Character;
@@ -11,6 +12,8 @@ type Props = {
 
 export const CharacterDetails = ({ character }: Props) => {
   const params = useSearchParams();
+  const t = useTranslations('details');
+  const CHAR_MAP = createCharMap(t);
 
   return (
     <div className="relative pb-6 px-6" data-testid="character-details">
@@ -40,7 +43,9 @@ export const CharacterDetails = ({ character }: Props) => {
             <span className="font-semibold text-rose-700 dark:text-stone-200">
               {char.title}:
             </span>
-            <span>{character[char.dataToRender]?.toString() ?? 'Unknown'}</span>
+            <span>
+              {character[char.dataToRender]?.toString() ?? t('unknown')}
+            </span>
           </li>
         ))}
       </ul>

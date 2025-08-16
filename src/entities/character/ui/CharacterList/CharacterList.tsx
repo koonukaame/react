@@ -4,7 +4,9 @@ import type { Character } from '../../model';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '@app';
 import { unselectCharacter, selectCharacter } from '@features';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@i18n';
 
 type Props = {
   characters: Character[];
@@ -12,15 +14,16 @@ type Props = {
 
 export const CharacterList = ({ characters }: Props) => {
   const params = useSearchParams();
-  const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
+  const t = useTranslations('list');
+  const { uid } = useParams();
 
   const charactersState = useSelector((state: RootState) => state.select);
 
   return (
     <ul
-      className={`${pathname !== '/character' ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
+      className={`${uid ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
       data-testid="character-list"
     >
       {characters.map((character) => (
@@ -48,7 +51,7 @@ export const CharacterList = ({ characters }: Props) => {
             }
           />
           <span className="px-4 py-2 text-rose-800 dark:text-stone-200 transition-colors">
-            {character.name ?? 'Anonymous character'}
+            {character.name ?? t('unknown')}
           </span>
         </li>
       ))}

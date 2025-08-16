@@ -5,12 +5,13 @@ import {
   CharacterList,
   startrackApi,
   useSearchCharacterQuery,
-} from '../../src/entities';
-import { Pagination, SearchForm, Spinner } from '../../src/components';
-import { SEARCH_KEY, Button, MsgBlock } from '../../src/shared';
+} from '../../../src/entities';
+import { Pagination, SearchForm, Spinner } from '../../../src/components';
+import { SEARCH_KEY, Button, MsgBlock } from '../../../src/shared';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@i18n';
 
 type Props = {
   children: ReactNode;
@@ -20,6 +21,9 @@ export default function CharacterLayout({ children }: Props) {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations('main');
+  const tError = useTranslations('msgBlock.listMsgs.error');
+  const tNotFound = useTranslations('msgBlock.listMsgs.notFound');
 
   const pageParam = searchParams.get('page') ?? '';
   const searchParam = searchParams.get(SEARCH_KEY) ?? '';
@@ -70,7 +74,7 @@ export default function CharacterLayout({ children }: Props) {
               dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
             }
           >
-            Refetch List
+            {t('refetchList')}
           </Button>
           <Button
             data-testid="refetch-character"
@@ -78,7 +82,7 @@ export default function CharacterLayout({ children }: Props) {
               dispatch(startrackApi.util.invalidateTags(['getCharacter']))
             }
           >
-            Refetch Characters
+            {t('refetchDetails')}
           </Button>
         </div>
       </div>
@@ -86,15 +90,9 @@ export default function CharacterLayout({ children }: Props) {
         {isFetching ? (
           <Spinner isFullScreen />
         ) : isError ? (
-          <MsgBlock
-            title="An unexpected error has occured"
-            msg="Try again in a bit!"
-          />
+          <MsgBlock title={tError('title')} msg={tError('msg')} />
         ) : isSuccess && data.characters.length === 0 ? (
-          <MsgBlock
-            title="No characters found 🕵️‍♀️"
-            msg="Try adjusting your search, maybe a typo snuck in?"
-          />
+          <MsgBlock title={tNotFound('title')} msg={tNotFound('msg')} />
         ) : (
           isSuccess && <CharacterList characters={data.characters} />
         )}

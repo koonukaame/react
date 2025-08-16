@@ -16,6 +16,7 @@
       "@pages": ["src/view/index.ts"],
       "@shared": ["src/shared/index.ts"],
       "@test": ["src/test-utils/index.ts"],
+      "@i18n": ["src/i18n/index.ts"],
     },
 
     /* Bundler mode */

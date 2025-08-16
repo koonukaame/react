@@ -1,21 +1,22 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@i18n';
 
 const navigationLinks = [
   {
     path: '/character',
-    text: 'Main',
+    key: 'main',
   },
   {
     path: '/about',
-    text: 'About',
+    key: 'about',
   },
 ];
 
 export const Navigation = () => {
   const pathname = usePathname();
+  const t = useTranslations('navigation');
 
   return (
     <nav className="flex gap-6">
@@ -24,7 +25,7 @@ export const Navigation = () => {
 
         return (
           <Link
-            key={nav.text.toLowerCase()}
+            key={nav.key}
             href={nav.path}
             className={`text-white font-medium px-6 py-2 rounded-full shadow transition ${
               isActive
@@ -32,7 +33,7 @@ export const Navigation = () => {
                 : 'bg-stone-700/80 dark:bg-stone-400 hover:bg-rose-800 dark:hover:bg-stone-500 dark:text-stone-800 cursor-pointer'
             }`}
           >
-            {nav.text}
+            {t(nav.key)}
           </Link>
         );
       })}

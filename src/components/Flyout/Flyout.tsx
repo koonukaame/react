@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app';
 import { unselectAll } from '@features';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export const Flyout = () => {
   const characters = useSelector((state: RootState) => state.select);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations('flyout');
 
   const handleDownload = () => {
     const headers = Object.keys(characters[0] || {}).join(', ');
@@ -43,7 +45,7 @@ export const Flyout = () => {
       <div className="flex justify-center items-center gap-2 cursor-pointer">
         <span className="text-stone-700 dark:text-stone-200 font-medium text-center">
           {`${characters.length} `}
-          {characters.length === 1 ? 'item is ' : 'items are '}selected
+          {characters.length === 1 ? t('single') : t('multiple')}
         </span>
         <span className="text-sm text-stone-700 dark:text-stone-200">
           {isOpen ? '▲' : '▼'}
@@ -56,7 +58,7 @@ export const Flyout = () => {
             onClick={() => dispatch(unselectAll())}
             className="bg-stone-100 text-stone-700 text-sm font-semibold px-4 py-2 rounded-xl hover:bg-rose-200 transition cursor-pointer"
           >
-            Unselect All
+            {t('unselect')}
           </button>
           <a
             href={handleDownload()}
@@ -64,7 +66,7 @@ export const Flyout = () => {
             data-testid="download-file"
             className="bg-rose-700/80 dark:bg-rose-300 hover:bg-rose-800 dark:hover:bg-rose-400 text-white dark:text-stone-800 text-sm font-semibold px-4 py-2 rounded-xl transition text-center"
           >
-            Download CSV
+            {t('download')}
           </a>
         </div>
       )}

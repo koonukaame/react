@@ -1,4 +1,8 @@
+import { useTranslations } from 'next-intl';
+
 export default function NotFoundPage() {
+  const t = useTranslations('notFound');
+
   return (
     <main
       className="flex flex-col items-center justify-center min-h-[80vh]"
@@ -8,7 +12,7 @@ export default function NotFoundPage() {
         404
       </h1>
       <span className="text-2xl font-semibold text-rose-900 dark:text-rose-300 mb-3">
-        Page Not Found
+        {t('text')}
       </span>
     </main>
   );

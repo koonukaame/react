@@ -1,0 +1,75 @@
+{
+  "notFound": {
+    "text": "Page not found"
+  },
+  "about": {
+    "title": "About",
+    "text": "My Github: ",
+    "footer": "made in "
+  },
+  "main": {
+    "refetchList": "Refetch list",
+    "refetchDetails": "Refetch details"
+  },
+  "navigation": {
+    "main": "Main",
+    "about": "About"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "msgBlock": {
+    "listMsgs": {
+      "error": {
+        "title": "An unexpected error has occurred",
+        "msg": "Try again in a bit!"
+      },
+      "notFound": {
+        "title": "No characters found 🕵️‍♀️",
+        "msg": "Try adjusting your search, maybe a typo snuck in?"
+      }
+    },
+    "detailsMsgs": {
+      "error": {
+        "title": "An unexpected error has occurred",
+        "msg": "Try again in a bit!"
+      },
+      "notFound": {
+        "title": "Character was not found",
+        "msg": "Please choose another character"
+      }
+    }
+  },
+  "searchForm": {
+    "placeholder": "Who are you looking for?",
+    "button": "Search"
+  },
+  "flyout": {
+    "single": "item is selected",
+    "multiple": "items are selected",
+    "unselect": "Unselect all",
+    "download": "Download CSV"
+  },
+  "pagination": {
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "details": {
+    "unknown": "Unknown",
+    "fields": {
+      "name": "Name",
+      "gender": "Gender",
+      "birth": "Birth",
+      "death": "Death",
+      "placeOfBirth": "Place of Birth",
+      "placeOfDeath": "Place of Death",
+      "height": "Height",
+      "weight": "Weight",
+      "status": "Status"
+    }
+  },
+  "list": {
+    "unknown": "Unknown character"
+  }
+}

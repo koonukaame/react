@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, type FormEvent } from 'react';
 import { Button, SEARCH_KEY, useLocalStorage } from '@shared';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   onSearch: (data: string) => void;
@@ -9,6 +10,7 @@ type Props = {
 
 export const SearchForm = ({ onSearch }: Props) => {
   const [value, setValue] = useLocalStorage(SEARCH_KEY);
+  const t = useTranslations('searchForm');
 
   const _onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,12 +35,12 @@ export const SearchForm = ({ onSearch }: Props) => {
         onChange={_onChange}
         name="name"
         type="search"
-        placeholder="Who are you looking for?"
+        placeholder={t('placeholder')}
         data-testid="search-input"
         className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-stone-700 dark:text-stone-200 dark:border-stone-700 transition"
       />
       <Button type="submit" data-testid="search-button">
-        Search
+        {t('button')}
       </Button>
     </form>
   );

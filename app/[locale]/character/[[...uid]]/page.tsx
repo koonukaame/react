@@ -1,13 +1,19 @@
 'use client';
 
-import { CharacterDetails, useGetCharacterQuery } from '@entities';
-import { MsgBlock } from '@shared';
-import { Spinner } from '@components';
+import {
+  CharacterDetails,
+  useGetCharacterQuery,
+} from '../../../../src/entities';
+import { MsgBlock } from '../../../../src/shared';
+import { Spinner } from '../../../../src/components';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
-export default function CharacterPage() {
+export default function DetailsPage() {
   const { uid } = useParams();
   const uidString = Array.isArray(uid) ? uid[0] : uid;
+  const tError = useTranslations('msgBlock.detailsMsgs.error');
+  const tNotFound = useTranslations('msgBlock.detailsMsgs.notFound');
 
   const {
     data: character,
@@ -25,17 +31,11 @@ export default function CharacterPage() {
       {isFetching ? (
         <Spinner isFullScreen={false} />
       ) : isError ? (
-        <MsgBlock
-          title="An unexpected error has occured"
-          msg="Please try again in a bit!"
-        />
+        <MsgBlock title={tError('title')} msg={tError('msg')} />
       ) : isSuccess && character ? (
         <CharacterDetails character={character} />
       ) : (
-        <MsgBlock
-          title="Character was not found"
-          msg="Please choose another character"
-        />
+        <MsgBlock title={tNotFound('title')} msg={tNotFound('msg')} />
       )}
     </div>
   );
