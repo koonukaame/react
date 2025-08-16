@@ -5,10 +5,7 @@ export default function AboutPage() {
   const t = useTranslations('about');
 
   return (
-    <main
-      className="flex flex-col items-center justify-center min-h-[80vh]"
-      data-testid="about-page"
-    >
+    <main className="flex flex-col items-center justify-center min-h-[80vh]">
       <h1 className="text-9xl font-extrabold text-rose-700/80 dark:text-rose-400 mb-6 tracking-wide">
         {t('title')}
       </h1>

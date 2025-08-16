@@ -22,10 +22,7 @@ export const CharacterList = ({ characters }: Props) => {
   const charactersState = useSelector((state: RootState) => state.select);
 
   return (
-    <ul
-      className={`${uid ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}
-      data-testid="character-list"
-    >
+    <ul className={`${uid ? 'w-1/3' : 'w-full'} text-center overflow-y-auto`}>
       {characters.map((character) => (
         <li
           key={character.uid}
@@ -40,7 +37,6 @@ export const CharacterList = ({ characters }: Props) => {
         >
           <input
             className="w-4 h-4 accent-rose-700/80 dark:accent-rose-300 cursor-pointer"
-            data-testid="checkbox"
             type="checkbox"
             checked={charactersState.some((char) => char.uid === character.uid)}
             onClick={(e) => e.stopPropagation()}

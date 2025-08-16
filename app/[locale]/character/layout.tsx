@@ -64,12 +64,11 @@ export default function CharacterLayout({ children }: Props) {
   );
 
   return (
-    <div className="flex flex-col" data-testid="main-page">
+    <div className="flex flex-col">
       <div className="max-w pt-3">
         <SearchForm onSearch={handleSearch} />
         <div className="flex mt-3 gap-3">
           <Button
-            data-testid="refetch-list"
             onClick={() =>
               dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
             }
@@ -77,7 +76,6 @@ export default function CharacterLayout({ children }: Props) {
             {t('refetchList')}
           </Button>
           <Button
-            data-testid="refetch-character"
             onClick={() =>
               dispatch(startrackApi.util.invalidateTags(['getCharacter']))
             }

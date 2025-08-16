@@ -5,14 +5,13 @@ An [RSSchool](https://rs.school/) React project to learn core concepts.
 ## Tech stack
 
 * Frontend: [Typescript](https://www.typescriptlang.org/), [React](https://react.dev/)
+* Framework: [Next.js](https://nextjs.org/)
 * State Management: [Redux Toolkit](https://redux-toolkit.js.org/), [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
 * Validation: [Zod](https://zod.dev/)
-* Bundler: [Vite](https://vite.dev/)
 * Styling: [TailwindCSS](https://tailwindcss.com/)
 * Deployment: [Netlify](https://www.netlify.com/)
 * Code Quality: [Eslint](https://eslint.org/), [Prettier](https://prettier.io/)
 * Git Hooks: [Husky](https://typicode.github.io/husky/)
-* Testing: [Vitest](https://vitest.dev/), [testing-library](https://testing-library.com/)
 
 ## Setup Guide
 

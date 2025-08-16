@@ -29,10 +29,7 @@ export default async function RootLayout({ children, params }: Props) {
       </head>
       <body>
         <App>
-          <div
-            className="box-border relative flex flex-col h-screen max-w px-6 py-3 dark:bg-neutral-900"
-            data-testid="layout"
-          >
+          <div className="box-border relative flex flex-col h-screen max-w px-6 py-3 dark:bg-neutral-900">
             <header className="flex justify-between">
               <Navigation />
               <div className="flex gap-6">

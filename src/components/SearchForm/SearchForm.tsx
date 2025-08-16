@@ -28,7 +28,6 @@ export const SearchForm = ({ onSearch }: Props) => {
     <form
       onSubmit={_onSubmit}
       className="flex items-center justify-center gap-3"
-      data-testid="search-form"
     >
       <input
         value={value}
@@ -36,12 +35,9 @@ export const SearchForm = ({ onSearch }: Props) => {
         name="name"
         type="search"
         placeholder={t('placeholder')}
-        data-testid="search-input"
         className="flex-1 px-4 py-2 rounded-full border border-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-300 dark:focus:ring-stone-700 dark:text-stone-200 dark:border-stone-700 transition"
       />
-      <Button type="submit" data-testid="search-button">
-        {t('button')}
-      </Button>
+      <Button type="submit">{t('button')}</Button>
     </form>
   );
 };

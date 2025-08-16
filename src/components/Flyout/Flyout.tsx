@@ -50,7 +50,6 @@ export const Flyout = () => {
   return (
     <div
       className="fixed flex flex-col-reverse gap-3 left-6 bottom-6 rounded-xl p-3 bg-white dark:bg-neutral-900 border border-stone-200 dark:border-stone-700"
-      data-testid="flyout"
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="flex justify-center items-center gap-2 cursor-pointer">
@@ -76,7 +75,6 @@ export const Flyout = () => {
               e.stopPropagation();
               handleDownload();
             }}
-            data-testid="download-file"
             className="bg-rose-700/80 dark:bg-rose-300 hover:bg-rose-800 dark:hover:bg-rose-400 text-white dark:text-stone-800 text-sm font-semibold px-4 py-2 rounded-xl transition text-center"
           >
             {t('download')}
