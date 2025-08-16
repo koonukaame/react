@@ -12,24 +12,35 @@ export const Flyout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations('flyout');
 
-  const handleDownload = () => {
-    const headers = Object.keys(characters[0] || {}).join(', ');
+  const handleDownload = async () => {
+    try {
+      const response = await fetch('/api/csv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(characters),
+      });
 
-    const formattedData = characters
-      .map((item) =>
-        Object.values(item)
-          .map((value) => (value === null ? 'Unknown' : value))
-          .join(', ')
-      )
-      .join('\n');
+      if (!response.ok) {
+        throw new Error('Failed to generate CSV');
+      }
 
-    const csv = [headers, formattedData].join('\n');
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
 
-    const blob = new Blob([csv], {
-      type: 'text/csv',
-    });
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${characters.length}_item${characters.length !== 1 ? 's' : ''}.csv`;
 
-    return URL.createObjectURL(blob);
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (characters.length === 0) {
@@ -60,14 +71,16 @@ export const Flyout = () => {
           >
             {t('unselect')}
           </button>
-          <a
-            href={handleDownload()}
-            download={`${characters.length}_item${characters.length !== 1 ? 's' : ''}.csv`}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDownload();
+            }}
             data-testid="download-file"
             className="bg-rose-700/80 dark:bg-rose-300 hover:bg-rose-800 dark:hover:bg-rose-400 text-white dark:text-stone-800 text-sm font-semibold px-4 py-2 rounded-xl transition text-center"
           >
             {t('download')}
-          </a>
+          </button>
         </div>
       )}
     </div>
