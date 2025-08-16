@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { Main } from '../../src/pages';
-import { StoreProvider } from 'src/app/providers';
 import { getInitialCharacters } from '@entities';
 
 type Props = {
@@ -13,9 +12,5 @@ export default async function CharacterLayout({ children }: Props) {
     return;
   }
 
-  return (
-    <StoreProvider>
-      <Main initialData={result.data}>{children}</Main>
-    </StoreProvider>
-  );
+  return <Main initialData={result.data}>{children}</Main>;
 }

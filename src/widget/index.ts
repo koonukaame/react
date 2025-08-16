@@ -1,1 +1,0 @@
-export { CharacterWidget } from './CharacterWidget';

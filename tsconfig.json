@@ -62,9 +62,6 @@
       "@test": [
         "src/test-utils/index.ts"
       ],
-      "@widget": [
-        "src/widget/index.ts"
-      ]
     }
   }
 }
