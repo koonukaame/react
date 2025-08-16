@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import App from '../../src/app/App';
 import './globals.css';
-import { Flyout, ThemeToggle } from '../../src/components';
+import { Flyout, LocaleSelect, ThemeToggle } from '../../src/components';
 import { Navigation } from '../../src/shared';
 import { hasLocale } from 'next-intl';
 import { routing } from '../../src/i18n';
@@ -32,7 +32,10 @@ export default async function RootLayout({ children, params }: Props) {
           >
             <header className="flex justify-between">
               <Navigation />
-              <ThemeToggle />
+              <div className="flex gap-6">
+                <ThemeToggle />
+                <LocaleSelect />
+              </div>
             </header>
             <main>{children}</main>
             <Flyout />
