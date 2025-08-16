@@ -3,20 +3,18 @@
 import { CharacterDetails, useGetCharacterQuery } from '@entities';
 import { MsgBlock } from '@shared';
 import { Spinner } from '@components';
+import { useParams } from 'next/navigation';
 
-type Props = {
-  params: { uid: string };
-};
-
-export default function CharacterPage({ params }: Props) {
-  const { uid } = params;
+export default function CharacterPage() {
+  const { uid } = useParams();
+  const uidString = Array.isArray(uid) ? uid[0] : uid;
 
   const {
     data: character,
     isFetching,
     isError,
     isSuccess,
-  } = useGetCharacterQuery(uid ?? '', { skip: !uid });
+  } = useGetCharacterQuery(uidString ?? '', { skip: !uidString });
 
   if (!uid) {
     return null;
