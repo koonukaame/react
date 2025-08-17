@@ -3,45 +3,28 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../app';
 import { unselectAll } from '@features';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Link } from '@i18n';
 
 export const Flyout = () => {
   const characters = useSelector((state: RootState) => state.select);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations('flyout');
+  const [download, setDownload] = useState<string>();
 
-  const handleDownload = async () => {
-    try {
+  useEffect(() => {
+    (async () => {
       const response = await fetch('/api/csv', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(characters),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate CSV');
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${characters.length}_item${characters.length !== 1 ? 's' : ''}.csv`;
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const csv = await response.text();
+      setDownload(`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`);
+    })();
+  }, [characters]);
 
   if (characters.length === 0) {
     return null;
@@ -70,15 +53,16 @@ export const Flyout = () => {
           >
             {t('unselect')}
           </button>
-          <button
-            onClick={(e) => {
+          <Link
+            href={download ?? '#'}
+            download={`${characters.length}_item${characters.length !== 1 ? 's' : ''}.csv`}
+            onClick={async (e) => {
               e.stopPropagation();
-              handleDownload();
             }}
             className="bg-rose-700/80 dark:bg-rose-300 hover:bg-rose-800 dark:hover:bg-rose-400 text-white dark:text-stone-800 text-sm font-semibold px-4 py-2 rounded-xl transition text-center"
           >
             {t('download')}
-          </button>
+          </Link>
         </div>
       )}
     </div>
