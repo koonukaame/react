@@ -3,9 +3,9 @@
 import {
   CharacterDetails,
   useGetCharacterQuery,
-} from '../../../../src/entities';
-import { MsgBlock } from '../../../../src/shared';
-import { Spinner } from '../../../../src/components';
+} from '../../../../../src/entities';
+import { MsgBlock } from '../../../../../src/shared';
+import { Spinner } from '../../../../../src/components';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
