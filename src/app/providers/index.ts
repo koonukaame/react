@@ -1,3 +1,3 @@
-export { useTheme } from './ThemeProvider';
+export { useTheme, ThemeProvider } from './ThemeProvider';
 export { StoreProvider } from './StoreProvider';
-export { ThemeProvider } from './ThemeProvider';
+export { useCharacters, CharactersProvider } from './CharactersProvider';

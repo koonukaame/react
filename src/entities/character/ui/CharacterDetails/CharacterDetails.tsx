@@ -1,27 +1,29 @@
-import { Link, useSearchParams } from 'react-router';
+'use client';
+
 import type { Character } from '../../model';
-import { CHAR_MAP } from '@shared';
+import { Link } from '@i18n';
+import { useSearchParams } from 'next/navigation';
+import { createCharMap } from '@shared';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   character: Character;
 };
 
 export const CharacterDetails = ({ character }: Props) => {
-  const [params] = useSearchParams();
+  const params = useSearchParams();
+  const t = useTranslations('details');
+  const CHAR_MAP = createCharMap(t);
 
   return (
-    <div className="relative pb-6 px-6" data-testid="character-details">
+    <div className="relative pb-6 px-6">
       <div className="flex w-full justify-between border-b border-rose-800 dark:border-stone-700 pb-2">
-        <h2
-          className="text-xl font-bold text-rose-800 dark:text-stone-200"
-          data-testid="char-name"
-        >
+        <h2 className="text-xl font-bold text-rose-800 dark:text-stone-200">
           {character.name}
         </h2>
         <Link
-          to={{ pathname: '/character', search: params.toString() }}
+          href={{ pathname: '/character', search: params.toString() }}
           className="w-5 cursor-pointer mt-4 group"
-          data-testid="item-details-close"
         >
           <div className="w-full h-0.5 bg-stone-500 dark:bg-stone-400 dark: rotate-45 group-hover:bg-rose-800 dark:group-hover:bg-rose-300 transition-colors" />
           <div className="w-full h-0.5 bg-stone-500 dark:bg-stone-400 -rotate-45 -mt-0.5 group-hover:bg-rose-800 dark:group-hover:bg-rose-300 transition-colors" />
@@ -37,7 +39,9 @@ export const CharacterDetails = ({ character }: Props) => {
             <span className="font-semibold text-rose-700 dark:text-stone-200">
               {char.title}:
             </span>
-            <span>{character[char.dataToRender]?.toString() ?? 'Unknown'}</span>
+            <span>
+              {character[char.dataToRender]?.toString() ?? t('unknown')}
+            </span>
           </li>
         ))}
       </ul>

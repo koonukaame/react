@@ -1,16 +1,22 @@
-import { RouterProvider } from 'react-router';
-import { router } from './routers';
 import { ErrorBoundary } from '@components';
 import { StoreProvider, ThemeProvider } from './providers';
+import type { ReactNode } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
 
-export const App = () => {
+type Props = {
+  children: ReactNode;
+};
+
+const App = ({ children }: Props) => {
   return (
     <ErrorBoundary>
-      <StoreProvider>
-        <ThemeProvider>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </StoreProvider>
+      <NextIntlClientProvider>
+        <StoreProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </StoreProvider>
+      </NextIntlClientProvider>
     </ErrorBoundary>
   );
 };
+
+export default App;

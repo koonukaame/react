@@ -8,34 +8,36 @@ type CharMapType = {
   dataToRender: keyof Character;
 }[];
 
-export const CHAR_MAP: CharMapType = [
-  { key: 'name', title: 'Name', dataToRender: 'name' },
-  { key: 'gender', title: 'Gender', dataToRender: 'gender' },
-  { key: 'birth', title: 'Birth', dataToRender: 'yearOfBirth' },
-  { key: 'death', title: 'Death', dataToRender: 'yearOfDeath' },
-  {
-    key: 'placeOfBirth',
-    title: 'Place of Birth',
-    dataToRender: 'placeOfBirth',
-  },
-  {
-    key: 'placeOfDeath',
-    title: 'Place of Death',
-    dataToRender: 'placeOfDeath',
-  },
-  {
-    key: 'height',
-    title: 'Height',
-    dataToRender: 'height',
-  },
-  {
-    key: 'weight',
-    title: 'Weight',
-    dataToRender: 'weight',
-  },
-  {
-    key: 'status',
-    title: 'Status',
-    dataToRender: 'deceased',
-  },
-];
+export const createCharMap = (t: (key: string) => string): CharMapType => {
+  return [
+    { key: 'name', title: t('fields.name'), dataToRender: 'name' },
+    { key: 'gender', title: t('fields.gender'), dataToRender: 'gender' },
+    { key: 'birth', title: t('fields.birth'), dataToRender: 'yearOfBirth' },
+    { key: 'death', title: t('fields.death'), dataToRender: 'yearOfDeath' },
+    {
+      key: 'placeOfBirth',
+      title: t('fields.placeOfBirth'),
+      dataToRender: 'placeOfBirth',
+    },
+    {
+      key: 'placeOfDeath',
+      title: t('fields.placeOfDeath'),
+      dataToRender: 'placeOfDeath',
+    },
+    {
+      key: 'height',
+      title: t('fields.height'),
+      dataToRender: 'height',
+    },
+    {
+      key: 'weight',
+      title: t('fields.weight'),
+      dataToRender: 'weight',
+    },
+    {
+      key: 'status',
+      title: t('fields.status'),
+      dataToRender: 'deceased',
+    },
+  ];
+};

@@ -1,4 +1,5 @@
 import { Button } from '@shared';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   page: number;
@@ -7,29 +8,26 @@ type Props = {
 };
 
 export const Pagination = ({ page, onChange, totalPages }: Props) => {
+  const t = useTranslations('pagination');
+
   return (
-    <div
-      className="flex gap-2 items-center justify-center"
-      data-testid="pagination"
-    >
+    <div className="flex gap-2 items-center justify-center">
       <Button
         onClick={() => onChange(page - 1)}
         disabled={page <= 1}
         classNames={`disabled:bg-stone-400 dark:hover:disabled:bg-stone-400 disabled:cursor-not-allowed`}
-        data-testid="previous-button"
       >
-        Prev
+        {t('prev')}
       </Button>
-      <span data-testid="page-count" className="dark:text-stone-200">
+      <span className="dark:text-stone-200">
         {page} / {totalPages}
       </span>
       <Button
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
         classNames={'disabled:bg-gray-400 disabled:cursor-not-allowed'}
-        data-testid="next-button"
       >
-        Next
+        {t('next')}
       </Button>
     </div>
   );

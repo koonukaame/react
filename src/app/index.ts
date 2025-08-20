@@ -1,9 +1,12 @@
-export { App } from './App';
 export {
-  mainStore,
+  makeStore,
   type AppStore,
   type RootState,
   type AppDispatch,
 } from './stores';
-export { useTheme } from './providers';
-export { ThemeProvider } from './providers';
+export {
+  useTheme,
+  ThemeProvider,
+  useCharacters,
+  CharactersProvider,
+} from './providers';

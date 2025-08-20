@@ -6,16 +6,16 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "composite": true,
     "baseUrl": ".",
     "paths": {
       "@app": ["src/app/index.ts"],
       "@components": ["src/components/index.ts"],
       "@entities": ["src/entities/index.ts"],
       "@features": ["src/features/index.ts"],
-      "@pages": ["src/pages/index.ts"],
+      "@pages": ["src/view/index.ts"],
       "@shared": ["src/shared/index.ts"],
-      "@test": ["src/test-utils/index.ts"],
-      "@widget": ["src/widget/index.ts"],
+      "@i18n": ["src/i18n/index.ts"],
     },
 
     /* Bundler mode */
@@ -23,7 +23,7 @@
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "emitDeclarationOnly": true,
     "jsx": "react-jsx",
 
     /* Linting */
@@ -34,5 +34,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "app/api/csv"]
 }
