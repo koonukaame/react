@@ -1,14 +1,14 @@
 'use client';
 
 import { ReactNode, useCallback, useState } from 'react';
-import { startrackApi, useSearchCharacterQuery } from '../../../src/entities';
-import { Pagination, SearchForm, Spinner } from '../../../src/components';
-import { SEARCH_KEY, Button, MsgBlock } from '../../../src/shared';
+import { startrackApi, useSearchCharacterQuery } from '@entities';
+import { Pagination, SearchForm, Spinner } from '@components';
+import { SEARCH_KEY, Button, MsgBlock } from '@shared';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useTranslations } from 'next-intl';
-import { useRouter } from '../../../src/i18n';
-import { CharactersProvider } from '../../../src/app';
+import { useRouter } from '@i18n';
+import { CharactersProvider } from '@app';
 
 type Props = {
   list: ReactNode;

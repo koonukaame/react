@@ -1,10 +1,10 @@
 import { Suspense, type ReactNode } from 'react';
 import App from '../../src/app/App';
 import './globals.css';
-import { Flyout, LocaleSelect, ThemeToggle } from '../../src/components';
-import { Navigation } from '../../src/shared';
+import { Flyout, LocaleSelect, ThemeToggle } from '@components';
+import { Navigation } from '@shared';
 import { hasLocale } from 'next-intl';
-import { routing } from '../../src/i18n';
+import { routing } from '@i18n';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 

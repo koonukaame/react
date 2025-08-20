@@ -42,25 +42,22 @@
     "baseUrl": ".",
     "paths": {
       "@app": [
-        "src/app/index.ts"
+        "./src/app/index.ts"
       ],
       "@components": [
-        "src/components/index.ts"
+        "./src/components/index.ts"
       ],
       "@entities": [
-        "src/entities/index.ts"
+        "./src/entities/index.ts"
       ],
       "@features": [
-        "src/features/index.ts"
-      ],
-      "@pages": [
-        "src/view/index.ts"
+        "./src/features/index.ts"
       ],
       "@shared": [
-        "src/shared/index.ts"
+        "./src/shared/index.ts"
       ],
       "@i18n": [
-        "src/i18n/index.ts"
+        "./src/i18n/index.ts"
       ],
     }
   }
