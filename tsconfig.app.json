@@ -6,6 +6,18 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["src/app/index.ts"],
+      "@components": ["src/components/index.ts"],
+      "@entities": ["src/entities/index.ts"],
+      "@features": ["src/features/index.ts"],
+      "@pages": ["src/pages/index.ts"],
+      "@shared": ["src/shared/index.ts"],
+      "@test": ["src/test-utils/index.ts"],
+      "@widget": ["src/widget/index.ts"],
+    },
+
 
     /* Bundler mode */
     "moduleResolution": "bundler",
