@@ -1,23 +1,21 @@
 'use client';
 
 import { ReactNode, useCallback, useState } from 'react';
-import {
-  CharacterList,
-  startrackApi,
-  useSearchCharacterQuery,
-} from '../../../src/entities';
-import { Pagination, SearchForm, Spinner } from '../../../src/components';
-import { SEARCH_KEY, Button, MsgBlock } from '../../../src/shared';
+import { startrackApi, useSearchCharacterQuery } from '@entities';
+import { Pagination, SearchForm, Spinner } from '@components';
+import { SEARCH_KEY, Button, MsgBlock } from '@shared';
 import { useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@i18n';
+import { CharactersProvider } from '@app';
 
 type Props = {
-  children: ReactNode;
+  list: ReactNode;
+  details: ReactNode;
 };
 
-export default function CharacterLayout({ children }: Props) {
+export default function CharacterLayout({ list, details }: Props) {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -64,46 +62,48 @@ export default function CharacterLayout({ children }: Props) {
   );
 
   return (
-    <div className="flex flex-col">
-      <div className="max-w pt-3">
-        <SearchForm onSearch={handleSearch} />
-        <div className="flex mt-3 gap-3">
-          <Button
-            onClick={() =>
-              dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
-            }
-          >
-            {t('refetchList')}
-          </Button>
-          <Button
-            onClick={() =>
-              dispatch(startrackApi.util.invalidateTags(['getCharacter']))
-            }
-          >
-            {t('refetchDetails')}
-          </Button>
+    <CharactersProvider data={data ?? null}>
+      <div className="flex flex-col">
+        <div className="max-w pt-3">
+          <SearchForm onSearch={handleSearch} />
+          <div className="flex mt-3 gap-3">
+            <Button
+              onClick={() =>
+                dispatch(startrackApi.util.invalidateTags(['searchCharacter']))
+              }
+            >
+              {t('refetchList')}
+            </Button>
+            <Button
+              onClick={() =>
+                dispatch(startrackApi.util.invalidateTags(['getCharacter']))
+              }
+            >
+              {t('refetchDetails')}
+            </Button>
+          </div>
+        </div>
+        <div className="h-[60vh] flex flex-row flex-grow mt-3 overflow-hidden">
+          {isFetching ? (
+            <Spinner isFullScreen />
+          ) : isError ? (
+            <MsgBlock title={tError('title')} msg={tError('msg')} />
+          ) : isSuccess && data.characters.length === 0 ? (
+            <MsgBlock title={tNotFound('title')} msg={tNotFound('msg')} />
+          ) : (
+            isSuccess && list
+          )}
+          {details}
+        </div>
+
+        <div className="max-w pt-6 flex items-center justify-center relative">
+          <Pagination
+            page={page}
+            onChange={handlePageChange}
+            totalPages={data?.page.totalPages ?? 1}
+          />
         </div>
       </div>
-      <div className="h-[60vh] flex flex-row flex-grow mt-3 overflow-hidden">
-        {isFetching ? (
-          <Spinner isFullScreen />
-        ) : isError ? (
-          <MsgBlock title={tError('title')} msg={tError('msg')} />
-        ) : isSuccess && data.characters.length === 0 ? (
-          <MsgBlock title={tNotFound('title')} msg={tNotFound('msg')} />
-        ) : (
-          isSuccess && <CharacterList characters={data.characters} />
-        )}
-        {children}
-      </div>
-
-      <div className="max-w pt-6 flex items-center justify-center relative">
-        <Pagination
-          page={page}
-          onChange={handlePageChange}
-          totalPages={data?.page.totalPages ?? 1}
-        />
-      </div>
-    </div>
+    </CharactersProvider>
   );
 }

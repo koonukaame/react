@@ -1,13 +1,10 @@
 'use client';
 
-import {
-  CharacterDetails,
-  useGetCharacterQuery,
-} from '../../../../src/entities';
-import { MsgBlock } from '../../../../src/shared';
-import { Spinner } from '../../../../src/components';
+import { CharacterDetails, useGetCharacterQuery } from '@entities';
+import { Spinner } from '@components';
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { MsgBlock } from '@shared';
 
 export default function DetailsPage() {
   const { uid } = useParams();
