@@ -6,12 +6,5 @@ type Props = {
 };
 
 export default async function NotFoundLayout({ children }: Props) {
-  return (
-    <html>
-      <head>
-        <title>Startrack API</title>
-      </head>
-      <body>{children}</body>
-    </html>
-  );
+  return <div>{children}</div>;
 }
