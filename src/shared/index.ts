@@ -1,1 +1,1 @@
-export { Button, Modal } from './ui-kit';
+export { Button, Modal, Input } from './ui-kit';
