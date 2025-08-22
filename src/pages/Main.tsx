@@ -1,6 +1,6 @@
 import { Button, Modal } from '@shared';
 import { createPortal } from 'react-dom';
-import { ControlledForm, UncontrolledForm } from '@components';
+import { Form } from '@components';
 import { useState } from 'react';
 
 export const Main = () => {
@@ -21,9 +21,11 @@ export const Main = () => {
         ></Button>
         {showModal &&
           createPortal(
-            <Modal>
-              {showModal === 'controlled' && <ControlledForm />}
-              {showModal === 'uncontrolled' && <UncontrolledForm />}
+            <Modal onClose={() => setShowModal(null)}>
+              <Form
+                isControlled={showModal === 'controlled'}
+                onClose={() => setShowModal(null)}
+              />
             </Modal>,
             document.body
           )}
