@@ -6,7 +6,9 @@ import {
   genderOptions,
   Input,
   Select,
+  useFormsDispatch,
 } from '@shared';
+import { addForm } from '@features';
 
 type Props = {
   isControlled: boolean;
@@ -15,18 +17,31 @@ type Props = {
 
 export const Form = ({ isControlled, onClose }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const dispatch = useFormsDispatch();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+    const pictureFile = formData.get('picture');
+
+    let pictureBase64 = '';
+    if (pictureFile instanceof File) {
+      pictureBase64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(pictureFile);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (err) => reject(err);
+      });
+    }
+
     const data = {
       name: formData.get('name'),
       age: Number(formData.get('age')),
       email: formData.get('email'),
       password: formData.get('password'),
       passwordRepeat: formData.get('passwordRepeat'),
-      picture: formData.get('picture'),
+      picture: pictureFile,
       tos: formData.get('tos') === 'on',
     };
 
@@ -42,7 +57,21 @@ export const Form = ({ isControlled, onClose }: Props) => {
       return;
     }
 
+    const storeData = {
+      name: parsedFormData.data.name,
+      age: parsedFormData.data.age,
+      email: parsedFormData.data.email,
+      password: parsedFormData.data.password,
+      country: String(formData.get('country')),
+      gender: String(formData.get('gender')),
+      picture: pictureBase64,
+      type: (isControlled ? 'controlled' : 'uncontrolled') as
+        | 'controlled'
+        | 'uncontrolled',
+    };
+
     setErrors({});
+    dispatch(addForm(storeData));
     onClose();
   };
 

@@ -1,5 +1,10 @@
 import { Main } from '@pages';
+import { StoreProvider } from './providers/StoreProvider';
 
 export const App = () => {
-  return <Main />;
+  return (
+    <StoreProvider>
+      <Main />
+    </StoreProvider>
+  );
 };
