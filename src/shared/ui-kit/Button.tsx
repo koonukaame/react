@@ -1,12 +1,13 @@
+import type { ButtonHTMLAttributes } from 'react';
 import { cn } from '../utils';
 
 type Props = {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   isDanger?: boolean;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button = ({ text, onClick, isDanger }: Props) => {
+export const Button = ({ text, onClick, isDanger, ...rest }: Props) => {
   return (
     <button
       className={cn(
@@ -16,6 +17,7 @@ export const Button = ({ text, onClick, isDanger }: Props) => {
           : 'bg-violet-500/40 hover:bg-violet-500/50 active:bg-violet-500/60'
       )}
       onClick={onClick}
+      {...rest}
     >
       {text}
     </button>
