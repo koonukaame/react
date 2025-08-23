@@ -1,6 +1,12 @@
-import { useState } from 'react';
-import { Button } from '@shared';
-import { Input } from '@shared';
+import { useState, type FormEvent } from 'react';
+import {
+  Button,
+  countryOptions,
+  formSchema,
+  genderOptions,
+  Input,
+  Select,
+} from '@shared';
 
 type Props = {
   isControlled: boolean;
@@ -8,114 +14,145 @@ type Props = {
 };
 
 export const Form = ({ isControlled, onClose }: Props) => {
-  const [name, setName] = useState<string>('');
-  const [age, setAge] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordRepeat, setPasswordRepeat] = useState<string>('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      age: Number(formData.get('age')),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      passwordRepeat: formData.get('passwordRepeat'),
+      picture: formData.get('picture'),
+      tos: formData.get('tos') === 'on',
+    };
+
+    const parsedFormData = formSchema.safeParse(data);
+
+    if (!parsedFormData.success) {
+      const errors: Record<string, string> = {};
+      for (const issue of parsedFormData.error.issues) {
+        const field = issue.path[0] as string;
+        errors[field] = issue.message;
+      }
+      setErrors(errors);
+      return;
+    }
+
+    setErrors({});
+    onClose();
+  };
 
   return (
     <form
-      action=""
-      className="p-10 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md"
+      onSubmit={handleSubmit}
+      className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
     >
-      <div>
-        <label htmlFor="name">Name</label>
-        <Input
-          type="text"
-          placeholder="name"
-          id="name"
-          isControlled={isControlled}
-          value={isControlled ? name : undefined}
-          onChange={() => (isControlled ? setName : undefined)}
-        />
+      <div className="flex justify-between w-full gap-2">
+        <div className="w-full">
+          <label htmlFor="name">Name</label>
+          <Input
+            type="text"
+            id="name"
+            name="name"
+            isControlled={false}
+            error={errors.name}
+          />
+        </div>
+        <div className="w-full">
+          <label htmlFor="age">Age</label>
+          <Input
+            type="number"
+            id="age"
+            name="age"
+            isControlled={false}
+            error={errors.age}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="age">Age</label>
-        <Input
-          type="number"
-          placeholder="age"
-          id="age"
-          isControlled={isControlled}
-          value={isControlled ? age : undefined}
-          onChange={() => (isControlled ? setAge : undefined)}
-        />
-      </div>
+
       <div>
         <label htmlFor="email">Email</label>
         <Input
           type="email"
-          placeholder="email"
           id="email"
-          isControlled={isControlled}
-          value={isControlled ? email : undefined}
-          onChange={() => (isControlled ? setEmail : undefined)}
+          name="email"
+          isControlled={false}
+          error={errors.email}
         />
       </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <Input
-          type="password"
-          placeholder="password"
-          id="password"
-          isControlled={isControlled}
-          value={isControlled ? password : undefined}
-          onChange={() => (isControlled ? setPassword : undefined)}
-        />
+      <div className="flex justify-between w-full gap-2">
+        <div className="w-full">
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            isControlled={false}
+            error={errors.password}
+          />
+        </div>
+        <div className="w-full">
+          <label htmlFor="passwordRepeat">Repeat Password</label>
+          <Input
+            type="password"
+            id="passwordRepeat"
+            name="passwordRepeat"
+            isControlled={false}
+            error={errors.passwordRepeat}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="repeat-password">Repeat password</label>
-        <Input
-          type="password"
-          placeholder="repeat password"
-          id="repeat-password"
-          isControlled={isControlled}
-          value={isControlled ? passwordRepeat : undefined}
-          onChange={() => (isControlled ? setPasswordRepeat : undefined)}
-        />
+
+      <div className="flex justify-between w-full gap-2">
+        <div className="w-full">
+          <label htmlFor="country">Country</label>
+          <Select name="country" id="country" options={countryOptions} />
+        </div>
+        <div className="w-full">
+          <label htmlFor="gender">Gender</label>
+          <Select id="gender" name="gender" options={genderOptions} />
+        </div>
       </div>
+
       <div>
-        <label htmlFor="label">Gender</label>
-        <select id="gender">
-          <option value="f">Female</option>
-          <option value="m">Male</option>
-          <option value="unknown">Prefer not to say</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="picture">Upload picture</label>
+        <label htmlFor="picture">Add Picture</label>
         <Input
-          id="picture"
           type="file"
+          id="picture"
+          name="picture"
           accept=".png,.jpg,.jpeg"
-          isControlled={isControlled}
+          isControlled={false}
+          error={errors.picture}
         />
       </div>
-      <div>
-        <label htmlFor="country">Country</label>
-        <select id="country">
-          <option value="ru">Russia</option>
-          <option value="by">Belarus</option>
-          <option value="kz">Kazakhstan</option>
-        </select>
-      </div>
-      <div>
+      <div className="flex items-start gap-2">
+        <label htmlFor="tos">
+          I agree with{' '}
+          <span className="border-b-1 border-dashed border-violet-500/40 cursor-pointer">
+            terms and conditions
+          </span>
+        </label>
         <Input
           type="checkbox"
           id="tos"
           name="tos"
-          isControlled={isControlled}
+          isControlled={false}
+          error={errors.tos}
         />
-        <label htmlFor="tos">
-          I agree with{' '}
-          <span className="border-b-1 border-dashed border-violet-500/40">
-            terms and conditions
-          </span>
-        </label>
       </div>
-      <div className="flex justify-between gap-2">
-        <Button text="Save" onClick={onClose}></Button>
-        <Button text="Close without saving" isDanger onClick={onClose}></Button>
+
+      <div className="flex justify-between">
+        <Button text="Save" type="submit" />
+        <Button
+          text="Close without saving"
+          isDanger
+          onClick={onClose}
+          type="button"
+        />
       </div>
     </form>
   );
