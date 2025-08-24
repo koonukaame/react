@@ -8,6 +8,11 @@ export {
   ControlledDatalist,
   ControlledSelect,
 } from './ui-kit';
-export { genderOptions, formSchema, COUNTRIES_LIST } from './constants';
+export { genderOptions, COUNTRIES_LIST } from './constants';
 export { useMainDispatch, useMainSelector } from './hooks';
-export { cn, convertFileToBase64, calculatePasswordStrength } from './lib';
+export {
+  cn,
+  convertFileToBase64,
+  calculatePasswordStrength,
+  formSchema,
+} from './lib';
