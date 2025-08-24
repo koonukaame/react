@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { Datalist, type Props } from './Datalist';
 
-type ControlledProps = Omit<Props, 'error'> & {
+type ControlledProps = Props & {
   registerName: string;
 };
 

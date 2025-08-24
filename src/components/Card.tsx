@@ -1,4 +1,4 @@
-import { cn, countryOptions, genderOptions } from '@shared';
+import { cn, genderOptions } from '@shared';
 import { type FormData } from '@features';
 
 type Props = {
@@ -24,8 +24,6 @@ const fieldsConfig: FieldsConfig[] = [
   {
     key: 'country',
     text: 'Country',
-    transform: (value: string) =>
-      countryOptions.find((country) => country.value === value)?.text || value,
   },
   {
     key: 'gender',
@@ -53,7 +51,7 @@ export const Card = ({ form, highlight }: Props) => {
         <img
           src={form.picture}
           alt="Profile"
-          className="w-32 h-32 object-cover rounded-md mb-2 transition-colors duration-300"
+          className="w-32 h-32 object-cover rounded-md mb-2"
         />
       )}
       <ul className="space-y-1">
