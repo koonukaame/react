@@ -1,9 +1,9 @@
-import { cn, countryOptions, genderOptions, useMainSelector } from '@shared';
+import { cn, countryOptions, genderOptions } from '@shared';
 import { type FormData } from '@features';
-import { useState, useEffect } from 'react';
 
 type Props = {
-  type: 'controlled' | 'uncontrolled';
+  form: FormData;
+  highlight?: boolean;
 };
 
 type CardField = keyof Pick<
@@ -39,71 +39,36 @@ const fieldsConfig: FieldsConfig[] = [
   },
 ];
 
-export const Card = ({ type }: Props) => {
-  const selector = useMainSelector((state) => state.forms);
+export const Card = ({ form, highlight }: Props) => {
+  return (
+    <div
+      className={cn(
+        'w-[300px] border p-3 rounded-md transition-colors duration-300',
+        highlight ? 'border-green-500' : 'border-neutral-700'
+      )}
+    >
+      <div className="mb-2 text-sm text-neutral-400">Type: {form.type}</div>
 
-  const sameTypeForms = selector.filter((form) => form.type === type);
-  const form = sameTypeForms[sameTypeForms.length - 1];
-  const prevForm = sameTypeForms[sameTypeForms.length - 2];
-
-  const [newFields, setNewFields] = useState<(keyof FormData)[]>([]);
-
-  useEffect(() => {
-    if (form && prevForm) {
-      const changed = fieldsConfig
-        .map((item) => item.key)
-        .filter((key) => form[key] !== prevForm[key]);
-
-      if (form.picture !== prevForm.picture) {
-        changed.push('picture');
-      }
-
-      setNewFields(changed);
-
-      if (changed.length > 0) {
-        const timer = setTimeout(() => setNewFields([]), 2000);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [form, prevForm]);
-
-  const fieldClass = (field: CardField) =>
-    cn(
-      'text-white transition-all duration-300',
-      newFields.includes(field) && 'text-green-500'
-    );
-
-  return form ? (
-    <div className="w-full">
-      <div>
-        {form.picture && (
-          <img
-            src={form.picture}
-            alt="Profile"
-            className={cn(
-              'w-32 h-32 object-cover rounded-md transition-all duration-300',
-              newFields.includes('picture') && 'border-green-500'
-            )}
-          />
-        )}
-      </div>
-      <ul className="space-y-2">
+      {form.picture && (
+        <img
+          src={form.picture}
+          alt="Profile"
+          className="w-32 h-32 object-cover rounded-md mb-2 transition-colors duration-300"
+        />
+      )}
+      <ul className="space-y-1">
         {fieldsConfig.map(({ key, text, transform }) => (
           <li
             key={key}
-            className="flex justify-between items-center py-2 border-b border-neutral-700"
+            className="flex justify-between items-center py-1 border-b border-neutral-700"
           >
             <span className="text-neutral-400">{text}:</span>
-            <span className={fieldClass(key)}>
+            <span className="text-neutral-200">
               {transform ? transform(String(form[key])) : form[key]}
             </span>
           </li>
         ))}
       </ul>
-    </div>
-  ) : (
-    <div className="text-neutral-400 text-center p-4">
-      Please fill the {type} form to see data
     </div>
   );
 };

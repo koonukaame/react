@@ -18,18 +18,7 @@ export const formsSlice = createSlice({
   initialState,
   reducers: {
     addForm: (state: FormData[], action: PayloadAction<FormData>) => {
-      const newForm = action.payload;
-      const sameTypeForm = state.filter((form) => form.type === newForm.type);
-
-      if (sameTypeForm.length > 2) {
-        const oldestFormIndex = state.findIndex(
-          (form) => form.type === newForm.type
-        );
-        if (oldestFormIndex !== -1) {
-          state.splice(oldestFormIndex, 1);
-        }
-      }
-      state.push(newForm);
+      state.push(action.payload);
     },
   },
 });
