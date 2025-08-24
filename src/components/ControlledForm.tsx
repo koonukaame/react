@@ -14,7 +14,6 @@ import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import type z from 'zod';
 
 type Props = {
-  isControlled: boolean;
   onClose: () => void;
 };
 
@@ -23,7 +22,7 @@ type FormFields = Omit<z.infer<typeof formSchema>, 'picture' | 'age'> & {
   age: string | number;
 };
 
-export const ControlledForm = ({ isControlled, onClose }: Props) => {
+export const ControlledForm = ({ onClose }: Props) => {
   const dispatch = useMainDispatch();
 
   const methods = useForm<FormFields>({
@@ -51,9 +50,7 @@ export const ControlledForm = ({ isControlled, onClose }: Props) => {
       country: data.country,
       gender: data.gender,
       picture: pictureBase64,
-      type: (isControlled ? 'controlled' : 'uncontrolled') as
-        | 'controlled'
-        | 'uncontrolled',
+      type: 'controlled' as const,
     };
 
     dispatch(addForm(storeData));

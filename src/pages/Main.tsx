@@ -45,15 +45,9 @@ export const Main = () => {
           createPortal(
             <Modal onClose={() => setShowModal(null)}>
               {showModal === 'uncontrolled' ? (
-                <UncontrolledForm
-                  isControlled={false}
-                  onClose={() => setShowModal(null)}
-                />
+                <UncontrolledForm onClose={() => setShowModal(null)} />
               ) : (
-                <ControlledForm
-                  isControlled={true}
-                  onClose={() => setShowModal(null)}
-                />
+                <ControlledForm onClose={() => setShowModal(null)} />
               )}
             </Modal>,
             document.body

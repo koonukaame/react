@@ -12,11 +12,10 @@ import {
 import { addForm } from '@features';
 
 type Props = {
-  isControlled: boolean;
   onClose: () => void;
 };
 
-export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
+export const UncontrolledForm = ({ onClose }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [password, setPassword] = useState('');
   const dispatch = useMainDispatch();
@@ -66,9 +65,7 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
       country: String(formData.get('country')),
       gender: String(formData.get('gender')),
       picture: pictureBase64,
-      type: (isControlled ? 'controlled' : 'uncontrolled') as
-        | 'controlled'
-        | 'uncontrolled',
+      type: 'uncontrolled' as const,
     };
 
     setErrors({});
