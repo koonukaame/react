@@ -1,4 +1,4 @@
-import { cn, countryOptions, genderOptions, useFormsSelector } from '@shared';
+import { cn, countryOptions, genderOptions, useMainSelector } from '@shared';
 import { type FormData } from '@features';
 import { useState, useEffect } from 'react';
 
@@ -40,7 +40,7 @@ const fieldsConfig: FieldsConfig[] = [
 ];
 
 export const Card = ({ type }: Props) => {
-  const selector = useFormsSelector((state) => state.forms);
+  const selector = useMainSelector((state) => state.forms);
 
   const sameTypeForms = selector.filter((form) => form.type === type);
   const form = sameTypeForms[sameTypeForms.length - 1];

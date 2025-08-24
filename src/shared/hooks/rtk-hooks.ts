@@ -5,5 +5,5 @@ import {
   type TypedUseSelectorHook,
 } from 'react-redux';
 
-export const useFormsDispatch = () => useDispatch<AppDispatch>();
-export const useFormsSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useMainDispatch = () => useDispatch<AppDispatch>();
+export const useMainSelector: TypedUseSelectorHook<RootState> = useSelector;

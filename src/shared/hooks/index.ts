@@ -1,1 +1,1 @@
-export { useFormsDispatch, useFormsSelector } from './rtk-hooks';
+export { useMainDispatch, useMainSelector } from './rtk-hooks';
