@@ -1,13 +1,26 @@
 import type { InputHTMLAttributes } from 'react';
 import { useMainSelector } from '../../hooks';
+import { useFormContext } from 'react-hook-form';
 
 export type Props = {
   label: string;
   id: string;
   error?: string;
+  registerName?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const Datalist = ({ label, id, error, ...rest }: Props) => {
+export const Datalist = ({
+  label,
+  id,
+  error,
+  registerName,
+  ...rest
+}: Props) => {
+  const formContext = useFormContext();
+
+  const controlledProps = registerName
+    ? formContext.register(registerName)
+    : null;
   const countries = useMainSelector((state) => state.countries);
 
   return (
@@ -18,6 +31,7 @@ export const Datalist = ({ label, id, error, ...rest }: Props) => {
           list={`${id}-list`}
           id={id}
           name={id}
+          {...controlledProps}
           {...rest}
           className="w-full p-2 border border-neutral-700 rounded-md text-white"
         />

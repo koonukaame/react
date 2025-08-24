@@ -3,13 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   genderOptions,
   Button,
-  ControlledInput,
-  ControlledDatalist,
-  ControlledSelect,
   formSchema,
   convertFileToBase64,
   useMainDispatch,
   calculatePasswordStrength,
+  Input,
+  Datalist,
+  Select,
 } from '@shared';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import type z from 'zod';
@@ -67,7 +67,7 @@ export const ControlledForm = ({ onClose }: Props) => {
         className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
       >
         <div className="flex justify-between w-full gap-2">
-          <ControlledInput
+          <Input
             registerName="name"
             type="text"
             id="name"
@@ -75,7 +75,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             error={errors.name?.message}
             autoFocus={true}
           />
-          <ControlledInput
+          <Input
             registerName="age"
             type="number"
             id="age"
@@ -83,7 +83,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             error={errors.age?.message}
           />
         </div>
-        <ControlledInput
+        <Input
           registerName="email"
           type="email"
           id="email"
@@ -91,7 +91,7 @@ export const ControlledForm = ({ onClose }: Props) => {
           error={errors.email?.message}
         />
         <div className="flex justify-between w-full gap-2">
-          <ControlledInput
+          <Input
             registerName="password"
             type="password"
             id="password"
@@ -99,7 +99,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             passwordStrength={passwordStrength}
             error={errors.password?.message}
           />
-          <ControlledInput
+          <Input
             registerName="passwordRepeat"
             type="password"
             id="passwordRepeat"
@@ -109,20 +109,20 @@ export const ControlledForm = ({ onClose }: Props) => {
         </div>
 
         <div className="flex justify-between w-full gap-2">
-          <ControlledDatalist
+          <Datalist
             registerName="country"
             id="country"
             label="Country"
             error={errors.country?.message}
           />
-          <ControlledSelect
+          <Select
             registerName="gender"
             id="gender"
             label="Gender"
             options={genderOptions}
           />
         </div>
-        <ControlledInput
+        <Input
           registerName="picture"
           type="file"
           id="picture"
@@ -131,7 +131,7 @@ export const ControlledForm = ({ onClose }: Props) => {
           error={errors.picture?.message}
         />
         <div className="flex items-start gap-2">
-          <ControlledInput
+          <Input
             registerName="tos"
             type="checkbox"
             id="tos"
