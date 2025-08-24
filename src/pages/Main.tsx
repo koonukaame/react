@@ -22,16 +22,21 @@ export const Main = () => {
   }, [forms]);
 
   return (
-    <main className="box-border h-screen max-w p-6 bg-neutral-900 overflow-y-auto">
+    <main
+      data-testid="main"
+      className="box-border h-screen max-w p-6 bg-neutral-900 overflow-y-auto"
+    >
       <div className="flex flex-col gap-6 items-center">
         <div className="flex gap-4">
           <Button
             text="Uncontrolled Form"
             onClick={() => setShowModal('uncontrolled')}
+            data-testid="uncontrolled-button"
           />
           <Button
             text="Controlled Form"
             onClick={() => setShowModal('controlled')}
+            data-testid="controlled-button"
           />
         </div>
 

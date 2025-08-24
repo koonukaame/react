@@ -81,6 +81,7 @@ export const UncontrolledForm = ({ onClose }: Props) => {
       tabIndex={0}
       onSubmit={handleSubmit}
       className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
+      data-testid="uncontrolled-form"
     >
       <div className="flex justify-between w-full gap-2">
         <Input
@@ -89,16 +90,30 @@ export const UncontrolledForm = ({ onClose }: Props) => {
           label="Name"
           error={errors.name}
           autoFocus={true}
+          data-testid="uncontrolled-name"
         />
-        <Input type="number" id="age" label="Age" error={errors.age} />
+        <Input
+          type="number"
+          id="age"
+          label="Age"
+          data-testid="uncontrolled-age"
+          error={errors.age}
+        />
       </div>
-      <Input type="email" id="email" label="Email" error={errors.email} />
+      <Input
+        type="email"
+        id="email"
+        label="Email"
+        data-testid="uncontrolled-email"
+        error={errors.email}
+      />
       <div className="flex justify-between w-full gap-2">
         <div className="w-full">
           <Input
             type="password"
             id="password"
             label="Password"
+            data-testid="uncontrolled-password"
             error={errors.password}
             passwordStrength={passwordStrength}
           />
@@ -108,19 +123,31 @@ export const UncontrolledForm = ({ onClose }: Props) => {
           type="password"
           id="passwordRepeat"
           label="Repeat password"
+          data-testid="uncontrolled-password-repeat"
           error={errors.passwordRepeat}
         />
       </div>
 
       <div className="flex justify-between w-full gap-2">
-        <Datalist id="country" label="Country" error={errors.country} />
-        <Select id="gender" label="Gender" options={genderOptions} />
+        <Datalist
+          id="country"
+          label="Country"
+          data-testid="uncontrolled-country"
+          error={errors.country}
+        />
+        <Select
+          id="gender"
+          label="Gender"
+          data-testid="uncontrolled-gender"
+          options={genderOptions}
+        />
       </div>
       <Input
         type="file"
         id="picture"
         accept=".png,.jpg,.jpeg"
         label="Add picture"
+        data-testid="uncontrolled-picture"
         error={errors.picture}
       />
       <div className="flex items-start gap-2">
@@ -128,17 +155,19 @@ export const UncontrolledForm = ({ onClose }: Props) => {
           type="checkbox"
           id="tos"
           label="I agree with terms and conditions"
+          data-testid="uncontrolled-tos"
           error={errors.tos}
         />
       </div>
 
       <div className="flex justify-between">
-        <Button text="Save" type="submit" />
+        <Button text="Save" type="submit" data-testid="button-submit" />
         <Button
           text="Close without saving"
           isDanger
           onClick={onClose}
           type="button"
+          data-testid="button-exit"
         />
       </div>
     </form>

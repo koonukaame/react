@@ -40,7 +40,9 @@ export const Input = ({
         />
       </div>
 
-      <div className="text-red-500/90 h-5">{error}</div>
+      <div className="text-red-500/90 h-5" data-testid="error">
+        {error}
+      </div>
     </div>
   ) : (
     <div className="w-full">
@@ -57,7 +59,9 @@ export const Input = ({
         {...controlledProps}
         className="p-2 border border-neutral-700 w-full rounded-md"
       />
-      <div className="text-red-500/90 h-5">{error}</div>
+      <div data-testid="error" className="text-red-500/90 h-5">
+        {error}
+      </div>
     </div>
   );
 };

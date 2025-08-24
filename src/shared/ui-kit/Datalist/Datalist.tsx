@@ -41,7 +41,9 @@ export const Datalist = ({
           ))}
         </datalist>
       </div>
-      <div className="text-red-500/90 h-5">{error}</div>
+      <div className="text-red-500/90 h-5" data-testid="error">
+        {error}
+      </div>
     </div>
   );
 };

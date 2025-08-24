@@ -32,12 +32,10 @@ export default defineConfig({
     alias: {
       '@app': path.resolve(__dirname, './src/app'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@entities': path.resolve(__dirname, './src/entities'),
       '@features': path.resolve(__dirname, './src/features'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@shared': path.resolve(__dirname, './src/shared'),
       '@test': path.resolve(__dirname, './src/test-utils'),
-      '@widget': path.resolve(__dirname, './src/widget'),
     },
   },
   server: {

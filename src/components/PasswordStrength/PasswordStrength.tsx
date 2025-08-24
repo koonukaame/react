@@ -17,6 +17,7 @@ export const PasswordStrength = ({ strength }: Props) => {
       {[0, 1, 2].map((i) => (
         <div
           key={i}
+          data-testid="password-bar"
           className={`flex-1 h-2 rounded-full ${
             i < getActiveBars()
               ? strength === 'weak'

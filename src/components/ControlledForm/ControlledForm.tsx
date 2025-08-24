@@ -65,6 +65,7 @@ export const ControlledForm = ({ onClose }: Props) => {
         tabIndex={0}
         onSubmit={methods.handleSubmit(onSubmit)}
         className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
+        data-testid="controlled-form"
       >
         <div className="flex justify-between w-full gap-2">
           <Input
@@ -74,6 +75,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             label="Name"
             error={errors.name?.message}
             autoFocus={true}
+            data-testid="controlled-name"
           />
           <Input
             registerName="age"
@@ -81,6 +83,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             id="age"
             label="Age"
             error={errors.age?.message}
+            data-testid="controlled-age"
           />
         </div>
         <Input
@@ -89,6 +92,7 @@ export const ControlledForm = ({ onClose }: Props) => {
           id="email"
           label="Email"
           error={errors.email?.message}
+          data-testid="controlled-email"
         />
         <div className="flex justify-between w-full gap-2">
           <Input
@@ -98,6 +102,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             label="Password"
             passwordStrength={passwordStrength}
             error={errors.password?.message}
+            data-testid="controlled-password"
           />
           <Input
             registerName="passwordRepeat"
@@ -105,6 +110,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             id="passwordRepeat"
             label="Repeat password"
             error={errors.passwordRepeat?.message}
+            data-testid="controlled-password-repeat"
           />
         </div>
 
@@ -114,12 +120,14 @@ export const ControlledForm = ({ onClose }: Props) => {
             id="country"
             label="Country"
             error={errors.country?.message}
+            data-testid="controlled-country"
           />
           <Select
             registerName="gender"
             id="gender"
             label="Gender"
             options={genderOptions}
+            data-testid="controlled-gender"
           />
         </div>
         <Input
@@ -129,6 +137,7 @@ export const ControlledForm = ({ onClose }: Props) => {
           accept=".png,.jpg,.jpeg"
           label="Add picture"
           error={errors.picture?.message}
+          data-testid="controlled-picture"
         />
         <div className="flex items-start gap-2">
           <Input
@@ -137,6 +146,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             id="tos"
             label="I agree with terms and conditions"
             error={errors.tos?.message}
+            data-testid="controlled-tos"
           />
         </div>
 

@@ -42,16 +42,18 @@ export const Modal = ({ children, onClose }: Props) => {
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={onClose}
-      onKeyDown={handleKeyDown}
-      tabIndex={-1}
-      autoFocus={false}
-      ref={ref}
+      data-testid="overlay"
     >
       <div
         className="relative w-full max-w-3xl"
         onClick={(e) => e.stopPropagation()}
         aria-modal="true"
         role="dialog"
+        data-testid="modal"
+        tabIndex={-1}
+        autoFocus={false}
+        onKeyDown={handleKeyDown}
+        ref={ref}
       >
         {children}
       </div>
