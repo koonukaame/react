@@ -1,4 +1,13 @@
-export { Button, Modal, Input, Select, Datalist } from './ui-kit';
+export {
+  Button,
+  Modal,
+  Input,
+  Select,
+  Datalist,
+  ControlledInput,
+  ControlledDatalist,
+  ControlledSelect,
+} from './ui-kit';
 export {
   genderOptions,
   countryOptions,

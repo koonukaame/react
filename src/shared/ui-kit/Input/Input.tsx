@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from 'react';
 
-type Props = {
+export type Props = {
   error?: string;
   id: string;
   label: string;

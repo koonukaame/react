@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes } from 'react';
-import { useMainSelector } from '../hooks';
+import { useMainSelector } from '../../hooks';
 
-type Props = {
+export type Props = {
   label: string;
   id: string;
 } & InputHTMLAttributes<HTMLInputElement>;

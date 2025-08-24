@@ -1,6 +1,6 @@
 import type { SelectHTMLAttributes } from 'react';
 
-type Props = {
+export type Props = {
   options: { value: string; text: string }[];
   label: string;
   id: string;
