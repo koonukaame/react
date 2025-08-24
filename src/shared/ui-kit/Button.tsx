@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react';
-import { cn } from '../utils';
+import { cn } from '../lib';
 
 type Props = {
   text: string;

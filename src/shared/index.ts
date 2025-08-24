@@ -6,4 +6,4 @@ export {
   COUNTRIES_LIST,
 } from './constants';
 export { useMainDispatch, useMainSelector } from './hooks';
-export { cn } from './utils';
+export { cn, convertFileToBase64 } from './lib';

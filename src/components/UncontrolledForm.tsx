@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import {
   Button,
+  convertFileToBase64,
   Datalist,
   formSchema,
   genderOptions,
@@ -27,12 +28,7 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
 
     let pictureBase64 = '';
     if (pictureFile instanceof File) {
-      pictureBase64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(pictureFile);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (err) => reject(err);
-      });
+      pictureBase64 = await convertFileToBase64(pictureFile);
     }
 
     const data = {
