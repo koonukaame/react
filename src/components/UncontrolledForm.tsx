@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import {
   Button,
+  calculatePasswordStrength,
   convertFileToBase64,
   Datalist,
   formSchema,
@@ -17,7 +18,10 @@ type Props = {
 
 export const UncontrolledForm = ({ onClose }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [password, setPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState<
+    'none' | 'weak' | 'medium' | 'strong'
+  >('none');
+
   const dispatch = useMainDispatch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -30,8 +34,6 @@ export const UncontrolledForm = ({ onClose }: Props) => {
     if (pictureFile instanceof File) {
       pictureBase64 = await convertFileToBase64(pictureFile);
     }
-
-    setPassword(String(formData.get('password')));
 
     const data = {
       name: formData.get('name'),
@@ -46,6 +48,7 @@ export const UncontrolledForm = ({ onClose }: Props) => {
     };
 
     const parsedFormData = formSchema.safeParse(data);
+    setPasswordStrength(calculatePasswordStrength(String(data.password)));
 
     if (!parsedFormData.success) {
       const errors: Record<string, string> = {};
@@ -97,7 +100,7 @@ export const UncontrolledForm = ({ onClose }: Props) => {
             id="password"
             label="Password"
             error={errors.password}
-            password={password}
+            passwordStrength={passwordStrength}
           />
         </div>
 

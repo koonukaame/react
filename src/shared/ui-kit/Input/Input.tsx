@@ -6,10 +6,17 @@ export type Props = {
   id: string;
   label: string;
   type: string;
-  password?: string;
+  passwordStrength?: 'none' | 'weak' | 'medium' | 'strong';
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ error, id, label, type, password, ...rest }: Props) => {
+export const Input = ({
+  error,
+  id,
+  label,
+  type,
+  passwordStrength,
+  ...rest
+}: Props) => {
   return type === 'checkbox' ? (
     <div className="w-full flex flex-col">
       <div className="flex items-center gap-2">
@@ -27,13 +34,9 @@ export const Input = ({ error, id, label, type, password, ...rest }: Props) => {
     </div>
   ) : (
     <div className="w-full">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
         <label htmlFor={id}>{label}</label>
-        {password !== undefined && (
-          <div className="ml-1 flex-1">
-            <PasswordStrength password={password} />
-          </div>
-        )}
+        {passwordStrength && <PasswordStrength strength={passwordStrength} />}
       </div>
 
       <input

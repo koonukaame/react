@@ -9,6 +9,7 @@ import {
   formSchema,
   convertFileToBase64,
   useMainDispatch,
+  calculatePasswordStrength,
 } from '@shared';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import type z from 'zod';
@@ -35,6 +36,7 @@ export const ControlledForm = ({ onClose }: Props) => {
   } = methods;
 
   const passwordValue = methods.watch('password', '');
+  const passwordStrength = calculatePasswordStrength(passwordValue);
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     let pictureBase64 = '';
@@ -94,7 +96,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             type="password"
             id="password"
             label="Password"
-            password={passwordValue}
+            passwordStrength={passwordStrength}
             error={errors.password?.message}
           />
           <ControlledInput
