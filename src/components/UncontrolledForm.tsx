@@ -18,6 +18,7 @@ type Props = {
 
 export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [password, setPassword] = useState('');
   const dispatch = useMainDispatch();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -30,6 +31,8 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
     if (pictureFile instanceof File) {
       pictureBase64 = await convertFileToBase64(pictureFile);
     }
+
+    setPassword(String(formData.get('password')));
 
     const data = {
       name: formData.get('name'),
@@ -84,12 +87,16 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
       </div>
       <Input type="email" id="email" label="Email" error={errors.email} />
       <div className="flex justify-between w-full gap-2">
-        <Input
-          type="password"
-          id="password"
-          label="Password"
-          error={errors.password}
-        />
+        <div className="w-full">
+          <Input
+            type="password"
+            id="password"
+            label="Password"
+            error={errors.password}
+            password={password}
+          />
+        </div>
+
         <Input
           type="password"
           id="passwordRepeat"

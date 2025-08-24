@@ -1,13 +1,15 @@
 import type { InputHTMLAttributes } from 'react';
+import { PasswordStrength } from '@components';
 
 export type Props = {
   error?: string;
   id: string;
   label: string;
   type: string;
+  password?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export const Input = ({ error, id, label, type, ...rest }: Props) => {
+export const Input = ({ error, id, label, type, password, ...rest }: Props) => {
   return type === 'checkbox' ? (
     <div className="w-full flex flex-col">
       <div className="flex items-center gap-2">
@@ -25,7 +27,15 @@ export const Input = ({ error, id, label, type, ...rest }: Props) => {
     </div>
   ) : (
     <div className="w-full">
-      <label htmlFor={id}>{label}</label>
+      <div className="flex items-center justify-between">
+        <label htmlFor={id}>{label}</label>
+        {password !== undefined && (
+          <div className="ml-1 flex-1">
+            <PasswordStrength password={password} />
+          </div>
+        )}
+      </div>
+
       <input
         name={id}
         id={id}

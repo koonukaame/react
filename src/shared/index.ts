@@ -10,4 +10,4 @@ export {
 } from './ui-kit';
 export { genderOptions, formSchema, COUNTRIES_LIST } from './constants';
 export { useMainDispatch, useMainSelector } from './hooks';
-export { cn, convertFileToBase64 } from './lib';
+export { cn, convertFileToBase64, calculatePasswordStrength } from './lib';
