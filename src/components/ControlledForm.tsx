@@ -60,6 +60,7 @@ export const ControlledForm = ({ onClose }: Props) => {
   return (
     <FormProvider {...methods}>
       <form
+        tabIndex={0}
         onSubmit={methods.handleSubmit(onSubmit)}
         className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
       >
@@ -70,6 +71,7 @@ export const ControlledForm = ({ onClose }: Props) => {
             id="name"
             label="Name"
             error={errors.name?.message}
+            autoFocus={true}
           />
           <ControlledInput
             registerName="age"

@@ -75,11 +75,18 @@ export const UncontrolledForm = ({ onClose }: Props) => {
 
   return (
     <form
+      tabIndex={0}
       onSubmit={handleSubmit}
       className="p-3 text-white bg-neutral-900 flex flex-col gap-2 border border-neutral-700 rounded-md overflow-y-auto w-3xl"
     >
       <div className="flex justify-between w-full gap-2">
-        <Input type="text" id="name" label="Name" error={errors.name} />
+        <Input
+          type="text"
+          id="name"
+          label="Name"
+          error={errors.name}
+          autoFocus={true}
+        />
         <Input type="number" id="age" label="Age" error={errors.age} />
       </div>
       <Input type="email" id="email" label="Email" error={errors.email} />
