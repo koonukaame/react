@@ -33,10 +33,12 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
 
     const data = {
       name: formData.get('name'),
-      age: Number(formData.get('age')),
+      age: formData.get('age'),
       email: formData.get('email'),
       password: formData.get('password'),
       passwordRepeat: formData.get('passwordRepeat'),
+      country: formData.get('country'),
+      gender: formData.get('gender'),
       picture: pictureFile,
       tos: formData.get('tos') === 'on',
     };
@@ -97,7 +99,7 @@ export const UncontrolledForm = ({ isControlled, onClose }: Props) => {
       </div>
 
       <div className="flex justify-between w-full gap-2">
-        <Datalist id="country" label="Country" />
+        <Datalist id="country" label="Country" error={errors.country} />
         <Select id="gender" label="Gender" options={genderOptions} />
       </div>
       <Input
