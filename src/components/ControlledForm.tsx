@@ -35,6 +35,8 @@ export const ControlledForm = ({ isControlled, onClose }: Props) => {
     formState: { errors, isValid },
   } = methods;
 
+  const passwordValue = methods.watch('password', '');
+
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     let pictureBase64 = '';
     if (data.picture instanceof File) {
@@ -93,6 +95,7 @@ export const ControlledForm = ({ isControlled, onClose }: Props) => {
             type="password"
             id="password"
             label="Password"
+            password={passwordValue}
             error={errors.password?.message}
           />
           <ControlledInput
