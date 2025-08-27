@@ -13,6 +13,7 @@
       "@features": ["src/features/index.ts"],
       "@pages": ["src/pages/index.ts"],
       "@shared": ["src/shared/index.ts"],
+      "@entities": ["src/entities/index.ts"],
     },
 
     /* Bundler mode */
