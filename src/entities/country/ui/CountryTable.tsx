@@ -5,10 +5,22 @@ type Props = {
   data: Country;
   selectedColumns: string[];
   year: number | null;
+  country: string;
 };
 
-export const CountryTable = ({ data, selectedColumns, year }: Props) => {
+export const CountryTable = ({
+  data,
+  selectedColumns,
+  year,
+  country,
+}: Props) => {
   const renderColumns = [...REQUIRED_COLUMNS, ...selectedColumns];
+
+  const countries = Object.entries(data).filter(([countryName]) =>
+    country
+      ? countryName.toLowerCase().includes(country.toLowerCase())
+      : Object.entries(data)
+  );
 
   return (
     <table className="border-separate">
@@ -22,7 +34,7 @@ export const CountryTable = ({ data, selectedColumns, year }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {Object.entries(data).map(([countryName, { iso_code, data }]) => {
+        {countries.map(([countryName, { iso_code, data }]) => {
           const chosenYear =
             year !== null ? data.find((d) => d.year === year) : data.at(-1);
 
