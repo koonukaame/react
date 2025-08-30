@@ -1,4 +1,4 @@
-import { REQUIRED_COLUMNS } from '@shared';
+import { REQUIRED_COLUMNS, type Sort } from '@shared';
 import type { Country } from '../model';
 import { useEffect, useState } from 'react';
 
@@ -7,6 +7,7 @@ type Props = {
   selectedColumns: string[];
   year: number | null;
   country: string;
+  sort: Sort;
 };
 
 export const CountryTable = ({
@@ -14,14 +15,33 @@ export const CountryTable = ({
   selectedColumns,
   year,
   country,
+  sort,
 }: Props) => {
   const renderColumns = [...REQUIRED_COLUMNS, ...selectedColumns];
 
-  const countries = Object.entries(data).filter(([countryName]) =>
-    country
-      ? countryName.toLowerCase().includes(country.toLowerCase())
-      : Object.entries(data)
-  );
+  const countries = Object.entries(data)
+    .filter(([countryName]) =>
+      country ? countryName.toLowerCase().includes(country.toLowerCase()) : true
+    )
+    .sort(([aName, aData], [bName, bData]) => {
+      const aYear = year
+        ? aData.data.find((d) => d.year === year)
+        : aData.data.at(-1);
+      const bYear = year
+        ? bData.data.find((d) => d.year === year)
+        : bData.data.at(-1);
+
+      switch (sort) {
+        case 'country-asc':
+          return aName.localeCompare(bName);
+        case 'country-desc':
+          return bName.localeCompare(aName);
+        case 'population-asc':
+          return (aYear?.population ?? 0) - (bYear?.population ?? 0);
+        case 'population-desc':
+          return (bYear?.population ?? 0) - (aYear?.population ?? 0);
+      }
+    });
 
   const [highlight, setHighlight] = useState(false);
   const [previousYear, setPreviousYear] = useState<number | null>(null);
