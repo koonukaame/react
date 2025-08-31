@@ -26,7 +26,7 @@ export const Main = () => {
 
   return (
     <main className="p-6 bg-gray-50 min-h-screen text-gray-800">
-      <div className="mb-4 flex flex-wrap items-center gap-4">
+      <div className="mb-4 flex flex-col gap-4">
         <ColumnsSelector
           data={data}
           selectedColumns={selectedColumns}
@@ -34,7 +34,7 @@ export const Main = () => {
         />
         <YearInput onClick={setYear} data={data} />
         <CountryInput onClick={setCountry} />
-        <div className="ml-auto">
+        <div>
           <SortSelect value={sort} onChange={setSort} />
         </div>
       </div>
