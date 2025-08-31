@@ -1,6 +1,1 @@
-export {
-  CountryTable,
-  countryApi,
-  Country,
-  useGetCountriesQuery,
-} from './country';
+export { CountryTable, Country, getCountries } from './country';

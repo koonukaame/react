@@ -1,17 +1,44 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Country } from '../model';
+import { Country } from '../model';
 
-export const countryApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/',
-  }),
-  reducerPath: 'countryApi',
-  endpoints: (builder) => ({
-    getCountries: builder.query<Country, void>({
-      query: () => 'owid-co2-data.json',
-    }),
-  }),
-});
+type CountrySuccessResult = {
+  country: Country;
+  ok: true;
+};
 
-export const { useGetCountriesQuery } = countryApi;
+type CountryErrorResult = {
+  message: string;
+  ok: false;
+};
+
+type CountryResult = CountrySuccessResult | CountryErrorResult;
+
+export const getCountries = async (): Promise<CountryResult> => {
+  try {
+    const response = await fetch('/owid-co2-data.json');
+
+    if (!response.ok) {
+      return {
+        message: `API failed with error ${response.status}: ${response.statusText}`,
+        ok: false,
+      };
+    }
+
+    const data = await response.json();
+    const result = Country.safeParse(data);
+
+    if (!result.success) {
+      console.error('Validation errors:', result.error.issues);
+      return {
+        message: "Response data don't satisfies Country schema",
+        ok: false,
+      };
+    }
+
+    return { country: result.data, ok: true };
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      ok: false,
+    };
+  }
+};

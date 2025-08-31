@@ -1,1 +1,1 @@
-export { useGetCountriesQuery, countryApi } from './country';
+export { getCountries } from './country';

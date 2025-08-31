@@ -1,11 +1,11 @@
+import { Spinner } from '@components';
 import { Main } from '@pages';
-import { Provider } from 'react-redux';
-import { store } from './stores';
+import { Suspense } from 'react';
 
 export const App = () => {
   return (
-    <Provider store={store}>
+    <Suspense fallback={<Spinner />}>
       <Main />
-    </Provider>
+    </Suspense>
   );
 };
