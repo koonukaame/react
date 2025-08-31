@@ -17,22 +17,29 @@ export const Main = () => {
 
   return (
     isSuccess && (
-      <main>
-        <ColumnsSelector
-          data={data}
-          selectedColumns={selectedColumns}
-          onChange={setSelectedColumns}
-        />
-        <YearInput onClick={setYear} data={data} />
-        <CountryInput onClick={setCountry} />
-        <SortSelect value={sort} onChange={setSort} />
-        <CountryTable
-          data={data}
-          selectedColumns={selectedColumns}
-          year={year}
-          country={country}
-          sort={sort}
-        />
+      <main className="p-6 bg-gray-50 min-h-screen text-gray-800">
+        <div className="mb-4 flex flex-wrap items-center gap-4">
+          <ColumnsSelector
+            data={data}
+            selectedColumns={selectedColumns}
+            onChange={setSelectedColumns}
+          />
+          <YearInput onClick={setYear} data={data} />
+          <CountryInput onClick={setCountry} />
+          <div className="ml-auto">
+            <SortSelect value={sort} onChange={setSort} />
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <CountryTable
+            data={data}
+            selectedColumns={selectedColumns}
+            year={year}
+            country={country}
+            sort={sort}
+          />
+        </div>
       </main>
     )
   );

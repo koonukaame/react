@@ -1,3 +1,4 @@
+import { Button, TextInput } from '@shared';
 import { useState } from 'react';
 
 type Props = {
@@ -7,13 +8,13 @@ type Props = {
 export const CountryInput = ({ onClick }: Props) => {
   const [input, setInput] = useState<string>('');
   return (
-    <div>
-      <input
+    <div className="flex gap-2">
+      <TextInput
         type="text"
-        placeholder="enter counry"
+        placeholder="Enter country"
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={() => onClick(input.trim())}>Choose Country</button>
+      <Button onClick={() => onClick(input.trim())}>Choose Country</Button>
     </div>
   );
 };

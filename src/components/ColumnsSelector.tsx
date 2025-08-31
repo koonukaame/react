@@ -1,5 +1,5 @@
 import type { Country } from '@entities';
-import { REQUIRED_COLUMNS } from '@shared';
+import { Button, REQUIRED_COLUMNS } from '@shared';
 import { useState } from 'react';
 
 type Props = {
@@ -19,15 +19,14 @@ export const ColumnsSelector = ({ data, onChange, selectedColumns }: Props) => {
 
   return (
     <div>
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
-        Select Columns
-      </button>
+      <Button onClick={() => setIsOpen(!isOpen)}>Select Columns</Button>
       {isOpen && (
-        <div className="absolute flex flex-col flex-wrap gap-1 h-[500px] bg-white border">
+        <div className="absolute flex flex-col flex-wrap gap-y-3 gap-x-5 h-[80vh] bg-white border border-gray-300 rounded p-4">
           {allColumns.map((column) => {
             return (
-              <div key={column}>
+              <div key={column} className="flex items-center gap-2">
                 <input
+                  className="w-4 h-4 border-gray-300 rounded"
                   type="checkbox"
                   id={column}
                   checked={selectedColumns.includes(column)}
@@ -41,7 +40,12 @@ export const ColumnsSelector = ({ data, onChange, selectedColumns }: Props) => {
                     )
                   }
                 />
-                <label htmlFor={column}>{column}</label>
+                <label
+                  className="text-gray-700 uppercase text-2"
+                  htmlFor={column}
+                >
+                  {column}
+                </label>
               </div>
             );
           })}

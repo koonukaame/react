@@ -74,7 +74,7 @@ export const CountryTable = ({
   }, [year, previousYear, isInitialized]);
 
   return (
-    <table className="border-separate">
+    <table className="border-separate rounded-lg border border-gray-300 bg-gray-100">
       <thead>
         <tr>
           {renderColumns.map((column) => (
@@ -117,7 +117,7 @@ export const CountryTable = ({
 
                 return (
                   <td
-                    className={`p-2 transition-colors duration-500 ${
+                    className={`p-2 text-center transition-colors duration-500 ${
                       hasChanged ? 'bg-green-200' : ''
                     }`}
                     key={`${countryName}-${column}`}

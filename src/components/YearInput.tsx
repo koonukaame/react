@@ -1,4 +1,5 @@
 import type { Country } from '@entities';
+import { Button, TextInput } from '@shared';
 import { useState } from 'react';
 
 type Props = {
@@ -13,17 +14,17 @@ export const YearInput = ({ onClick, data }: Props) => {
   const latest = representativeCountry?.data?.at(-1)?.year;
 
   return (
-    <div>
-      <input
+    <div className="flex gap-2">
+      <TextInput
         type="number"
-        placeholder={`${latest} by default`}
+        placeholder={`Enter year (${latest} by default)`}
         onChange={(e) =>
           setInput(Number(e.target.value) ? Number(e.target.value) : null)
         }
         min={earliest}
         max={latest}
       />
-      <button onClick={() => onClick(input)}>Choose Year</button>
+      <Button onClick={() => onClick(input)}>Choose Year</Button>
     </div>
   );
 };
