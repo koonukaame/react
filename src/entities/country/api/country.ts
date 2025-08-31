@@ -14,7 +14,9 @@ type CountryResult = CountrySuccessResult | CountryErrorResult;
 
 export const getCountries = async (): Promise<CountryResult> => {
   try {
-    const response = await fetch('/owid-co2-data.json');
+    const response = await fetch(
+      'https://nyc3.digitaloceanspaces.com/owid-public/data/co2/owid-co2-data.json'
+    );
 
     if (!response.ok) {
       return {
