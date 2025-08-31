@@ -1,4 +1,5 @@
 import type { Sort } from '@shared';
+import { useCallback, type ChangeEvent } from 'react';
 
 type Option = {
   value: Sort;
@@ -18,13 +19,20 @@ type Props = {
 };
 
 export const SortSelect = ({ value, onChange }: Props) => {
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      onChange(e.target.value as Sort);
+    },
+    [onChange]
+  );
+
   return (
     <div>
       Sort:{' '}
       <select
         id="sort"
         value={value}
-        onChange={(e) => onChange(e.target.value as Sort)}
+        onChange={handleChange}
         className="border border-gray-300 rounded px-2 py-2 w-3xs cursor-pointer"
       >
         {OPTIONS.map((option) => (

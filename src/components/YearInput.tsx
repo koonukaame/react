@@ -1,6 +1,6 @@
 import type { Country } from '@entities';
 import { Button, TextInput } from '@shared';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 type Props = {
   onClick: (year: number | null) => void;
@@ -10,8 +10,18 @@ type Props = {
 export const YearInput = ({ onClick, data }: Props) => {
   const [input, setInput] = useState<number | null>(null);
   const representativeCountry = data['Australia'];
-  const earliest = representativeCountry?.data?.at(0)?.year;
-  const latest = representativeCountry?.data?.at(-1)?.year;
+  const earliest = useMemo(
+    () => representativeCountry?.data?.at(0)?.year,
+    [representativeCountry]
+  );
+  const latest = useMemo(
+    () => representativeCountry?.data?.at(-1)?.year,
+    [representativeCountry]
+  );
+
+  const handleClick = useCallback(() => {
+    onClick(input);
+  }, [input, onClick]);
 
   return (
     <div className="flex gap-2">
@@ -24,7 +34,7 @@ export const YearInput = ({ onClick, data }: Props) => {
         min={earliest}
         max={latest}
       />
-      <Button onClick={() => onClick(input)}>Choose Year</Button>
+      <Button onClick={handleClick}>Choose Year</Button>
     </div>
   );
 };

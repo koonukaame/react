@@ -1,6 +1,6 @@
 import { REQUIRED_COLUMNS, type Sort } from '@shared';
 import type { Country } from '../model';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type Props = {
   data: Country;
@@ -17,31 +17,38 @@ export const CountryTable = ({
   country,
   sort,
 }: Props) => {
-  const renderColumns = [...REQUIRED_COLUMNS, ...selectedColumns];
+  const renderColumns = useMemo(
+    () => [...REQUIRED_COLUMNS, ...selectedColumns],
+    [selectedColumns]
+  );
 
-  const countries = Object.entries(data)
-    .filter(([countryName]) =>
-      country ? countryName.toLowerCase().includes(country.toLowerCase()) : true
-    )
-    .sort(([aName, aData], [bName, bData]) => {
-      const aYear = year
-        ? aData.data.find((d) => d.year === year)
-        : aData.data.at(-1);
-      const bYear = year
-        ? bData.data.find((d) => d.year === year)
-        : bData.data.at(-1);
+  const countries = useMemo(() => {
+    return Object.entries(data)
+      .filter(([countryName]) =>
+        country
+          ? countryName.toLowerCase().includes(country.toLowerCase())
+          : true
+      )
+      .sort(([aName, aData], [bName, bData]) => {
+        const aYear = year
+          ? aData.data.find((d) => d.year === year)
+          : aData.data.at(-1);
+        const bYear = year
+          ? bData.data.find((d) => d.year === year)
+          : bData.data.at(-1);
 
-      switch (sort) {
-        case 'country-asc':
-          return aName.localeCompare(bName);
-        case 'country-desc':
-          return bName.localeCompare(aName);
-        case 'population-asc':
-          return (aYear?.population ?? 0) - (bYear?.population ?? 0);
-        case 'population-desc':
-          return (bYear?.population ?? 0) - (aYear?.population ?? 0);
-      }
-    });
+        switch (sort) {
+          case 'country-asc':
+            return aName.localeCompare(bName);
+          case 'country-desc':
+            return bName.localeCompare(aName);
+          case 'population-asc':
+            return (aYear?.population ?? 0) - (bYear?.population ?? 0);
+          case 'population-desc':
+            return (bYear?.population ?? 0) - (aYear?.population ?? 0);
+        }
+      });
+  }, [data, country, sort, year]);
 
   const [highlight, setHighlight] = useState(false);
   const [previousYear, setPreviousYear] = useState<number | null>(null);
