@@ -41,7 +41,7 @@ export const ColumnsSelector = ({ data, onChange, selectedColumns }: Props) => {
     <div>
       <Button onClick={() => setIsOpen(!isOpen)}>Select Columns</Button>
       {isOpen && (
-        <div className="absolute flex flex-col flex-wrap gap-y-3 gap-x-5 h-[80vh] bg-white border border-gray-300 rounded p-4">
+        <div className="absolute text-sm flex flex-wrap gap-y-3 gap-x-5 w-[90vw] bg-white border border-gray-300 rounded p-4">
           {allColumns.map((column) => {
             return (
               <div key={column} className="flex items-center gap-2">
